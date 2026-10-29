@@ -43,7 +43,10 @@ CREATE TABLE dbo.MovimientosInventario (
     CONSTRAINT CK_MovimientosInventario_Resultante CHECK (ExistenciaResultante >= 0),
     CONSTRAINT CK_MovimientosInventario_Motivo CHECK (LEN(LTRIM(RTRIM(Motivo))) > 0),
     CONSTRAINT CK_MovimientosInventario_TipoReferencia CHECK (TipoReferencia IS NULL OR TipoReferencia IN (N'PEDIDO', N'DEVOLUCION')),
-    CONSTRAINT CK_MovimientosInventario_Referencia CHECK ((TipoReferencia IS NULL) = (IDReferencia IS NULL))
+    CONSTRAINT CK_MovimientosInventario_Referencia CHECK (
+           (TipoReferencia IS NULL AND IDReferencia IS NULL)
+        OR (TipoReferencia IS NOT NULL AND IDReferencia IS NOT NULL)
+    )
 );
 CREATE INDEX IX_MovimientosInventario_Variante ON dbo.MovimientosInventario (IDVariante, IDMovimiento) INCLUDE (Cantidad, ExistenciaResultante);
 CREATE INDEX IX_MovimientosInventario_Fecha ON dbo.MovimientosInventario (Fecha DESC, IDMovimiento DESC);
