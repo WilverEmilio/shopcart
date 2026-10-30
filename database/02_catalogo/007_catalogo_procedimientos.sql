@@ -1141,3 +1141,173 @@ GO
 IF NOT EXISTS (SELECT 1 FROM dbo.VersionesEsquema WHERE Script = N'009_Catalogo_Procedimientos.sql')
     INSERT INTO dbo.VersionesEsquema (Script) VALUES (N'009_Catalogo_Procedimientos.sql');
 GO
+
+CREATE OR ALTER PROCEDURE dbo.SP_Productos_Eliminar
+    @IDUsuarioActor INT,
+    @IDProducto     INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+ 
+    EXEC dbo.SP_Usuarios_ValidarPermiso @IDUsuarioActor = @IDUsuarioActor, @CodigoPermiso = N'CATALOGO_GESTIONAR';
+ 
+    DECLARE @Activo BIT, @TieneHistorial BIT = 0, @Resultado NVARCHAR(12),
+            @ValorAnterior NVARCHAR(MAX), @ValorNuevo NVARCHAR(MAX);
+ 
+    BEGIN TRY
+        BEGIN TRANSACTION;
+ 
+        SELECT @Activo = Activo
+        FROM   dbo.Productos WITH (UPDLOCK, HOLDLOCK)
+        WHERE  IDProducto = @IDProducto;
+ 
+        IF @Activo IS NULL
+            THROW 50050, N'El producto no existe.', 1;
+ 
+        IF EXISTS (SELECT 1 FROM dbo.DetallePedidos d
+                   JOIN dbo.Variantes v ON v.IDVariante = d.IDVariante WHERE v.IDProducto = @IDProducto)
+           OR EXISTS (SELECT 1 FROM dbo.MovimientosInventario m
+                   JOIN dbo.Variantes v ON v.IDVariante = m.IDVariante WHERE v.IDProducto = @IDProducto)
+           OR EXISTS (SELECT 1 FROM dbo.ReservasDetalle r
+                   JOIN dbo.Variantes v ON v.IDVariante = r.IDVariante WHERE v.IDProducto = @IDProducto)
+            SET @TieneHistorial = 1;
+ 
+        IF @TieneHistorial = 1
+        BEGIN
+            SET @Resultado = N'DESACTIVADO';
+ 
+            IF @Activo = 1
+            BEGIN
+                UPDATE dbo.Productos
+                SET    Activo = 0, FechaActualizacion = SYSUTCDATETIME()
+                WHERE  IDProducto = @IDProducto;
+ 
+                SET @ValorAnterior = (SELECT CAST(1 AS BIT) AS Activo FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+                SET @ValorNuevo    = (SELECT CAST(0 AS BIT) AS Activo FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+ 
+                EXEC dbo.SP_Bitacora_Registrar
+                    @IDUsuario = @IDUsuarioActor, @Modulo = N'Productos', @Entidad = N'Producto',
+                    @IDEntidad = @IDProducto, @Accion = N'DESACTIVAR',
+                    @ValorAnterior = @ValorAnterior, @ValorNuevo = @ValorNuevo;
+            END;
+        END
+        ELSE
+        BEGIN
+            SET @Resultado = N'ELIMINADO';
+ 
+            SET @ValorAnterior = (
+                SELECT p.IDProducto, p.IDCategoria, p.Nombre, p.Activo,
+                       (SELECT v.IDVariante, v.SKU, v.Precio FROM dbo.Variantes v
+                        WHERE v.IDProducto = p.IDProducto FOR JSON PATH) AS Variantes
+                FROM dbo.Productos p WHERE p.IDProducto = @IDProducto
+                FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+            );
+ 
+            DELETE cd FROM dbo.CarritosDetalle cd
+            JOIN dbo.Variantes v ON v.IDVariante = cd.IDVariante WHERE v.IDProducto = @IDProducto;
+ 
+            DELETE va FROM dbo.VarianteAtributos va
+            JOIN dbo.Variantes v ON v.IDVariante = va.IDVariante WHERE v.IDProducto = @IDProducto;
+ 
+            DELETE FROM dbo.Variantes        WHERE IDProducto = @IDProducto;
+            DELETE FROM dbo.ImagenesProducto WHERE IDProducto = @IDProducto;
+            DELETE FROM dbo.Productos        WHERE IDProducto = @IDProducto;
+ 
+            EXEC dbo.SP_Bitacora_Registrar
+                @IDUsuario = @IDUsuarioActor, @Modulo = N'Productos', @Entidad = N'Producto',
+                @IDEntidad = @IDProducto, @Accion = N'ELIMINAR', @ValorAnterior = @ValorAnterior;
+        END;
+ 
+        COMMIT TRANSACTION;
+ 
+        SELECT @IDProducto AS IDProducto, @Resultado AS Resultado;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END;
+GO
+ 
+CREATE OR ALTER PROCEDURE dbo.SP_Variantes_Eliminar
+    @IDUsuarioActor INT,
+    @IDVariante     INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+ 
+    EXEC dbo.SP_Usuarios_ValidarPermiso @IDUsuarioActor = @IDUsuarioActor, @CodigoPermiso = N'CATALOGO_GESTIONAR';
+ 
+    DECLARE @IDProducto INT, @Existe INT, @Activo BIT, @TieneHistorial BIT = 0, @Resultado NVARCHAR(12),
+            @ValorAnterior NVARCHAR(MAX), @ValorNuevo NVARCHAR(MAX);
+ 
+    BEGIN TRY
+        BEGIN TRANSACTION;
+ 
+        SELECT @IDProducto = IDProducto FROM dbo.Variantes WHERE IDVariante = @IDVariante;
+        IF @IDProducto IS NULL
+            THROW 50057, N'La variante no existe.', 1;
+ 
+        SELECT @Existe = IDProducto FROM dbo.Productos WITH (UPDLOCK, HOLDLOCK) WHERE IDProducto = @IDProducto;
+        SELECT @Activo = Activo FROM dbo.Variantes WITH (UPDLOCK, HOLDLOCK) WHERE IDVariante = @IDVariante;
+        IF @Activo IS NULL
+            THROW 50057, N'La variante no existe.', 1;
+ 
+        IF EXISTS (SELECT 1 FROM dbo.DetallePedidos    WHERE IDVariante = @IDVariante)
+           OR EXISTS (SELECT 1 FROM dbo.MovimientosInventario WHERE IDVariante = @IDVariante)
+           OR EXISTS (SELECT 1 FROM dbo.ReservasDetalle WHERE IDVariante = @IDVariante)
+            SET @TieneHistorial = 1;
+ 
+        IF @TieneHistorial = 1
+        BEGIN
+            SET @Resultado = N'DESACTIVADO';
+ 
+            IF @Activo = 1
+            BEGIN
+                UPDATE dbo.Variantes
+                SET    Activo = 0, FechaActualizacion = SYSUTCDATETIME()
+                WHERE  IDVariante = @IDVariante;
+ 
+                SET @ValorAnterior = (SELECT CAST(1 AS BIT) AS Activo FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+                SET @ValorNuevo    = (SELECT CAST(0 AS BIT) AS Activo FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+ 
+                EXEC dbo.SP_Bitacora_Registrar
+                    @IDUsuario = @IDUsuarioActor, @Modulo = N'Productos', @Entidad = N'Variante',
+                    @IDEntidad = @IDVariante, @Accion = N'DESACTIVAR',
+                    @ValorAnterior = @ValorAnterior, @ValorNuevo = @ValorNuevo;
+            END;
+        END
+        ELSE
+        BEGIN
+            IF (SELECT COUNT(*) FROM dbo.Variantes WHERE IDProducto = @IDProducto) <= 1
+                THROW 50052, N'El producto debe tener al menos una variante.', 1;
+ 
+            SET @Resultado = N'ELIMINADO';
+ 
+            SET @ValorAnterior = (
+                SELECT v.IDVariante, v.IDProducto, v.SKU, v.Precio, v.Activo
+                FROM dbo.Variantes v WHERE v.IDVariante = @IDVariante
+                FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+            );
+ 
+            DELETE FROM dbo.CarritosDetalle   WHERE IDVariante = @IDVariante;
+            DELETE FROM dbo.VarianteAtributos WHERE IDVariante = @IDVariante;
+            DELETE FROM dbo.Variantes         WHERE IDVariante = @IDVariante;
+ 
+            EXEC dbo.SP_Bitacora_Registrar
+                @IDUsuario = @IDUsuarioActor, @Modulo = N'Productos', @Entidad = N'Variante',
+                @IDEntidad = @IDVariante, @Accion = N'ELIMINAR', @ValorAnterior = @ValorAnterior;
+        END;
+ 
+        COMMIT TRANSACTION;
+ 
+        SELECT @IDVariante AS IDVariante, @Resultado AS Resultado;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END;
+GO
