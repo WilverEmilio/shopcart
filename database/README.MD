@@ -244,35 +244,3 @@ Si el job se cae, el stock no queda bloqueado: `SP_Inventario_ReservarExistencia
 El primer **Administrador**, un Operador y un Cliente de prueba con contraseña real los crea el script de semillas del backend, porque requieren un hash generado por la aplicación.
 
 Una de cada 7 variantes queda sin existencia y `TEN-DEP-42-BLA` queda con **1 unidad**, para probar la disponibilidad y la competencia por la última unidad.
-
-## Verificaciones rápidas
-
-Las diferencias de estas consultas deben ser siempre cero:
-
-```sql
--- Existencia física = suma del kardex; reservada = suma de reservas activas
-SELECT COUNT(*) AS Diferencias FROM dbo.VW_Inventario_Conciliacion
-WHERE DiferenciaFisica <> 0 OR DiferenciaReservada <> 0;
-
--- Usos de cupón registrados = usos aplicados
-SELECT COUNT(*) AS Diferencias FROM dbo.VW_Cupones_Conciliacion WHERE Diferencia <> 0;
-```
-
-Las protecciones de la propia base de datos se comprueban intentando violarlas (cada una debe fallar):
-
-```sql
--- Transición inválida (PAGADO -> ENTREGADO): error 50120
-UPDATE dbo.Pedidos SET Estado = N'ENTREGADO'
-WHERE IDPedido = (SELECT TOP (1) IDPedido FROM dbo.Pedidos WHERE Estado = N'PAGADO');
-
--- Kardex y bitácora son inmutables: errores 50060 y 50030
-DELETE FROM dbo.MovimientosInventario;
-UPDATE dbo.Bitacora SET Accion = N'CREAR';
-
--- Un pedido no se elimina ni cambia sus montos: errores 50115 y 50116
-DELETE FROM dbo.Pedidos;
-UPDATE dbo.Pedidos SET Total = 1;
-
--- Sobreventa imposible por CHECK: CK_Variantes_Existencias
-UPDATE dbo.Variantes SET ExistenciaReservada = ExistenciaFisica + 1 WHERE IDVariante = 1;
-```
