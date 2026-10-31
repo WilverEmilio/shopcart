@@ -211,6 +211,8 @@ El cliente **nunca envía un identificador de carrito**: el dueño sale del JWT 
 | `SP_Configuracion_Listar` / `Actualizar` | Offset de hora local y horas de abandono | `CONFIGURACION_GESTIONAR` |
 
 ### 9. Bitacora (`028`)
+| Procedimiento | Propósito | Permiso |
+|---|---|---|
 | `SP_Bitacora_Listar` | Consulta con filtro por módulo, usuario y fechas | Administrador |
 | `SP_Bitacora_Registrar`, `SP_Usuarios_ValidarAdministrador` | Auxiliares usados por los demás SPs | Interno a la capa de datos |
 
