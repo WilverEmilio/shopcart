@@ -1,8 +1,8 @@
-import { getConnection } from "./config/database";
+import { obtenerConexion } from "./config/base-de-datos";
 
 const startServer = async(): Promise<void> => {
     try{
-        await getConnection();
+        await obtenerConexion();
         console.log('Se establecio conexión con la base de datos correctamente');
     } catch(error){
         console.log('No se pudo conectar con la base de datos:', error);
