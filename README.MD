@@ -94,7 +94,7 @@ El frontend se organiza por funcionalidades y componentes reutilizables, con rut
 
 ### Base de datos
 
-SQL Server almacena la información del negocio y aplica las restricciones necesarias para proteger la integridad de los datos. El acceso a datos se realiza exclusivamente mediante Stored Procedures; no se utiliza un ORM para generar objetos ni consultas de base de datos. La sección [Base de datos](#-base-de-datos) describe el modelo, la seguridad y las decisiones de diseño.
+SQL Server almacena la información del negocio y aplica las restricciones necesarias para proteger la integridad de los datos. El acceso a datos se realiza exclusivamente mediante Stored Procedures; no se utiliza un ORM para generar objetos ni consultas de base de datos. La sección [Base de datos](/database) describe el modelo, la seguridad y las decisiones de diseño.
 
 ## 🧩 Módulos funcionales
 
@@ -140,7 +140,7 @@ Antes de ejecutar el proyecto, instala:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/WilverEmilio/shopcart.git
 cd shopcart
 ```
 
@@ -156,8 +156,6 @@ npm install
 
 Copia el archivo `.env.example` de la aplicación correspondiente a un archivo `.env` local y configura las variables requeridas.
 
-No subas archivos `.env` ni credenciales reales al repositorio.
-
 ### 4. Preparar la base de datos
 
 Los 27 scripts de `database/scripts/` se ejecutan **en orden numérico sobre una base nueva**. La contraseña del usuario de la aplicación se pasa como variable (nunca se guarda en el repositorio).
@@ -172,7 +170,7 @@ for f in database/scripts/*.sql; do
 done
 ```
 
-Las instrucciones para PowerShell, cómo reiniciar la base de datos y el detalle de cada script están en [`database/README.md`](database/README.md).
+Las instrucciones para PowerShell, cómo reiniciar la base de datos y el detalle de cada script están en [`database/README.md`](/database/README.MD).
 
 Al terminar, la base contiene el catálogo, los cupones, 3,000 pedidos de demostración y la configuración inicial. El administrador de prueba se crea con el script de semillas del backend (ver [Credenciales de prueba](#-credenciales-de-prueba)).
 
@@ -556,7 +554,7 @@ Se incorporarán pruebas para validar, como mínimo:
 - Transiciones de estado de pedidos y devoluciones.
 - Consistencia entre existencias y movimientos del kardex.
 
-La base de datos incluye consultas de verificación (conciliación de inventario y de cupones, y intentos de violar cada protección) en [`database/README.md`](database/README.md#verificaciones-rápidas). Los comandos para ejecutar las pruebas automáticas y sus resultados se documentarán una vez configurada la estrategia de testing.
+La base de datos incluye consultas de verificación (conciliación de inventario y de cupones, y intentos de violar cada protección) en [`/database/README.MD`](/database/README.MD#verificaciones-rápidas). Los comandos para ejecutar las pruebas automáticas y sus resultados se documentarán una vez configurada la estrategia de testing.
 
 ## 🔑 Credenciales de prueba
 
