@@ -67,3 +67,31 @@ export const guardarTokenRegresco = async (
 
     return resultado.recordset[0].IDTokernRefreso;
 }
+
+export const rotarTokernRegresco = async (
+    tokernHashActual: string,
+    tokenHasNuevo: string,
+    fechaExpiracionNueva: Date 
+): Promise<UsuarioTokenBaseDatos | null> => {
+    const resultado = await ejecutarProcedimiento<UsuarioTokenBaseDatos>(
+        'dbo.SP_Tokens_Rotar',
+        (solicitud) => {
+            solicitud.input('TokenHashActual', sql.Char(64), tokernHashActual);
+            solicitud.input('TokenHashNuevo', sql.Char(64), tokenHasNuevo);
+            solicitud.input('FechaExpiracionNueva', sql.DateTime2, fechaExpiracionNueva);
+        }
+    ); 
+
+    return resultado.recordset[0] ?? null;
+}
+
+export const revocarTokenRefresco = async (
+    tokenHash: string
+): Promise<void> => {
+    await ejecutarProcedimiento<void>(
+        'dbo.SP_Tokens_Revocar', 
+        (solicitud) => {
+            solicitud.input('TokenHash', sql.Char(64), tokenHash);
+        }
+    );
+}
