@@ -1,30 +1,3 @@
-/* =============================================================================
-   007_Catalogo_procedimientos.sql
-   Módulo 2 - Catálogo: función, stored procedures de categorías, productos,
-   variantes, atributos y búsqueda pública. Reejecutable (CREATE OR ALTER).
-
-   Códigos de error personalizados (THROW):
-     50040 Categoría no encontrada                              -> 404
-     50041 Nombre de categoría duplicado                        -> 409
-     50042 Categoría con productos: no se puede eliminar        -> 409
-     50050 Producto no encontrado                               -> 404
-     50051 Categoría inválida o inactiva                        -> 400
-     50052 El producto requiere al menos una variante           -> 400
-     50053 Datos de entrada inválidos (JSON o campos)           -> 400
-     50054 SKU duplicado                                        -> 409
-     50055 Combinación de atributos duplicada en el producto    -> 409
-     50056 Atributo inexistente o inactivo                      -> 400
-     50057 Variante no encontrada                               -> 404
-     50058 Precio inválido (debe ser mayor a cero)              -> 400
-     50059 Rango de precios inválido                            -> 400
-   (los códigos 50001-50031 están documentados en el script 002)
-
-   Módulos de bitácora usados: Catalogo (categorías), Productos (productos y
-   variantes), Precios (cambios de precio).
-
-   Pendiente: SP_Productos_Eliminar (elimina si no hay ventas ni movimientos, y
-   si los hay desactiva) se crea después de las tablas de pedidos e inventario.
-   ============================================================================= */
 USE ShopCart;
 GO
 SET NOCOUNT ON;

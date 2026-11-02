@@ -1,15 +1,3 @@
-/* =============================================================================
-   009_Catalogo_Tablas.sql
-   Módulo 2 - Catálogo: Categorias, Productos, ImagenesProducto, Atributos,
-   Variantes y VarianteAtributos.
-
-   Reglas críticas protegidas en la base de datos:
-     - SKU único, en mayúsculas y sin espacios.
-     - Precio mayor a cero (DECIMAL, nunca FLOAT).
-     - 0 <= ExistenciaReservada <= ExistenciaFisica  => nunca hay sobreventa.
-   Las columnas de existencia solo las modifican los SP del módulo de inventario,
-   siempre en la misma transacción que registran el movimiento del kardex.
-   ============================================================================= */
 USE ShopCart;
 GO
 SET NOCOUNT ON;

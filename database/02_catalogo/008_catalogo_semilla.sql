@@ -1,13 +1,3 @@
-/* =============================================================================
-   008_Catalogo_Semilla.sql
-   Atributos, categorías, 6 productos curados y 400 productos de prueba
-   (1,200 variantes) para validar rendimiento de listados y búsquedas.
-
-   Las existencias quedan en 0 a propósito: el módulo de inventario cargará el
-   stock inicial mediante movimientos del kardex, para que la existencia
-   siempre coincida con la suma de movimientos.
-   Reejecutable: no inserta nada si ya existen categorías.
-   ============================================================================= */
 USE ShopCart;
 GO
 SET NOCOUNT ON;
