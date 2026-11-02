@@ -1,5 +1,5 @@
 import sql from 'mssql'; 
-import { obtenerConexion } from '../config/base-de-datos';
+import {obtenerConexion} from '../../config/base-de-datos'
 
 export const ejecutarProcedimiento = async <T = unknown>(
   nombreProcedimiento: string,

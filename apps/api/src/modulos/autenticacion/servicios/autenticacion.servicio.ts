@@ -7,7 +7,7 @@ import {
     obtenerUsuariosPorCorreo,
     registrarCliente, 
     guardarTokenRegresco,
-} from '../repositories/autenticacion.repositorio';
+} from '../repositorios/autenticacion.repositorio';
 
 import type {
     CredencialesAcceso,

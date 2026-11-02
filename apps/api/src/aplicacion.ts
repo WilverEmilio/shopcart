@@ -1,5 +1,6 @@
 import express from 'express';
 import rutasAutenticacion from './modulos/autenticacion/rutas/autenticacion.rutas';
+import { manejoErroresMiddleware } from './shared/middleware/manejo-errores.middleware';
 
 const aplicacion = express();
 
@@ -16,4 +17,5 @@ aplicacion.get('/api/estado', (_solicitud, respuesta) =>{
     })
 }); 
 
+aplicacion.use(manejoErroresMiddleware);
 export default aplicacion;

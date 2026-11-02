@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import { ejecutarProcedimiento } from '../../../shared/ejecutar-procedimiento'
+import { ejecutarProcedimiento } from '../../../shared/base_de_datos/ejecutar-procedimiento'
 import type { 
     UsuarioBaseDatos, 
     DatosRegistroCliente,  
