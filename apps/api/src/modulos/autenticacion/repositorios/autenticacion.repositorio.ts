@@ -68,20 +68,23 @@ export const guardarTokenRegresco = async (
     return resultado.recordset[0].IDTokenRefresco;
 }
 
-export const rotarTokernRegresco = async (
-    tokernHashActual: string,
-    tokenHasNuevo: string,
-    fechaExpiracionNueva: Date 
-): Promise<UsuarioTokenBaseDatos | null> => {
+export const rotarTokenRefresco = async (
+    tokenHashActual: string,
+    tokenHashNuevo: string,
+    fechaExpiracionNueva: Date
+): Promise<UsuarioTokenBaseDatos | null > => {
     const resultado = await ejecutarProcedimiento<UsuarioTokenBaseDatos>(
         'dbo.SP_Tokens_Rotar',
         (solicitud) => {
-            solicitud.input('TokenHashActual', sql.Char(64), tokernHashActual);
-            solicitud.input('TokenHashNuevo', sql.Char(64), tokenHasNuevo);
-            solicitud.input('FechaExpiracionNueva', sql.DateTime2, fechaExpiracionNueva);
+            solicitud.input('TokenHashActual',sql.Char(64), tokenHashActual),
+            solicitud.input('TokenHashNuevo', sql.Char(64),tokenHashNuevo),
+            solicitud.input(
+                'FechaExpiracionNueva',
+                sql.DateTime2(0),
+                fechaExpiracionNueva
+            );
         }
-    ); 
-
+    );
     return resultado.recordset[0] ?? null;
 }
 
@@ -108,3 +111,4 @@ export const verificarUsuarioActivo = async (
 
     return resultado.recordset[0]?.Activo === true;
 }
+

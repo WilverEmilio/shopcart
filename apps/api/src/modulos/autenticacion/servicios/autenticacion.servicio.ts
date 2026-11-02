@@ -7,12 +7,14 @@ import {
     obtenerUsuariosPorCorreo,
     registrarCliente, 
     guardarTokenRegresco,
+    rotarTokenRefresco
 } from '../repositorios/autenticacion.repositorio';
 
 import type {
     CredencialesAcceso,
-    DatosRegistroCliente
+    DatosRegistroCliente,
 } from '../tipos/usuario.tipo';
+import { ErrorAplicacion } from '../../../shared/errores/error-aplicacion';
 
 const RONDAS_BCRYPT = 10;
 
@@ -46,8 +48,8 @@ const calularHashToken = (token: string): string => {
 const calcularFechaExpiracionTokenRefresco = (): Date => {
     const fecha = new Date();
 
-    fecha.setDate(
-        fecha.getDate() + env.seguridad.expiracionRefreshDias
+    fecha.setUTCDate(
+        fecha.getUTCDate() + env.seguridad.expiracionRefreshDias
     ); 
     return fecha;
 }
@@ -78,7 +80,11 @@ export const iniciarSesion = async (
 ) => {
     const usuario = await obtenerUsuariosPorCorreo(credenciales.correo);
     if (!usuario || !usuario.Activo){
-        throw new Error('Correo o contraseña incorrectas');
+        throw new ErrorAplicacion(
+            'Correo o contraseña incorrectas',
+            40100,
+            401
+        )
     }
 
     const contrasenaValida = await bcrypt.compare(
@@ -118,5 +124,52 @@ export const iniciarSesion = async (
         },
         tokenAcceso,
         tokenRefresco
+    };
+};
+
+export const renovarToken = async (
+    tokenRefresco: string
+)=> {
+    if(!tokenRefresco || typeof tokenRefresco !== 'string') {
+        throw new ErrorAplicacion(
+            'Debes proporcionar un token de refresco', 
+            40100, 
+            401
+        );
+    }
+
+    const tokenHashActual = calularHashToken(tokenRefresco);
+    const nuevoTokenRefresco = generarTokenRefresco();
+    const tokenHashNuevo = calularHashToken(nuevoTokenRefresco);
+    const fechaExpiracionNueva = calcularFechaExpiracionTokenRefresco();
+
+    const usuario = await rotarTokenRefresco(
+        tokenHashActual,
+        tokenHashNuevo,
+        fechaExpiracionNueva
+    )
+
+    if(!usuario){
+        throw new ErrorAplicacion(
+            'No fue posible renovar sesión',
+            40100, 
+            401
+        );
+    }
+
+    const tokenAcceso = generarTokenAcceso(
+        usuario.IDUsuario,
+        usuario.Correo,
+        usuario.Rol
+    );
+
+    return {
+        usuario: {
+            idUsuario: usuario.IDUsuario,
+            correo: usuario.Correo,
+            rol: usuario.Rol
+        },
+        tokenAcceso,
+        tokenRefresco: nuevoTokenRefresco
     };
 };

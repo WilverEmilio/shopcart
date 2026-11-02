@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import {
     registrarNuevoCliente,
     iniciarSesion,
+    renovarToken
 }from '../servicios/autenticacion.servicio'
 import type {
     CredencialesAcceso,
@@ -45,3 +46,25 @@ export const iniciarSesionControlador = async (
         siguiente(error);
     }
 };
+
+export const renovarTokenControlador = async (
+    solicitud: Request<
+        {},
+        unknown,
+        { tokenRefresco: string }
+    >,
+    respuesta: Response,
+    siguiente: NextFunction
+): Promise<void> =>{
+    try{
+        const resultado = await renovarToken(
+            solicitud.body.tokenRefresco
+        );
+        respuesta.status(200).json({
+            mensaje: 'Token renovado exitosamente',
+            datos: resultado
+        });
+    } catch (error) {
+        siguiente(error);
+    }
+}

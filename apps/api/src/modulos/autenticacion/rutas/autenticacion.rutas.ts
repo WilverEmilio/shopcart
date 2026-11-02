@@ -4,13 +4,15 @@ import { autorizarRoles } from '../../../shared/middleware/autorizacion.middlewa
 
 import {
     registrarClienteControlador, 
-    iniciarSesionControlador
+    iniciarSesionControlador,
+    renovarTokenControlador
 } from '../controladores/autentiaion.controlador';
 
 const rutasAutenticacion = Router();
 
 rutasAutenticacion.post('/registro', registrarClienteControlador);
 rutasAutenticacion.post('/iniciar-sesion', iniciarSesionControlador);
+rutasAutenticacion.post('/renovar-token', renovarTokenControlador)
 
 rutasAutenticacion.get(
     '/perfil',
