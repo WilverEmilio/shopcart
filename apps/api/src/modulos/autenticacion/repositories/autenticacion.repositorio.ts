@@ -65,7 +65,7 @@ export const guardarTokenRegresco = async (
         }
     ); 
 
-    return resultado.recordset[0].IDTokernRefreso;
+    return resultado.recordset[0].IDTokenRefresco;
 }
 
 export const rotarTokernRegresco = async (

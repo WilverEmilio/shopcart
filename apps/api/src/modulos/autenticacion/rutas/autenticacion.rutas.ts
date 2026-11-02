@@ -7,7 +7,7 @@ import {
 
 const rutasAutenticacion = Router();
 
-rutasAutenticacion.post('/registo', registrarClienteControlador);
+rutasAutenticacion.post('/registro', registrarClienteControlador);
 rutasAutenticacion.post('/iniciar-sesion', iniciarSesionControlador);
 
 export default rutasAutenticacion;

@@ -2,7 +2,7 @@ export interface UsuarioBaseDatos {
     IDUsuario: number;
     Correo: string;
     PasswordHash: string;
-    Nombre: string;
+    Nombres: string;
     Apellidos: string; 
     Activo: boolean;
     IDRol: number;
@@ -25,7 +25,7 @@ export interface UsuarioDetalleBaseDatos {
     Correo: string;
     Nombres: string;
     Apellidos: string;
-    Teefono: string | null;
+    Telefono: string | null;
     Activo: boolean;
     FechaCreacion: Date;
     IDRol: number;
@@ -47,5 +47,5 @@ export interface UsuarioTokenBaseDatos {
 }
 
 export interface TokenGuardadoBaseDatos {
-    IDTokernRefreso: number;
+    IDTokenRefresco: number;
 }

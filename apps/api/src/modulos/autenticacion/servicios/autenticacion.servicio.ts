@@ -111,8 +111,8 @@ export const iniciarSesion = async (
     return {
         usuario: {
             idUsuario: usuario.IDUsuario,
-            ccorreo: usuario.Correo,
-            nombres: usuario.Nombre,
+            correo: usuario.Correo,
+            nombres: usuario.Nombres,
             apellidos: usuario.Apellidos,
             rol: usuario.Rol
         },

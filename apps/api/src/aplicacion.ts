@@ -6,7 +6,7 @@ const aplicacion = express();
 aplicacion.use(express.json());
 
 aplicacion.use(
-    '/api/v1/autenticacion',
+    '/api/autenticacion',
     rutasAutenticacion
 );
 
