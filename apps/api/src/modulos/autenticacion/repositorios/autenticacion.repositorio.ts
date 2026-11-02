@@ -7,7 +7,7 @@ import type {
     UsuarioTokenBaseDatos,
     TokenGuardadoBaseDatos
 } from '../tipos/usuario.tipo'
-
+import { EstadoUsuarioBaseDatos } from '../tipos/usuario.tipo'
 export const obtenerUsuariosPorCorreo = async (
     correo: string
 ): Promise<UsuarioBaseDatos | null> => {
@@ -94,4 +94,17 @@ export const revocarTokenRefresco = async (
             solicitud.input('TokenHash', sql.Char(64), tokenHash);
         }
     );
+}
+
+export const verificarUsuarioActivo = async (
+    idUsuario: number
+): Promise<boolean> => {
+    const resultado = await ejecutarProcedimiento<EstadoUsuarioBaseDatos> (
+        'dbo.SP_UsuariosVerificarActivo',
+        (solicitud) => {
+            solicitud.input('IDUsuario', sql.Int, idUsuario);
+        }
+    ); 
+
+    return resultado.recordset[0]?.Activo === true;
 }

@@ -420,6 +420,18 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE dbo.SP_Usuarios_VerificarActivo
+    @IDUsuario INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT Activo
+    FROM dbo.Usuarios
+    WHERE IDUsuario = @IDUsuario;
+END;
+GO
+
 IF NOT EXISTS (SELECT 1 FROM dbo.VersionesEsquema WHERE Script = N'004_Seguridad_Procedimientos.sql')
     INSERT INTO dbo.VersionesEsquema (Script) VALUES (N'004_Seguridad_Procedimientos.sql');
 GO

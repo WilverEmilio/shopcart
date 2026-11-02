@@ -1,5 +1,7 @@
 import {Router} from 'express';
 import { autenticar } from '../../../shared/middleware/autenticacion.middleware';
+import { autorizarRoles } from '../../../shared/middleware/autorizacion.middleware';
+
 import {
     registrarClienteControlador, 
     iniciarSesionControlador
@@ -17,6 +19,28 @@ rutasAutenticacion.get(
         respuesta.status(200).json({
             mensaje: 'Usuario autenticado correctamente',
             datos: solicitud.usuarioAutenticado
+        });
+    }
+);
+
+rutasAutenticacion.get(
+    '/solo-administrador',
+    autenticar,
+    autorizarRoles('Administrador'),
+    (_solicitud, respuesta)  => {
+        respuesta.status(200).json({
+            mensaje: 'Acceso permitodo para Administradores'
+        });
+    }
+); 
+
+rutasAutenticacion.get(
+    '/operaciones',
+    autenticar,
+    autorizarRoles('Operador', 'Administrador'),
+    (_solicitud, respuesta)  =>{
+        respuesta.status(200).json({
+            mensaje: 'Acceso permitod para Operadores y Administradores'
         });
     }
 );

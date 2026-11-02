@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { env } from '../../config/env';
 import { ErrorAplicacion } from "../errores/error-aplicacion";
 import { DatosToken } from "../../modulos/autenticacion/tipos/usuario.tipo";
-
+import { verificarUsuarioActivo } from "../../modulos/autenticacion/repositorios/autenticacion.repositorio";
 export const autenticar = (
     solicitud: Request,
     _respuesta: Response,
@@ -36,36 +36,58 @@ export const autenticar = (
         return;
     }
 
+    let datosUsuario: DatosToken;
+
     try {
         const contenidoToken = jwt.verify(
             token,
             env.seguridad.secretoJWT
         );
-        if (typeof contenidoToken === 'string' || 
-            !contenidoToken.sub || 
+        if (
+            typeof contenidoToken === 'string' ||
+            !contenidoToken.sub ||
             typeof contenidoToken.correo !== 'string' ||
-            typeof contenidoToken.rol !== 'string' ) {
-                throw new Error('Contenido del token inválido');
+            typeof contenidoToken.rol !== 'string'
+        ) {
+            throw new Error('Contenido del token inválido');
         }
         const idUsuario = Number(contenidoToken.sub);
-        if(!Number.isSafeInteger(idUsuario)|| idUsuario <= 0){
+
+        if (!Number.isSafeInteger(idUsuario) || idUsuario <= 0) {
             throw new Error('Identificador de usuario inválido');
         }
-        const datosUsuario: DatosToken = {
+
+        datosUsuario = {
             idUsuario,
             correo: contenidoToken.correo,
             rol: contenidoToken.rol
         };
-        solicitud.usuarioAutenticado = datosUsuario;
-
-        siguiente();
     } catch {
         siguiente(
             new ErrorAplicacion(
-                'El token de acceso es inválido o ha expirado', 
-                40110, 
+                'El token de acceso es inválido o ha expirado.',
+                40110,
                 401
             )
         );
+        return;
     }
+
+    verificarUsuarioActivo(datosUsuario.idUsuario)
+        .then((usuarioActivo) => {
+            if(!usuarioActivo) {
+                siguiente(
+                    new ErrorAplicacion(
+                        'Tu cuenta está desactivada o no existe', 
+                        40120,
+                        401
+                    )
+                );
+                return; 
+            }
+
+            solicitud.usuarioAutenticado = datosUsuario;
+            siguiente();
+        })
+        .catch(siguiente);
 };

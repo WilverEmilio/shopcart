@@ -49,3 +49,7 @@ export interface UsuarioTokenBaseDatos {
 export interface TokenGuardadoBaseDatos {
     IDTokenRefresco: number;
 }
+
+export interface EstadoUsuarioBaseDatos {
+    Activo: boolean;
+}
