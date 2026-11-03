@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
 import { obtenerCategorias } from '../servicios/categorias.servicio';
 import type { FiltrosCategorias } from '../tipos/categoria.tipo';
+import { ErrorAplicacion } from '../../../shared/errores/error-aplicacion';
+import { actualizarCategoriaServicio } from '../servicios/categorias.servicio';
+
 
 export const listarCategoriasControlador = async (
   req: Request,
@@ -77,4 +80,93 @@ export const listarCategoriasControlador = async (
   } catch (error) {
     next(error);
   }
+};
+
+export const actualizarCategoriaControlador = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const idCategoria = Number(req.params.id);
+        const idUsuarioActor = req.usuarioAutenticado?.idUsuario;
+
+        const { nombre, descripcion } = req.body;
+
+        if (!Number.isInteger(idCategoria) || idCategoria <= 0) {
+            throw new ErrorAplicacion(
+                'El ID de la categoría no es válido.',
+                50053,
+                400
+            );
+        }
+
+        if (!idUsuarioActor) {
+            throw new ErrorAplicacion(
+                'No se pudo identificar al usuario autenticado.',
+                50016,
+                401
+            );
+        }
+
+        if (typeof nombre !== 'string' || nombre.trim().length === 0) {
+            throw new ErrorAplicacion(
+                'El nombre de la categoría es obligatorio.',
+                50053,
+                400
+            );
+        }
+
+        if (nombre.trim().length > 100) {
+            throw new ErrorAplicacion(
+                'El nombre no puede superar los 100 caracteres.',
+                50053,
+                400
+            );
+        }
+
+        if (
+            descripcion !== undefined &&
+            descripcion !== null &&
+            typeof descripcion !== 'string'
+        ) {
+            throw new ErrorAplicacion(
+                'La descripción debe ser un texto.',
+                50053,
+                400
+            );
+        }
+
+        if (
+            typeof descripcion === 'string' &&
+            descripcion.trim().length > 255
+        ) {
+            throw new ErrorAplicacion(
+                'La descripción no puede superar los 255 caracteres.',
+                50053,
+                400
+            );
+        }
+
+        const idActualizado = await actualizarCategoriaServicio(
+            idUsuarioActor,
+            idCategoria,
+            {
+                nombre: nombre.trim(),
+                descripcion:
+                    typeof descripcion === 'string'
+                        ? descripcion.trim() || null
+                        : descripcion ?? null
+            }
+        );
+
+        res.status(200).json({
+            mensaje: 'Categoría actualizada correctamente.',
+            datos: {
+                idCategoria: idActualizado
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
 };
