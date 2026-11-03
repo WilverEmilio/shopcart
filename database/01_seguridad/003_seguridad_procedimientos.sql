@@ -435,3 +435,113 @@ GO
 IF NOT EXISTS (SELECT 1 FROM dbo.VersionesEsquema WHERE Script = N'004_Seguridad_Procedimientos.sql')
     INSERT INTO dbo.VersionesEsquema (Script) VALUES (N'004_Seguridad_Procedimientos.sql');
 GO
+
+CREATE OR ALTER PROCEDURE dbo.SP_Usuarios_CrearAdministradorSemilla
+    @Correo       NVARCHAR(255),
+    @PasswordHash NVARCHAR(255),
+    @Nombres      NVARCHAR(100),
+    @Apellidos    NVARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    DECLARE
+        @IDRol INT,
+        @IDUsuario INT,
+        @RolExistente NVARCHAR(50),
+        @UsuarioActivo BIT,
+        @ValorNuevo NVARCHAR(MAX);
+
+    SET @Correo = LOWER(LTRIM(RTRIM(@Correo)));
+    SET @Nombres = LTRIM(RTRIM(@Nombres));
+    SET @Apellidos = LTRIM(RTRIM(@Apellidos));
+
+    IF @Correo = N'' OR @PasswordHash = N''
+       OR @Nombres = N'' OR @Apellidos = N''
+        THROW 50053, N'Los datos del administrador semilla son obligatorios.', 1;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        SELECT @IDRol = IDRol
+        FROM dbo.Roles WITH (UPDLOCK, HOLDLOCK)
+        WHERE Nombre = N'Administrador'
+          AND Activo = 1;
+
+        IF @IDRol IS NULL
+            THROW 50001, N'El rol Administrador no existe o está inactivo.', 1;
+
+        SELECT
+            @IDUsuario = u.IDUsuario,
+            @RolExistente = r.Nombre,
+            @UsuarioActivo = u.Activo
+        FROM dbo.Usuarios u WITH (UPDLOCK, HOLDLOCK)
+        JOIN dbo.Roles r ON r.IDRol = u.IDRol
+        WHERE u.Correo = @Correo;
+
+        IF @IDUsuario IS NOT NULL
+        BEGIN
+            IF @RolExistente <> N'Administrador'
+                THROW 50022, N'El correo configurado para el administrador semilla ya pertenece a otro rol.', 1;
+
+            IF @UsuarioActivo = 0
+                THROW 50023, N'El administrador semilla ya existe, pero está inactivo. Debe revisarse manualmente.', 1;
+
+            COMMIT TRANSACTION;
+
+            SELECT @IDUsuario AS IDUsuario, CAST(0 AS BIT) AS Creado;
+            RETURN;
+        END;
+
+        INSERT INTO dbo.Usuarios (
+            IDRol,
+            Correo,
+            PasswordHash,
+            Nombres,
+            Apellidos
+        )
+        VALUES (
+            @IDRol,
+            @Correo,
+            @PasswordHash,
+            @Nombres,
+            @Apellidos
+        );
+
+        SET @IDUsuario = CONVERT(INT, SCOPE_IDENTITY());
+
+        SET @ValorNuevo = (
+            SELECT
+                @IDUsuario AS IDUsuario,
+                @Correo AS Correo,
+                @Nombres AS Nombres,
+                @Apellidos AS Apellidos,
+                @IDRol AS IDRol,
+                CAST(1 AS BIT) AS Activo
+            FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+        );
+
+        EXEC dbo.SP_Bitacora_Registrar
+            @IDUsuario = @IDUsuario,
+            @Modulo = N'Usuarios',
+            @Entidad = N'Usuario',
+            @IDEntidad = @IDUsuario,
+            @Accion = N'CREAR',
+            @ValorNuevo = @ValorNuevo;
+
+        COMMIT TRANSACTION;
+
+        SELECT @IDUsuario AS IDUsuario, CAST(1 AS BIT) AS Creado;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        IF ERROR_NUMBER() IN (2601, 2627)
+            THROW 50010, N'El correo ya está registrado.', 1;
+
+        THROW;
+    END CATCH;
+END;
+GO

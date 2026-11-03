@@ -17,7 +17,11 @@ const variablesObligatorias = [
     'DB_DATABASE',
     'DB_USER',
     'DB_PASSWORD',
-    'JWT_SECRETO'
+    'JWT_SECRETO',
+    'ADMIN_SEED_CORREO',
+    'ADMIN_SEED_CONTRASENA',
+    'ADMIN_SEED_NOMBRES',
+    'ADMIN_SEED_APELLIDOS'
 ];
 
 for (const variable of variablesObligatorias) {
@@ -62,7 +66,11 @@ export const env = {
         password: process.env.DB_PASSWORD!,
         encrypt: process.env.DB_ENCRYPT === 'true',
         trustServerCertificate:
-            process.env.DB_TRUST_SERVER_CERTIFICATE === 'true'
+            process.env.DB_TRUST_SERVER_CERTIFICATE === 'true',
+        adminSeedCorreo: process.env.ADMIN_SEED_CORREO,
+        adminSeedContrasena: process.env.ADMIN_SEED_CONTRASENA,
+        adminSeedNombres: process.env.ADMIN_SEED_NOMBRES,
+        adminSeedApellidos: process.env.ADMIN_SEED_APELLIDOS,
     },
 
     seguridad: {

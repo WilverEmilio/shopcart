@@ -5,12 +5,14 @@ import { listarCategoriasControlador } from '../controladores/categorias.control
 import { autenticar } from '../../../shared/middleware/autenticacion.middleware';
 import { autorizarRoles } from '../../../shared/middleware/autorizacion.middleware';
 import { obtenerCategoriaDetalleControlador } from '../controladores/categoria-detalle.controlador';
+import { crearCategoriaControlador } from '../controladores/categoria-crear.controlador';
 
 const rutasCatalogo = Router();
 
 rutasCatalogo.get('/productos', listarProductosControlador);
 rutasCatalogo.get('/productos/:id', obtenerDetalleProductoControlador);
 rutasCatalogo.get('/categorias', autenticar,autorizarRoles('Administrador'), listarCategoriasControlador);
-rutasCatalogo.get('/categorias/:id', autenticar,autorizarRoles('Administrador'), obtenerCategoriaDetalleControlador)
+rutasCatalogo.get('/categorias/:id', autenticar,autorizarRoles('Administrador'), obtenerCategoriaDetalleControlador);
+rutasCatalogo.post('/categorias', autenticar, autorizarRoles('Administrador'), crearCategoriaControlador);
 
 export default rutasCatalogo;
