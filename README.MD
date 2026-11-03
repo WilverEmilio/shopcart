@@ -163,7 +163,7 @@ cd ../..
 
 Copia el archivo `.env.example` ubicado en `apps/api/` y crea un archivo `.env` en el mismo directorio.
 
-Configura las variables necesarias para la conexión a SQL Server y la autenticación. No incluyas credenciales reales en el repositorio.
+Configura las variables necesarias para la conexión a SQL Server y la autenticación. 
 
 ### 4. Preparar la base de datos
 
@@ -177,7 +177,7 @@ Puedes ejecutarlos desde SQL Server Management Studio (SSMS) o desde una herrami
 
 **Importante:** ejecuta los scripts en orden y espera a que cada uno finalice correctamente antes de continuar.
 
-Las instrucciones detalladas de instalación, ejecución y verificación están en [`database/README.md`](database/README.md).
+Las instrucciones detalladas de instalación, ejecución y verificación están en [`/database/README.MD`](/database/README.MD).
 
 ### 5. Ejecutar el backend
 
@@ -212,6 +212,11 @@ DB_TRUST_SERVER_CERTIFICATE=true
 
 JWT_ACCESS_SECRET=
 JWT_REFRESH_SECRET=
+
+ADMIN_SEED_CORREO=
+ADMIN_SEED_CONTRASENA=
+ADMIN_SEED_NOMBRES=
+ADMIN_SEED_APELLIDOS=
 ```
 
 Este bloque es una referencia inicial, no un archivo de configuración validado. Los nombres y valores deben ajustarse a la librería de conexión elegida y a la configuración de SQL Server.
@@ -230,8 +235,8 @@ Parámetros de negocio configurables en la propia base de datos (tabla `Configur
 
 Modelo relacional normalizado de **30 tablas**, **87 stored procedures** (77 públicos en `dbo` y 10 internos en el esquema `Interno`), **4 funciones tipo tabla, 6 vistas y 11 triggers**, creados con scripts SQL propios y versionados.
 
-- Diagrama entidad-relación: [`docs/er-diagram.md`](docs/er-diagram.md).
-- Orden de scripts, ejecución y catálogo completo de procedimientos: [`database/README.md`](database/README.md).
+- Diagrama entidad-relación: [`/docs/README.MD`](/docs/README.MD).
+- Orden de scripts, ejecución y catálogo completo de procedimientos: [`/atabase/README.MD`](/database/README.MD).
 
 | Módulo | Tablas principales |
 |---|---|
