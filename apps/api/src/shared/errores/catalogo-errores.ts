@@ -73,5 +73,9 @@ export const catalogoErrores: Record<number, number> = {
 
     50130: 400,
     50131: 404,
-    50132: 400
+    50132: 400,
+
+    50133: 409,
+    50134: 404,
+    50135: 409
 };
