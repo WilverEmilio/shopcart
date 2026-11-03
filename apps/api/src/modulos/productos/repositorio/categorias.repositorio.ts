@@ -1,7 +1,7 @@
 import sql from 'mssql';
 
 import { ejecutarProcedimiento } from '../../../shared/base_de_datos/ejecutar-procedimiento';
-
+import { ResultadoCambiarEstadoCategoriaBaseDatos } from '../tipos/categoria-estado.tipo';
 import type {
   CategoriaBaseDatos,
   FiltrosCategorias,
@@ -60,4 +60,27 @@ export const listarCategorias = async (
     pagina: filtros.pagina,
     tamanoPagina: filtros.tamanoPagina
   };
+};
+
+export const cambiarEstadoCategoria = async (
+    idUsuarioActor: number,
+    idCategoria: number,
+    activo: boolean
+): Promise<ResultadoCambiarEstadoCategoriaBaseDatos> => {
+    const resultado = await ejecutarProcedimiento<ResultadoCambiarEstadoCategoriaBaseDatos>(
+        'dbo.SP_Categorias_CambiarEstado',
+        (solicitud) => {
+            solicitud.input('IDUsuarioActor', sql.Int, idUsuarioActor);
+            solicitud.input('IDCategoria', sql.Int, idCategoria);
+            solicitud.input('Activo', sql.Bit, activo);
+        }
+    );
+
+    const categoria = resultado.recordset[0];
+
+    if (!categoria) {
+        throw new Error('No se pudo confirmar el cambio de estado de la categoría.');
+    }
+
+    return categoria;
 };

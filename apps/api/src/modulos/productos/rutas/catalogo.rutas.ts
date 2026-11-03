@@ -7,6 +7,7 @@ import { autorizarRoles } from '../../../shared/middleware/autorizacion.middlewa
 import { obtenerCategoriaDetalleControlador } from '../controladores/categoria-detalle.controlador';
 import { crearCategoriaControlador } from '../controladores/categoria-crear.controlador';
 import { actualizarCategoriaControlador } from '../controladores/categorias.controlador';
+import { cambiarEstadoCategoriaControlador } from '../controladores/categorias.controlador';
 
 const rutasCatalogo = Router();
 
@@ -16,5 +17,6 @@ rutasCatalogo.get('/categorias', autenticar,autorizarRoles('Administrador'), lis
 rutasCatalogo.get('/categorias/:id', autenticar,autorizarRoles('Administrador'), obtenerCategoriaDetalleControlador);
 rutasCatalogo.post('/categorias', autenticar, autorizarRoles('Administrador'), crearCategoriaControlador);
 rutasCatalogo.put('/categorias/:id', autenticar, autorizarRoles('Administrador'), actualizarCategoriaControlador)
+rutasCatalogo.patch('/categorias/:id/estado', autenticar,autorizarRoles('Administrador'),cambiarEstadoCategoriaControlador)
 
 export default rutasCatalogo;

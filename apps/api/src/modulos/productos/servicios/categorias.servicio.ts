@@ -2,6 +2,8 @@ import { listarCategorias } from "../repositorio/categorias.repositorio";
 import type { FiltrosCategorias, ResultadoCategorias } from "../tipos/categoria.tipo";
 import { actualizarCategoria } from "../repositorio/catalogo.repositorio";
 import { DatosActualizarCategoria } from "../tipos/categoria-actualizar.tipo";
+import { cambiarEstadoCategoria } from "../repositorio/categorias.repositorio";
+import { ResultadoCambiarEstadoCategoriaBaseDatos } from "../tipos/categoria-estado.tipo";
 
 export  const obtenerCategorias = async(
     filtros: FiltrosCategorias
@@ -18,5 +20,17 @@ export const actualizarCategoriaServicio = async (
         idUsuarioActor,
         idCategoria,
         datos
+    );
+};
+
+export const cambiarEstadoCategoriaServicio = async (
+    idUsuarioActor: number,
+    idCategoria: number,
+    activo: boolean
+): Promise<ResultadoCambiarEstadoCategoriaBaseDatos> => {
+    return await cambiarEstadoCategoria(
+        idUsuarioActor,
+        idCategoria,
+        activo
     );
 };

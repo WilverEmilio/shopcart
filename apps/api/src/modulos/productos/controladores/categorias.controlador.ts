@@ -3,7 +3,7 @@ import { obtenerCategorias } from '../servicios/categorias.servicio';
 import type { FiltrosCategorias } from '../tipos/categoria.tipo';
 import { ErrorAplicacion } from '../../../shared/errores/error-aplicacion';
 import { actualizarCategoriaServicio } from '../servicios/categorias.servicio';
-
+import { cambiarEstadoCategoriaServicio } from '../servicios/categorias.servicio';
 
 export const listarCategoriasControlador = async (
   req: Request,
@@ -164,6 +164,60 @@ export const actualizarCategoriaControlador = async (
             mensaje: 'Categoría actualizada correctamente.',
             datos: {
                 idCategoria: idActualizado
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const cambiarEstadoCategoriaControlador = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const idCategoria = Number(req.params.id);
+        const idUsuarioActor = req.usuarioAutenticado?.idUsuario;
+        const { activo } = req.body;
+
+        if (!Number.isInteger(idCategoria) || idCategoria <= 0) {
+            throw new ErrorAplicacion(
+                'El ID de la categoría no es válido.',
+                50053,
+                400
+            );
+        }
+
+        if (!idUsuarioActor) {
+            throw new ErrorAplicacion(
+                'No se pudo identificar al usuario autenticado.',
+                50016,
+                401
+            );
+        }
+
+        if (typeof activo !== 'boolean') {
+            throw new ErrorAplicacion(
+                'El campo activo debe ser verdadero o falso.',
+                50053,
+                400
+            );
+        }
+
+        const resultado = await cambiarEstadoCategoriaServicio(
+            idUsuarioActor,
+            idCategoria,
+            activo
+        );
+
+        res.status(200).json({
+            mensaje: resultado.Activo
+                ? 'Categoría activada correctamente.'
+                : 'Categoría desactivada correctamente.',
+            datos: {
+                idCategoria: resultado.IDCategoria,
+                activo: resultado.Activo
             }
         });
     } catch (error) {
