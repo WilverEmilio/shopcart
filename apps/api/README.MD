@@ -6,6 +6,8 @@
 - **Contraseña:** `AdminShopCart2026!`
 - **Rol:** Administrador
 
+El correo, la contraseña van en el .env, asi mismo poner cualquier nombres y apellidos
+
 El usuario administrador se crea automáticamente durante la inicialización del backend, siempre que todavía no exista en la base de datos.
 
 La contraseña se almacena utilizando **bcrypt**, por lo que no se guarda en texto plano.
