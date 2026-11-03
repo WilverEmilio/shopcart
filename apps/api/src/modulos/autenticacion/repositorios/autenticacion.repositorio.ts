@@ -103,7 +103,7 @@ export const verificarUsuarioActivo = async (
     idUsuario: number
 ): Promise<boolean> => {
     const resultado = await ejecutarProcedimiento<EstadoUsuarioBaseDatos> (
-        'dbo.SP_UsuariosVerificarActivo',
+        'dbo.SP_Usuarios_Verificar_Activo',
         (solicitud) => {
             solicitud.input('IDUsuario', sql.Int, idUsuario);
         }
