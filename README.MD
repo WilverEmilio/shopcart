@@ -114,8 +114,8 @@ La solución contempla los siguientes módulos, de acuerdo con el enunciado:
 
 | # | Módulo | Base de datos | Backend | Frontend |
 |---|---|---|---|---|
-| 1 | Autenticación y control de acceso | ✅ | ⏳ | ⏳ |
-| 2 | Catálogo | ✅ | ⏳ | ⏳ |
+| 1 | Autenticación y control de acceso | ✅ | ✅ | ⏳ |
+| 2 | Catálogo | ✅ | ✅ | ⏳ |
 | 3 | Inventario | ✅ | ⏳ | ⏳ |
 | 4 | Carrito | ✅ | ⏳ | ⏳ |
 | 5 | Cupones y promociones | ✅ | ⏳ | ⏳ |
@@ -144,41 +144,53 @@ git clone https://github.com/WilverEmilio/shopcart.git
 cd shopcart
 ```
 
-### 2. Instalar dependencias
+### 2. Instalar dependencias del backend
 
-Cuando se configure npm workspaces en la raíz del monorepo:
+Las dependencias del backend se instalan desde el directorio `apps/api`:
 
 ```bash
+cd apps/api
 npm install
+```
+
+Al finalizar, puedes regresar a la raíz del repositorio:
+
+```bash
+cd ../..
 ```
 
 ### 3. Configurar las variables de entorno
 
-Copia el archivo `.env.example` de la aplicación correspondiente a un archivo `.env` local y configura las variables requeridas.
+Copia el archivo `.env.example` ubicado en `apps/api/` y crea un archivo `.env` en el mismo directorio.
+
+Configura las variables necesarias para la conexión a SQL Server y la autenticación. No incluyas credenciales reales en el repositorio.
 
 ### 4. Preparar la base de datos
 
-Los 27 scripts de `database/scripts/` se ejecutan **en orden numérico sobre una base nueva**. La contraseña del usuario de la aplicación se pasa como variable (nunca se guarda en el repositorio).
+Ejecuta los tres scripts consolidados de `database/Scripts_Completos/` en el siguiente orden, sobre una base de datos nueva:
+
+1. **Tablas:** creación de la estructura de la base de datos.
+2. **Stored Procedures:** creación de los procedimientos almacenados.
+3. **Seeds:** inserción de los datos iniciales y de demostración.
+
+Puedes ejecutarlos desde SQL Server Management Studio (SSMS) o desde una herramienta compatible con SQL Server.
+
+**Importante:** ejecuta los scripts en orden y espera a que cada uno finalice correctamente antes de continuar.
+
+Las instrucciones detalladas de instalación, ejecución y verificación están en [`database/README.md`](database/README.md).
+
+### 5. Ejecutar el backend
+
+Desde el directorio `apps/api`, utiliza el comando definido en los scripts de `package.json` para iniciar el servidor.
 
 ```bash
-export SA_PASSWORD='<contraseña de sa>'
-export APP_PASSWORD='<contraseña para shopcart_app>'
-
-for f in database/scripts/*.sql; do
-  echo ">> $f"
-  sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -b -f 65001 -v AppPassword="$APP_PASSWORD" -i "$f" || break
-done
+cd apps/api
+npm run dev
 ```
 
-Las instrucciones para PowerShell, cómo reiniciar la base de datos y el detalle de cada script están en [`database/README.md`](/database/README.MD).
+> **Nota:** el comando anterior presupone que existe un script `dev` en `apps/api/package.json`. Si todavía no está configurado, debe agregarse antes de utilizarlo.
 
-Al terminar, la base contiene el catálogo, los cupones, 3,000 pedidos de demostración y la configuración inicial. El administrador de prueba se crea con el script de semillas del backend (ver [Credenciales de prueba](#-credenciales-de-prueba)).
-
-### 5. Ejecutar las aplicaciones
-
-Los comandos definitivos se documentarán cuando estén configurados los scripts del monorepo y de cada aplicación.
-
-> **Nota:** las instrucciones de los pasos 2, 3 y 5 describen el procedimiento previsto. Los comandos de ejecución completos estarán disponibles cuando se hayan creado y configurado los proyectos de backend y frontend.
+El frontend se ejecutará de forma independiente desde `apps/web` cuando su configuración esté disponible.
 
 ## ⚙️ Configuración
 
