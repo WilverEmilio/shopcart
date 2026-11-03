@@ -10,6 +10,10 @@ import { actualizarCategoriaControlador } from '../controladores/categorias.cont
 import { cambiarEstadoCategoriaControlador } from '../controladores/categorias.controlador';
 import { eliminarCategoriaControlador } from '../controladores/eliminar-categoria.controlador';
 import { listarAtributosControlador } from '../controladores/listar-atributos.controlador';
+import { crearProductoControlador } from '../controladores/crear-producto.controlador';
+import { actualizarProductoControlador } from '../controladores/actualizar-producto.controlador';
+import { cambiarEstadoProductoControlador } from '../controladores/cambiar-estado-producto.controlador';
+import { eliminarProductoControlador } from '../controladores/eliminar-producto.controlador';
 
 const rutasCatalogo = Router();
 
@@ -22,5 +26,9 @@ rutasCatalogo.put('/categorias/:id', autenticar, autorizarRoles('Administrador')
 rutasCatalogo.patch('/categorias/:id/estado', autenticar,autorizarRoles('Administrador'),cambiarEstadoCategoriaControlador);
 rutasCatalogo.delete('/categorias/:id', autenticar,autorizarRoles('Administrador'), eliminarCategoriaControlador);
 rutasCatalogo.get('/atributos', listarAtributosControlador); 
+rutasCatalogo.post('/productos', autenticar, autorizarRoles('Administrador'), crearProductoControlador);
+rutasCatalogo.put('/productos/:id', autenticar,autorizarRoles('Administrador'),actualizarProductoControlador);
+rutasCatalogo.patch('/productos/:id/estado', autenticar,autorizarRoles('Administrador'), cambiarEstadoProductoControlador);
+rutasCatalogo.delete('/productos/:id',autenticar,autorizarRoles('Administrador'),eliminarProductoControlador)
 
 export default rutasCatalogo;
