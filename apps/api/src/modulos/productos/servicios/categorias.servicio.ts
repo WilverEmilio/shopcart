@@ -4,6 +4,7 @@ import { actualizarCategoria } from "../repositorio/catalogo.repositorio";
 import { DatosActualizarCategoria } from "../tipos/categoria-actualizar.tipo";
 import { cambiarEstadoCategoria } from "../repositorio/categorias.repositorio";
 import { ResultadoCambiarEstadoCategoriaBaseDatos } from "../tipos/categoria-estado.tipo";
+import { eliminarCategoria } from "../repositorio/categorias.repositorio";
 
 export  const obtenerCategorias = async(
     filtros: FiltrosCategorias
@@ -33,4 +34,11 @@ export const cambiarEstadoCategoriaServicio = async (
         idCategoria,
         activo
     );
+};
+
+export const eliminarCategoriaServicio = async (
+  idUsuarioActor: number,
+  idCategoria: number
+): Promise<void> => {
+  await eliminarCategoria(idUsuarioActor, idCategoria);
 };

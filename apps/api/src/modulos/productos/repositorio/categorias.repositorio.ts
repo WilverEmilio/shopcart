@@ -1,5 +1,5 @@
 import sql from 'mssql';
-
+import { ResultadoEliminarCategoriaBaseDatos } from '../tipos/categoria-eliminar.tipo';
 import { ejecutarProcedimiento } from '../../../shared/base_de_datos/ejecutar-procedimiento';
 import { ResultadoCambiarEstadoCategoriaBaseDatos } from '../tipos/categoria-estado.tipo';
 import type {
@@ -83,4 +83,25 @@ export const cambiarEstadoCategoria = async (
     }
 
     return categoria;
+};
+
+export const eliminarCategoria = async (
+  idUsuarioActor: number,
+  idCategoria: number
+): Promise<ResultadoEliminarCategoriaBaseDatos> => {
+  const resultado = await ejecutarProcedimiento<ResultadoEliminarCategoriaBaseDatos>(
+    'dbo.SP_Categorias_Eliminar',
+    (solicitud) => {
+      solicitud.input('IDUsuarioActor', sql.Int, idUsuarioActor);
+      solicitud.input('IDCategoria', sql.Int, idCategoria);
+    }
+  );
+
+  const categoria = resultado.recordset[0];
+
+  if (!categoria) {
+    throw new Error('No se pudo eliminar la categoría.');
+  }
+
+  return categoria;
 };

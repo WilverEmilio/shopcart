@@ -8,6 +8,7 @@ import { obtenerCategoriaDetalleControlador } from '../controladores/categoria-d
 import { crearCategoriaControlador } from '../controladores/categoria-crear.controlador';
 import { actualizarCategoriaControlador } from '../controladores/categorias.controlador';
 import { cambiarEstadoCategoriaControlador } from '../controladores/categorias.controlador';
+import { eliminarCategoriaControlador } from '../controladores/eliminar-categoria.controlador';
 
 const rutasCatalogo = Router();
 
@@ -18,5 +19,6 @@ rutasCatalogo.get('/categorias/:id', autenticar,autorizarRoles('Administrador'),
 rutasCatalogo.post('/categorias', autenticar, autorizarRoles('Administrador'), crearCategoriaControlador);
 rutasCatalogo.put('/categorias/:id', autenticar, autorizarRoles('Administrador'), actualizarCategoriaControlador)
 rutasCatalogo.patch('/categorias/:id/estado', autenticar,autorizarRoles('Administrador'),cambiarEstadoCategoriaControlador)
+rutasCatalogo.delete('/categorias/:id', autenticar,autorizarRoles('Administrador'), eliminarCategoriaControlador);
 
 export default rutasCatalogo;
