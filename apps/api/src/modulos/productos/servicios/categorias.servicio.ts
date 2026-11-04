@@ -1,10 +1,11 @@
-import { listarCategorias } from "../repositorio/categorias.repositorio";
 import type { FiltrosCategorias, ResultadoCategorias } from "../tipos/categoria.tipo";
-import { actualizarCategoria } from "../repositorio/catalogo.repositorio";
 import { DatosActualizarCategoria } from "../tipos/categoria-actualizar.tipo";
-import { cambiarEstadoCategoria } from "../repositorio/categorias.repositorio";
 import { ResultadoCambiarEstadoCategoriaBaseDatos } from "../tipos/categoria-estado.tipo";
-import { eliminarCategoria } from "../repositorio/categorias.repositorio";
+import { eliminarCategoria, 
+    actualizarCategoria,
+    cambiarEstadoCategoria,
+    listarCategorias
+} from "../repositorio/categorias.repositorio";
 
 export  const obtenerCategorias = async(
     filtros: FiltrosCategorias
@@ -52,7 +53,6 @@ export const obtenerCategoriasPublicas = async () => {
         tamanoPagina: 100
     });
 
-    // Solo lo que necesita la tienda: sin conteos internos ni fechas
     return resultado.categorias.map(c => ({
         idCategoria: c.IDCategoria,
         nombre: c.Nombre,

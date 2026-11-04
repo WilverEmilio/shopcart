@@ -7,6 +7,10 @@ import type {
   FiltrosCategorias,
   ResultadoCategorias
 } from '../tipos/categoria.tipo';
+import type {
+  DatosActualizarCategoria,
+  ResultadoActualizarCategoriaBaseDatos
+} from '../tipos/categoria-actualizar.tipo'
 
 export const listarCategorias = async (
   filtros: FiltrosCategorias
@@ -104,4 +108,32 @@ export const eliminarCategoria = async (
   }
 
   return categoria;
+};
+
+export const actualizarCategoria = async (
+    idUsuarioActor: number,
+    idCategoria: number,
+    datos: DatosActualizarCategoria
+): Promise<number> => {
+    const resultado = await ejecutarProcedimiento<ResultadoActualizarCategoriaBaseDatos>(
+        'dbo.SP_Categorias_Actualizar',
+        (solicitud) => {
+            solicitud.input('IDUsuarioActor', sql.Int, idUsuarioActor);
+            solicitud.input('IDCategoria', sql.Int, idCategoria);
+            solicitud.input('Nombre', sql.NVarChar(100), datos.nombre);
+            solicitud.input(
+                'Descripcion',
+                sql.NVarChar(255),
+                datos.descripcion ?? null
+            );
+        }
+    );
+
+    const categoria = resultado.recordset[0];
+
+    if (!categoria) {
+        throw new Error('No se pudo confirmar la actualización de la categoría.');
+    }
+
+    return categoria.IDCategoria;
 };

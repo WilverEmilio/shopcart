@@ -11,7 +11,7 @@ const expiracionJWT = process.env.JWT_EXPIRACION ?? '15m';
 const expiracionRefreshDias = Number(
     process.env.JWT_REFRESH_EXPIRACION_DIAS ?? 7
 );
-
+const intervaloJobReservas = Number(process.env.JOB_RESERVAS_INTERVALO_SEGUNDOS ?? 60);
 const variablesObligatorias = [
     'DB_SERVER',
     'DB_DATABASE',
@@ -30,6 +30,10 @@ for (const variable of variablesObligatorias) {
             `Falta una variable de entorno obligatoria: ${variable}`
         );
     }
+}
+
+if(!Number.isInteger(intervaloJobReservas) || intervaloJobReservas < 5 ){
+    throw new Error('JOB_RESERVAS_INTERVALO_SEGUNDOS debe ser un entero de al menos 5');
 }
 
 if (!Number.isInteger(puertoBaseDatos) ||
@@ -78,6 +82,10 @@ export const env = {
         secretoJWT: secretoJWT!,
         expiracionJWT,
         expiracionRefreshDias
+    },
+
+    jobs: {
+        reservasIntervaloSegundos: intervaloJobReservas
     }
 };
     

@@ -70,11 +70,16 @@ export const cambiarEstadoCategoriaControlador = async (
 };
 
 export const listarCategoriasPublicasControlador = async (
-  _req: Request, res: Response, next: NextFunction
+  _req: Request, 
+  res: Response, 
+  next: NextFunction
 ): Promise<void> => {
   try {
     const datos = await obtenerCategoriasPublicas();
-    res.status(200).json({ mensaje: 'Categorías obtenidas correctamente', datos });
+    res.status(200).json({ 
+      mensaje: 'Categorías obtenidas correctamente', 
+      datos 
+    });
   } catch (error) {
     next(error);
   }

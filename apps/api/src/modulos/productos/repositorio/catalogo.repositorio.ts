@@ -5,7 +5,6 @@ import type {
   ProductoCatalogoBaseDatos,
   ResultadoCatalogo
 } from '../tipos/catalogo.tipo';
-import { DatosActualizarCategoria,ResultadoActualizarCategoriaBaseDatos } from '../tipos/categoria-actualizar.tipo';
 
 export const buscarProductos = async (
   filtros: FiltrosCatalogo,
@@ -40,32 +39,4 @@ export const buscarProductos = async (
     pagina: filtros.pagina,
     tamanoPagina: filtros.tamanoPagina
   };
-};
-
-export const actualizarCategoria = async (
-    idUsuarioActor: number,
-    idCategoria: number,
-    datos: DatosActualizarCategoria
-): Promise<number> => {
-    const resultado = await ejecutarProcedimiento<ResultadoActualizarCategoriaBaseDatos>(
-        'dbo.SP_Categorias_Actualizar',
-        (solicitud) => {
-            solicitud.input('IDUsuarioActor', sql.Int, idUsuarioActor);
-            solicitud.input('IDCategoria', sql.Int, idCategoria);
-            solicitud.input('Nombre', sql.NVarChar(100), datos.nombre);
-            solicitud.input(
-                'Descripcion',
-                sql.NVarChar(255),
-                datos.descripcion ?? null
-            );
-        }
-    );
-
-    const categoria = resultado.recordset[0];
-
-    if (!categoria) {
-        throw new Error('No se pudo confirmar la actualización de la categoría.');
-    }
-
-    return categoria.IDCategoria;
 };
