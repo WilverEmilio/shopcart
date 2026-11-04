@@ -71,6 +71,7 @@ export const env = {
         adminSeedContrasena: process.env.ADMIN_SEED_CONTRASENA,
         adminSeedNombres: process.env.ADMIN_SEED_NOMBRES,
         adminSeedApellidos: process.env.ADMIN_SEED_APELLIDOS,
+        corsOrigen: process.env.CORS_ORIGEN ?? 'http://localhost:5173'
     },
 
     seguridad: {

@@ -17,7 +17,7 @@ import type {
 import { ErrorAplicacion } from '../../../shared/errores/error-aplicacion';
 
 const RONDAS_BCRYPT = 10;
-
+const HASH_FALSO = bcrypt.hashSync('contrasena-falsa-ShopCart', RONDAS_BCRYPT);
 const generarTokenAcceso = (
     idUsuario: number, 
     correo: string,
@@ -29,6 +29,7 @@ const generarTokenAcceso = (
             rol
         },
         env.seguridad.secretoJWT,{
+            algorithm: 'HS256',
             subject: String(idUsuario),
             expiresIn: env.seguridad.expiracionJWT as jwt.SignOptions['expiresIn']
         }
@@ -78,10 +79,16 @@ export const registrarNuevoCliente = async (
 export const iniciarSesion = async (
     credenciales: CredencialesAcceso
 ) => {
-    const usuario = await obtenerUsuariosPorCorreo(credenciales.correo);
+    const correo = credenciales.correo.trim().toLowerCase();
+    const usuario = await obtenerUsuariosPorCorreo(correo);
+
+    const sontrasenaValida = await bcrypt.compare(
+        credenciales.contrasena,
+        usuario?.PasswordHash ?? HASH_FALSO
+    ); 
     if (!usuario || !usuario.Activo){
         throw new ErrorAplicacion(
-            'Correo o contraseña incorrectas',
+            'Correo o contraseña incorrectos',
             40100,
             401
         )

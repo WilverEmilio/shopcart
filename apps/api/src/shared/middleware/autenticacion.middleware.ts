@@ -41,7 +41,8 @@ export const autenticar = (
     try {
         const contenidoToken = jwt.verify(
             token,
-            env.seguridad.secretoJWT
+            env.seguridad.secretoJWT,
+            {algorithms: ['HS256']}
         );
         if (
             typeof contenidoToken === 'string' ||
@@ -90,4 +91,16 @@ export const autenticar = (
             siguiente();
         })
         .catch(siguiente);
+};
+
+export const autenticarOpcional = (
+    solicitud: Request,
+    respuesta: Response,
+    siguiente: NextFunction
+): void => {
+    if (!solicitud.headers.authorization){
+        siguiente();
+        return;
+    }
+    autenticar(solicitud, respuesta,siguiente);
 };

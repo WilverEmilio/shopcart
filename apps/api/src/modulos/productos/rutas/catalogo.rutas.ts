@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {listarProductosControlador} from '../controladores/catalogo.controlador';
 import { obtenerDetalleProductoControlador } from '../controladores/producto-detalle.controlador';
 import { listarCategoriasControlador } from '../controladores/categorias.controlador';
-import { autenticar } from '../../../shared/middleware/autenticacion.middleware';
+import { autenticar, autenticarOpcional } from '../../../shared/middleware/autenticacion.middleware';
 import { autorizarRoles } from '../../../shared/middleware/autorizacion.middleware';
 import { obtenerCategoriaDetalleControlador } from '../controladores/categoria-detalle.controlador';
 import { crearCategoriaControlador } from '../controladores/categoria-crear.controlador';
@@ -17,8 +17,8 @@ import { eliminarProductoControlador } from '../controladores/eliminar-producto.
 
 const rutasCatalogo = Router();
 
-rutasCatalogo.get('/productos', listarProductosControlador);
-rutasCatalogo.get('/productos/:id', obtenerDetalleProductoControlador);
+rutasCatalogo.get('/productos', autenticarOpcional,listarProductosControlador);
+rutasCatalogo.get('/productos/:id', autenticarOpcional, obtenerDetalleProductoControlador);
 rutasCatalogo.get('/categorias', autenticar,autorizarRoles('Administrador'), listarCategoriasControlador);
 rutasCatalogo.get('/categorias/:id', autenticar,autorizarRoles('Administrador'), obtenerCategoriaDetalleControlador);
 rutasCatalogo.post('/categorias', autenticar, autorizarRoles('Administrador'), crearCategoriaControlador);

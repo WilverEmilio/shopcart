@@ -14,6 +14,15 @@ export const manejoErroresMiddleware = (
     respuesta: Response, 
     _siguiente: NextFunction
 ): void => {
+
+    if(error instanceof SyntaxError && 'body' in error){
+        respuesta.status(400).json({
+            mensaje: 'El cuerpo de la solicitud no es un JSON válido',
+            codigo: 40000
+        });
+        return;
+    }
+
     if(error instanceof ErrorAplicacion){
         respuesta.status(error.estadoHTTP).json({
             codigo: error.codigo, 
