@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { ErrorAplicacion } from '../../../shared/errores/error-aplicacion';
+import type { Request, Response, NextFunction } from 'express';
 import { eliminarCategoriaServicio } from '../servicios/categorias.servicio';
+import { obtenerIdActor } from '../../../shared/utilidades/actor';
 
 export const eliminarCategoriaControlador = async (
   req: Request,
@@ -9,31 +9,12 @@ export const eliminarCategoriaControlador = async (
 ): Promise<void> => {
   try {
     const idCategoria = Number(req.params.id);
-    const idUsuarioActor = req.usuarioAutenticado?.idUsuario;
 
-    if (!Number.isInteger(idCategoria) || idCategoria <= 0) {
-      throw new ErrorAplicacion(
-        'El identificador de la categoría no es válido.',
-        50053,
-        400
-      );
-    }
-
-    if (!idUsuarioActor) {
-      throw new ErrorAplicacion(
-        'No se pudo identificar al usuario autenticado.',
-        50016,
-        401
-      );
-    }
-
-    await eliminarCategoriaServicio(idUsuarioActor, idCategoria);
+    await eliminarCategoriaServicio(obtenerIdActor(req), idCategoria);
 
     res.status(200).json({
       mensaje: 'Categoría eliminada correctamente.',
-      datos: {
-        idCategoria
-      }
+      datos: { idCategoria }
     });
   } catch (error) {
     next(error);

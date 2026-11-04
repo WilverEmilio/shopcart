@@ -7,7 +7,9 @@ import {
     obtenerUsuariosPorCorreo,
     registrarCliente, 
     guardarTokenRegresco,
-    rotarTokenRefresco
+    rotarTokenRefresco,
+    revocarTokenRefresco,
+    obtenerUsuarioPorID
 } from '../repositorios/autenticacion.repositorio';
 
 import type {
@@ -178,5 +180,24 @@ export const renovarToken = async (
         },
         tokenAcceso,
         tokenRefresco: nuevoTokenRefresco
+    };
+};
+
+export const cerrarSesion = async (tokenRefresco: string): Promise<void> => {
+    await revocarTokenRefresco(calularHashToken(tokenRefresco));
+};
+
+export const obtenerPerfil = async (idUsuario: number) => {
+    const usuario = await obtenerUsuarioPorID(idUsuario);
+    if (!usuario || !usuario.Activo) {
+        throw new ErrorAplicacion('Tu cuenta está desactivada o no existe', 40120, 401);
+    }
+    return {
+        idUsuario: usuario.IDUsuario,
+        correo: usuario.Correo,
+        nombres: usuario.Nombres,
+        apellidos: usuario.Apellidos,
+        telefono: usuario.Telefono,
+        rol: usuario.Rol
     };
 };

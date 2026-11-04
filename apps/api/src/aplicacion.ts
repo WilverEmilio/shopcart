@@ -6,6 +6,7 @@ import rutasAutenticacion from './modulos/autenticacion/rutas/autenticacion.ruta
 import rutasCatalogo from './modulos/productos/rutas/catalogo.rutas';
 import { manejoErroresMiddleware } from './shared/middleware/manejo-errores.middleware';
 import { ErrorAplicacion } from './shared/errores/error-aplicacion';
+import './config/zod'
 
 const aplicacion = express();
 

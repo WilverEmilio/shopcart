@@ -27,7 +27,8 @@ export const manejoErroresMiddleware = (
         respuesta.status(error.estadoHTTP).json({
             codigo: error.codigo, 
             mensaje: error.estadoHTTP >= 500
-            ? 'Ocurrió un error interno en el servidor' : error.message
+            ? 'Ocurrió un error interno en el servidor' : error.message,
+            detalles: error.detalles
         });
         return;
     }

@@ -5,14 +5,19 @@ import { autorizarRoles } from '../../../shared/middleware/autorizacion.middlewa
 import {
     registrarClienteControlador, 
     iniciarSesionControlador,
-    renovarTokenControlador
+    renovarTokenControlador,
+    cerrarSesionControlador
 } from '../controladores/autentiaion.controlador';
+import { inicioSesionEsquema, registroClienteEsquema, tokenRefrescoEsquema } from '../esquemas/autenticacion.esquema';
+import { validar } from '../../../shared/middleware/validar.middleware';
+import { catalogoQueryEsquema } from '../../productos/esquemas/catalogo.esquema';
 
 const rutasAutenticacion = Router();
 
-rutasAutenticacion.post('/registro', registrarClienteControlador);
-rutasAutenticacion.post('/iniciar-sesion', iniciarSesionControlador);
-rutasAutenticacion.post('/renovar-token', renovarTokenControlador)
+rutasAutenticacion.post('/registro', validar({body:catalogoQueryEsquema}), registrarClienteControlador );
+rutasAutenticacion.post('/iniciar-sesion',validar({ body: inicioSesionEsquema }), iniciarSesionControlador);
+rutasAutenticacion.post('/renovar-token',validar({body:tokenRefrescoEsquema}), renovarTokenControlador);
+rutasAutenticacion.post('/cerrar-sesion', validar({body: tokenRefrescoEsquema}), cerrarSesionControlador);
 
 rutasAutenticacion.get(
     '/perfil',
@@ -24,27 +29,4 @@ rutasAutenticacion.get(
         });
     }
 );
-
-rutasAutenticacion.get(
-    '/solo-administrador',
-    autenticar,
-    autorizarRoles('Administrador'),
-    (_solicitud, respuesta)  => {
-        respuesta.status(200).json({
-            mensaje: 'Acceso permitodo para Administradores'
-        });
-    }
-); 
-
-rutasAutenticacion.get(
-    '/operaciones',
-    autenticar,
-    autorizarRoles('Operador', 'Administrador'),
-    (_solicitud, respuesta)  =>{
-        respuesta.status(200).json({
-            mensaje: 'Acceso permitod para Operadores y Administradores'
-        });
-    }
-);
-
 export default rutasAutenticacion;

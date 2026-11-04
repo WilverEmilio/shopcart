@@ -42,3 +42,20 @@ export const eliminarCategoriaServicio = async (
 ): Promise<void> => {
   await eliminarCategoria(idUsuarioActor, idCategoria);
 };
+
+export const obtenerCategoriasPublicas = async () => {
+    const resultado = await listarCategorias({
+        activo: true,
+        ordenarPor: 'Nombre',
+        direccion: 'ASC',
+        pagina: 1,
+        tamanoPagina: 100
+    });
+
+    // Solo lo que necesita la tienda: sin conteos internos ni fechas
+    return resultado.categorias.map(c => ({
+        idCategoria: c.IDCategoria,
+        nombre: c.Nombre,
+        descripcion: c.Descripcion
+    }));
+};

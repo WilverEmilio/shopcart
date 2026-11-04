@@ -2,7 +2,9 @@ import type { NextFunction, Request, Response } from 'express';
 import {
     registrarNuevoCliente,
     iniciarSesion,
-    renovarToken
+    renovarToken,
+    cerrarSesion,
+    obtenerPerfil
 }from '../servicios/autenticacion.servicio'
 import type {
     CredencialesAcceso,
@@ -10,13 +12,7 @@ import type {
 } from '../tipos/usuario.tipo';
 
 export const registrarClienteControlador = async (
-    solicitud: Request<
-        {},
-        unknown,
-        Omit<DatosRegistroCliente, 'passwordHash'> & {
-            contrasena: string
-        }
-    >,
+    solicitud: Request,
     respuesta: Response,
     siguiente: NextFunction
 ): Promise<void> => {
@@ -68,3 +64,16 @@ export const renovarTokenControlador = async (
         siguiente(error);
     }
 }
+export const cerrarSesionControlador = async (solicitud: Request, respuesta: Response, siguiente: NextFunction): Promise<void> => {
+    try {
+        await cerrarSesion(solicitud.body.tokenRefresco);
+        respuesta.status(200).json({ mensaje: 'Sesión cerrada correctamente' });
+    } catch (error) { siguiente(error); }
+};
+
+export const obtenerPerfilControlador = async (solicitud: Request, respuesta: Response, siguiente: NextFunction): Promise<void> => {
+    try {
+        const datos = await obtenerPerfil(solicitud.usuarioAutenticado!.idUsuario);
+        respuesta.status(200).json({ mensaje: 'Perfil obtenido correctamente', datos });
+    } catch (error) { siguiente(error); }
+};
