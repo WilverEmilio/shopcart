@@ -11,7 +11,7 @@ interface ResultadoAdministradorSemilla {
     Creado: boolean;
 }
 
-export const crearAdministradorSemilla = async (): Promise<void> => {
+export const crearAdministradorSemilla = async (): Promise<number> => {
     const correo = env.database.adminSeedCorreo?.trim().toLowerCase();
     const contrasena = env.database.adminSeedContrasena;
     const nombres = env.database.adminSeedNombres?.trim();
@@ -52,4 +52,6 @@ export const crearAdministradorSemilla = async (): Promise<void> => {
             `El administrador semilla ya existía. ID: ${administrador.IDUsuario}`
         );
     }
+
+    return administrador.IDUsuario;
 };

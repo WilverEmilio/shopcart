@@ -86,6 +86,15 @@ export const env = {
 
     jobs: {
         reservasIntervaloSegundos: intervaloJobReservas
-    }
+    },
+
+    usuariosPrueba: {
+        operador: process.env.OPERADOR_SEED_CORREO && process.env.OPERADOR_SEED_CONTRASENA
+            ? { correo: process.env.OPERADOR_SEED_CORREO.trim().toLowerCase(), contrasena: process.env.OPERADOR_SEED_CONTRASENA }
+            : null,
+        cliente: process.env.CLIENTE_SEED_CORREO && process.env.CLIENTE_SEED_CONTRASENA
+            ? { correo: process.env.CLIENTE_SEED_CORREO.trim().toLowerCase(), contrasena: process.env.CLIENTE_SEED_CONTRASENA }
+            : null
+    },
 };
     
