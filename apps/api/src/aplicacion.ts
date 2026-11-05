@@ -7,6 +7,9 @@ import rutasCatalogo from './modulos/productos/rutas/catalogo.rutas';
 import { manejoErroresMiddleware } from './shared/middleware/manejo-errores.middleware';
 import { ErrorAplicacion } from './shared/errores/error-aplicacion';
 import rutasCarrito from './modulos/carrito/rutas/carrito.rutas';
+import rutasDirecciones from './modulos/direcciones/rutas/direcciones.rutas';
+import rutasCheckout from './modulos/checkout/rutas/checkout.rutas';
+import rutasPedidos from './modulos/pedidos/rutas/pedidos.rutas';
 import './config/zod'
 
 const aplicacion = express();
@@ -25,6 +28,9 @@ aplicacion.get('/api/estado', (_s, r)=> {
 aplicacion.use('/api/autenticacion', rutasAutenticacion);
 aplicacion.use('/api/catalogo', rutasCatalogo);
 aplicacion.use('/api/carrito', rutasCarrito);
+aplicacion.use('/api/direcciones',rutasDirecciones);
+aplicacion.use('/api/checkout', rutasCheckout);
+aplicacion.use('/api/pedidos', rutasPedidos);
 
 aplicacion.use((_s, _r, siguiente) => {
     siguiente(new ErrorAplicacion(

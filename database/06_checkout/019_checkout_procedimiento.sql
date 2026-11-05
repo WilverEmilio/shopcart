@@ -850,6 +850,27 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE dbo.SP_Checkout_Obtener_Pago
+    @IDUsuario         INT,
+    @ClaveIdempotencia NVARCHAR(64)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    EXEC dbo.SP_Usuarios_ValidarPermiso @IDUsuarioActor = @IDUsuario, @CodigoPermiso = N'COMPRAR';
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.Pagos WHERE IDUsuario = @IDUsuario AND ClaveIdempotencia = @ClaveIdempotencia)
+        THROW 50113, N'El pago no existe.', 1;
+
+    SELECT  p.IDPago, p.Estado, p.Monto AS Total, p.IDPedido, ped.NumeroPedido,
+            p.IDReserva, r.FechaVencimiento, p.Motivo
+    FROM    dbo.Pagos p
+    LEFT JOIN dbo.Pedidos  ped ON ped.IDPedido  = p.IDPedido
+    LEFT JOIN dbo.Reservas r   ON r.IDReserva   = p.IDReserva
+    WHERE   p.IDUsuario = @IDUsuario AND p.ClaveIdempotencia = @ClaveIdempotencia;
+END;
+GO
+
 IF NOT EXISTS (SELECT 1 FROM dbo.VersionesEsquema WHERE Script = N'020_Checkout_Procedimientos.sql')
     INSERT INTO dbo.VersionesEsquema (Script) VALUES (N'020_Checkout_Procedimientos.sql');
 GO
