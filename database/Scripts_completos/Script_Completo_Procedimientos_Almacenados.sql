@@ -4047,7 +4047,7 @@ BEGIN
 
     SET @ClaveIdempotencia = LTRIM(RTRIM(@ClaveIdempotencia));
     IF @ClaveIdempotencia IS NULL OR LEN(@ClaveIdempotencia) < 8 OR LEN(@ClaveIdempotencia) > 64
-       OR @ClaveIdempotencia COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_-]%'
+       OR REPLACE(@ClaveIdempotencia, N'-', N'') COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_]%'
         THROW 50053, N'La clave de idempotencia debe tener de 8 a 64 caracteres (letras, n�meros, guion o guion bajo).', 1;
 
     DECLARE @IDCarrito INT, @IDPago INT, @EstadoPago NVARCHAR(12), @IDPedidoPago INT, @MontoPago DECIMAL(18,2),
@@ -4188,7 +4188,7 @@ BEGIN
     SET @ClaveIdempotencia = LTRIM(RTRIM(@ClaveIdempotencia));
     SET @ReferenciaPasarela = NULLIF(LTRIM(RTRIM(@ReferenciaPasarela)), N'');
     IF @ClaveIdempotencia IS NULL OR LEN(@ClaveIdempotencia) < 8 OR LEN(@ClaveIdempotencia) > 64
-       OR @ClaveIdempotencia COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_-]%'
+       OR REPLACE(@ClaveIdempotencia, N'-', N'') COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_]%'
         THROW 50053, N'La clave de idempotencia no es v�lida.', 1;
 
     DECLARE @IDCarrito INT, @IDPago INT, @EstadoPago NVARCHAR(12), @IDPedidoPago INT, @MotivoPago NVARCHAR(255),
@@ -4424,7 +4424,7 @@ BEGIN
     SET @ClaveIdempotencia = LTRIM(RTRIM(@ClaveIdempotencia));
     SET @Motivo = NULLIF(LTRIM(RTRIM(@Motivo)), N'');
     IF @ClaveIdempotencia IS NULL OR LEN(@ClaveIdempotencia) < 8 OR LEN(@ClaveIdempotencia) > 64
-       OR @ClaveIdempotencia COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_-]%'
+       OR REPLACE(@ClaveIdempotencia, N'-', N'') COLLATE Latin1_General_100_BIN2 LIKE N'%[^A-Za-z0-9_]%'
         THROW 50053, N'La clave de idempotencia no es v�lida.', 1;
 
     DECLARE @IDPago INT, @EstadoPago NVARCHAR(12), @IDReserva INT, @IDPedido INT;
