@@ -17,7 +17,11 @@ import { eliminarProductoControlador } from '../controladores/eliminar-producto.
 import { validar } from '../../../shared/middleware/validar.middleware';
 import { catalogoQueryEsquema } from '../esquemas/catalogo.esquema';
 import { idParametroEsquema } from '../../../shared/esquemas/comunes.esquema';
+import { actualizarVarianteEsquema, cambiarEstadoEsquema, cambiarPrecioEsquema, crearVarianteEsquema, reemplazarImagenesEsquema } from '../esquemas/producto.esquema';
+import { actualizarVarianteControlador, cambiarEstadoVarianteControlador, cambiarPrecioVarianteControlador, crearVarianteControlador, eliminarVarianteControlador, reemplazarImagenesControlador } from '../controladores/variante.controlador';
 
+
+const admin = [autenticar, autorizarRoles('Administrador')];
 const rutasCatalogo = Router();
 
 rutasCatalogo.get('/categorias', autenticar,autorizarRoles('Administrador'),validar({query:catalogoQueryEsquema}), listarCategoriasControlador);
@@ -36,6 +40,13 @@ rutasCatalogo.get('/productos/:id', autenticarOpcional,validar({params:idParamet
 rutasCatalogo.post('/productos', autenticar, autorizarRoles('Administrador'), validar({query:catalogoQueryEsquema}),crearProductoControlador);
 rutasCatalogo.put('/productos/:id', autenticar,autorizarRoles('Administrador'),validar({params:idParametroEsquema}), actualizarProductoControlador);
 rutasCatalogo.patch('/productos/:id/estado', autenticar,autorizarRoles('Administrador'),validar({params:idParametroEsquema}),  cambiarEstadoProductoControlador);
-rutasCatalogo.delete('/productos/:id',autenticar,autorizarRoles('Administrador'),validar({params:idParametroEsquema}), eliminarProductoControlador)
+rutasCatalogo.delete('/productos/:id',autenticar,autorizarRoles('Administrador'),validar({params:idParametroEsquema}), eliminarProductoControlador); 
+
+rutasCatalogo.post('/productos/:id/variantes', ...admin, validar({ params: idParametroEsquema, body: crearVarianteEsquema }), crearVarianteControlador);
+rutasCatalogo.put('/productos/:id/imagenes', ...admin, validar({ params: idParametroEsquema, body: reemplazarImagenesEsquema }), reemplazarImagenesControlador);
+rutasCatalogo.put('/variantes/:id', ...admin, validar({ params: idParametroEsquema, body: actualizarVarianteEsquema }), actualizarVarianteControlador);
+rutasCatalogo.patch('/variantes/:id/estado', ...admin, validar({ params: idParametroEsquema, body: cambiarEstadoEsquema }), cambiarEstadoVarianteControlador);
+rutasCatalogo.patch('/variantes/:id/precio', ...admin, validar({ params: idParametroEsquema, body: cambiarPrecioEsquema }), cambiarPrecioVarianteControlador);
+rutasCatalogo.delete('/variantes/:id', ...admin, validar({ params: idParametroEsquema }), eliminarVarianteControlador);
 
 export default rutasCatalogo;

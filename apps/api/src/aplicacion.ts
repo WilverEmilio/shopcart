@@ -10,6 +10,7 @@ import rutasCarrito from './modulos/carrito/rutas/carrito.rutas';
 import rutasDirecciones from './modulos/direcciones/rutas/direcciones.rutas';
 import rutasCheckout from './modulos/checkout/rutas/checkout.rutas';
 import rutasPedidos from './modulos/pedidos/rutas/pedidos.rutas';
+import rutasInventario from './modulos/inventario/rutas/inventario.rutas';
 import './config/zod'
 
 const aplicacion = express();
@@ -31,6 +32,7 @@ aplicacion.use('/api/carrito', rutasCarrito);
 aplicacion.use('/api/direcciones',rutasDirecciones);
 aplicacion.use('/api/checkout', rutasCheckout);
 aplicacion.use('/api/pedidos', rutasPedidos);
+aplicacion.use('/api/inventario', rutasInventario);
 
 aplicacion.use((_s, _r, siguiente) => {
     siguiente(new ErrorAplicacion(

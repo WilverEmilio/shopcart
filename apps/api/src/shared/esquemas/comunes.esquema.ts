@@ -1,3 +1,4 @@
+import { SNIEntry } from 'node:quic';
 import { z } from 'zod';
 
 export const idParametroEsquema = z.object({
@@ -6,3 +7,16 @@ export const idParametroEsquema = z.object({
 
 export const textoOpcional = (max: number) =>
     z.string().trim().max(max).nullish().transform(v => v || null);
+
+export const booleanoTexto = z.enum([
+    'true', 
+    'false'
+]). transform(v => v === 'true');
+
+export const fechaIso = z.iso.date('La fecha debe tener formato AAAA-MM-DD.');
+export const rangoFechasValido = (
+    d: {
+        fechaDesde?: string;
+        fechaHasta?: string
+    }): boolean => 
+        !d.fechaDesde || !d.fechaHasta || d.fechaDesde <= d.fechaHasta;
