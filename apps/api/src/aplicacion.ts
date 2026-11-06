@@ -11,6 +11,10 @@ import rutasDirecciones from './modulos/direcciones/rutas/direcciones.rutas';
 import rutasCheckout from './modulos/checkout/rutas/checkout.rutas';
 import rutasPedidos from './modulos/pedidos/rutas/pedidos.rutas';
 import rutasInventario from './modulos/inventario/rutas/inventario.rutas';
+import rutasCupones from './modulos/cupones/rutas/cupones.rutas';
+import rutasUsuarios from './modulos/usuarios/rutas/usuarios.rutas';
+import rutasReportes from './modulos/reportes/rutas/reporte.rutas';
+import rutasBitacora from './modulos/bitacora/rutas/bitacora.rutas';
 import './config/zod'
 
 const aplicacion = express();
@@ -33,6 +37,10 @@ aplicacion.use('/api/direcciones',rutasDirecciones);
 aplicacion.use('/api/checkout', rutasCheckout);
 aplicacion.use('/api/pedidos', rutasPedidos);
 aplicacion.use('/api/inventario', rutasInventario);
+aplicacion.use('/api/cupones', rutasCupones);
+aplicacion.use('/api/usuarios', rutasUsuarios);
+aplicacion.use('/api/reportes', rutasReportes);
+aplicacion.use('/api/bitacora', rutasBitacora);
 
 aplicacion.use((_s, _r, siguiente) => {
     siguiente(new ErrorAplicacion(
