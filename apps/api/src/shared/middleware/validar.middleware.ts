@@ -38,6 +38,12 @@ export const validar = (esquemas: EsquemaSolicitud) => (
         }
     }
 
+    for (const [origen, esquema] of Object.entries(esquemas)) {
+    if (!esquema || typeof (esquema as { safeParse?: unknown }).safeParse !== 'function') {
+        throw new Error(`validar(): el esquema de "${origen}" no es un esquema de zod; revisa el import.`);
+    }
+    }
+
     if (detalles.length > 0){
         siguiente(new ErrorAplicacion(
             'Los datos enviados no son válidos',

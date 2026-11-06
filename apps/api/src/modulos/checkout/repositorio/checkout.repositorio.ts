@@ -21,7 +21,7 @@ export const iniciarPago = async (idUsuario: number, clave: string, datos: Datos
 };
 
 export const obtenerPago = async (idUsuario: number, clave: string): Promise<PagoBaseDatos> => {
-    const r = await ejecutarProcedimiento<PagoBaseDatos>('dbo.SP_Checkout_ObtenerPago', s => {
+    const r = await ejecutarProcedimiento<PagoBaseDatos>('dbo.SP_Checkout_Obtener_Pago', s => {
         s.input('IDUsuario', sql.Int, idUsuario);
         s.input('ClaveIdempotencia', sql.NVarChar(64), clave);
     });

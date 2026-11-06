@@ -7,55 +7,66 @@ import {
 import sql from 'mssql';
 import { ErrorAplicacion } from '../errores/error-aplicacion';
 import { catalogoErrores } from '../errores/catalogo-errores';
+import { env } from '../../config/env';
 
 export const manejoErroresMiddleware = (
     error: unknown,
     _solicitud: Request,
     respuesta: Response, 
     _siguiente: NextFunction
+    
 ): void => {
 
-    if(error instanceof SyntaxError && 'body' in error){
+
+    if (error instanceof SyntaxError && 'body' in error) {
         respuesta.status(400).json({
-            mensaje: 'El cuerpo de la solicitud no es un JSON válido',
-            codigo: 40000
+            codigo: 40000,
+            mensaje: 'El cuerpo de la solicitud no es un JSON válido'
         });
         return;
     }
 
-    if(error instanceof ErrorAplicacion){
+    if (error instanceof ErrorAplicacion) {
         respuesta.status(error.estadoHTTP).json({
-            codigo: error.codigo, 
+            codigo: error.codigo,
             mensaje: error.estadoHTTP >= 500
-            ? 'Ocurrió un error interno en el servidor' : error.message,
+                ? 'Ocurrió un error interno en el servidor'
+                : error.message,
             detalles: error.detalles
         });
         return;
     }
 
     if (error instanceof sql.RequestError) {
+        if (env.nodeEnv === 'development') {
+            console.warn(
+                `[SQL ${error.number}] ${error.procName ?? '(sin SP)'} línea ${error.lineNumber}: ${error.message}`
+            );
+        }
+
         const codigoSQL = Number(error.number);
         const estadoHTTP = catalogoErrores[codigoSQL];
 
-        if(estadoHTTP){
-            if(estadoHTTP >= 500) {
+        if (estadoHTTP) {
+            if (estadoHTTP >= 500) {
                 console.error('Error SQL de negocio:', error);
             }
 
             respuesta.status(estadoHTTP).json({
                 codigo: codigoSQL,
-                mensaje: estadoHTTP >= 500 
-                ? 'Ocurrió un error interno en el servidor' : error.message
-            }); 
-
+                mensaje: estadoHTTP >= 500
+                    ? 'Ocurrió un error interno en el servidor'
+                    : error.message
+            });
             return;
         }
-        switch(codigoSQL) {
+
+        switch (codigoSQL) {
             case 1205:
             case 1222:
                 respuesta.status(503).json({
                     codigo: codigoSQL,
-                    mensaje: 'El servicio está termporalemtne ocupado. Intente nuevamente'
+                    mensaje: 'El servicio está temporalmente ocupado. Intente nuevamente'
                 });
                 return;
             case 2601:
@@ -63,9 +74,9 @@ export const manejoErroresMiddleware = (
                 respuesta.status(409).json({
                     codigo: codigoSQL,
                     mensaje: 'El registro ya existe'
-                }); 
+                });
                 return;
-            case 8152: 
+            case 8152:
             case 245:
             case 8114:
                 respuesta.status(400).json({
