@@ -1,6 +1,5 @@
 import {Router} from 'express';
 import { autenticar } from '../../../shared/middleware/autenticacion.middleware';
-import { autorizarRoles } from '../../../shared/middleware/autorizacion.middleware';
 
 import {
     registrarClienteControlador, 

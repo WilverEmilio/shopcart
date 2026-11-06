@@ -20,3 +20,7 @@ export const rangoFechasValido = (
         fechaHasta?: string
     }): boolean => 
         !d.fechaDesde || !d.fechaHasta || d.fechaDesde <= d.fechaHasta;
+
+export const cambiarEstadoEsquema = z.strictObject({ 
+    activo: z.boolean() 
+});
