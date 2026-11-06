@@ -1,6 +1,18 @@
 import clienteHttp from "../../../servicios/clienteHttp";
+import type {
+    FiltrosCatalogo,
+    RespuestaCatalogo
+} from '../tipos/catalogo'
 
-export const obtenerProductos = async () => {
-    const respuesta = await clienteHttp.get('/productos');
-    return respuesta.data;
-};
+export async function obtenerProductos<T = unknown>(
+  filtros: FiltrosCatalogo = {}
+): Promise<RespuestaCatalogo<T>> {
+  const respuesta = await clienteHttp.get<RespuestaCatalogo<T>>(
+    "/catalogo/productos",
+    {
+      params: filtros,
+    }
+  );
+
+  return respuesta.data;
+}

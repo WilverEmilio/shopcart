@@ -5397,6 +5397,20 @@ BEGIN
     END CATCH;
 END;
 GO
+CREATE OR ALTER PROCEDURE dbo.SP_Roles_Listar
+    @IDUsuarioActor INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    EXEC dbo.SP_Usuarios_ValidarAdministrador @IDUsuarioActor = @IDUsuarioActor;
+
+    SELECT IDRol, Nombre, Descripcion
+    FROM   dbo.Roles
+    WHERE  Activo = 1
+    ORDER BY IDRol;
+END;
+GO
 
 IF NOT EXISTS (SELECT 1 FROM dbo.VersionesEsquema WHERE Script = N'026_Reportes_Procedimientos.sql')
     INSERT INTO dbo.VersionesEsquema (Script) VALUES (N'026_Reportes_Procedimientos.sql');

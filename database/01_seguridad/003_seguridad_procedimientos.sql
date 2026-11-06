@@ -545,3 +545,18 @@ BEGIN
     END CATCH;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE dbo.SP_Roles_Listar
+    @IDUsuarioActor INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    EXEC dbo.SP_Usuarios_ValidarAdministrador @IDUsuarioActor = @IDUsuarioActor;
+
+    SELECT IDRol, Nombre, Descripcion
+    FROM   dbo.Roles
+    WHERE  Activo = 1
+    ORDER BY IDRol;
+END;
+GO
