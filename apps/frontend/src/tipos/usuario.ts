@@ -1,7 +1,7 @@
 export type RolUsuario = 
 'Cliente' | 
 'Operador' | 
-'Adminitrador';
+'Administrador';
 
 export interface Usuario {
   idUsuario: number;

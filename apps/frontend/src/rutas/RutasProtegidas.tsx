@@ -1,32 +1,24 @@
-
-import { Navigate, Outlet } from "react-router-dom";
-
-import { useSesionEstado } from "../estados/sesionEstado";
-import type { RolUsuario } from "../tipos/usuario";
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { EstadoCarga } from '../componentes/carga/EstadoCarga';
+import { useSesionEstado } from '../estados/sesionEstado';
+import type { RolUsuario } from '../tipos/usuario';
 
 interface Propiedades {
   rolesPermitidos?: RolUsuario[];
 }
 
-export function RutasProtegidas({
-  rolesPermitidos,
-}: Propiedades) {
-  const token = useSesionEstado(
-    (estado) => estado.tokenAcceso
-  );
+export function RutasProtegidas({ rolesPermitidos }: Propiedades) {
+  const usuario = useSesionEstado((e) => e.usuario);
+  const inicializada = useSesionEstado((e) => e.inicializada);
+  const ubicacion = useLocation();
 
-  const usuario = useSesionEstado(
-    (estado) => estado.usuario
-  );
+  if (!inicializada) return <EstadoCarga mensaje="Verificando sesión..." />;
 
-  if (!token || !usuario) {
-    return <Navigate to="/iniciar-sesion" replace />;
+  if (!usuario) {
+    return <Navigate to="/iniciar-sesion" replace state={{ desde: ubicacion.pathname }} />;
   }
 
-  if (
-    rolesPermitidos &&
-    !rolesPermitidos.includes(usuario.rol)
-  ) {
+  if (rolesPermitidos && !rolesPermitidos.includes(usuario.rol)) {
     return <Navigate to="/sin-permiso" replace />;
   }
 
