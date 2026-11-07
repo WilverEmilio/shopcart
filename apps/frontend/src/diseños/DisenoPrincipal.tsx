@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Boton } from '../componentes/botones/Boton';
+import { Boton } from '../componentes/Boton';
 import { menuPara } from '../configuracion/menu';
 import { useSesionEstado } from '../estados/sesionEstado';
 import { cerrarSesion } from '../modulos/autenticacion/servicios/autenticacionServicio';

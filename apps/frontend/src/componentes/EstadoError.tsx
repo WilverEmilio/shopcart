@@ -1,4 +1,4 @@
-import { normalizarError } from "../../servicios/errorServicio";
+import { normalizarError } from "../servicios/errorServicio";
 
 interface Propiedades {
     error: unknown;

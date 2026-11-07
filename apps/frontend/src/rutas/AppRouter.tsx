@@ -3,8 +3,9 @@ import { DisenoPrincipal } from '../diseños/DisenoPrincipal';
 import { PaginaIniciarSesion } from '../modulos/autenticacion/paginas/PaginaIniciarSesion';
 import { PaginaRegistro } from '../modulos/autenticacion/paginas/PaginasRegistro';
 import { RutasProtegidas } from './RutasProtegidas';
+import { PaginaCatalogo } from '../modulos/catalogo/paginas/PaginaCatalogo';
+import { PaginaDetalleProducto } from '../modulos/catalogo/paginas/PaginaDetalleProducto';
 
-// Páginas provisionales: se irán reemplazando en los siguientes pasos
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
     <h1 className="text-2xl font-semibold">{titulo}</h1>
@@ -30,8 +31,9 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<DisenoPrincipal />}>
-          <Route path="/" element={<Provisional titulo="Inicio" />} />
-          <Route path="/catalogo" element={<Provisional titulo="Catálogo" />} />
+        <Route path="/" element={<Navigate to="/catalogo" replace />} />
+        <Route path="/catalogo" element={<PaginaCatalogo />} />
+        <Route path="/catalogo/:idProducto" element={<PaginaDetalleProducto />} />
           <Route path="/carrito" element={<Provisional titulo="Carrito" />} />
           <Route path="/iniciar-sesion" element={<PaginaIniciarSesion />} />
           <Route path="/registro" element={<PaginaRegistro />} />

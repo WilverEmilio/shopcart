@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { EstadoCarga } from '../componentes/carga/EstadoCarga';
+import { EstadoCarga } from '../componentes/EstadoCarga';
 import { useSesionEstado } from '../estados/sesionEstado';
 import type { RolUsuario } from '../tipos/usuario';
 
