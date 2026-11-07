@@ -1,4 +1,5 @@
 import clienteHttp, { renovarSesion } from '../../../servicios/clienteHttp';
+import { clienteQuery } from '../../../configuracion/clienteQuery';
 import { useSesionEstado } from '../../../estados/sesionEstado';
 import type {
   RespuestaInicioSesion,
@@ -16,6 +17,7 @@ export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promis
   const { usuario, tokenAcceso, tokenRefresco } = data.datos;
 
   useSesionEstado.getState().establecerSesion(tokenAcceso, tokenRefresco, usuario);
+  clienteQuery.clear();
   return usuario;
 }
 
@@ -38,6 +40,7 @@ export async function cerrarSesion(): Promise<void> {
   } catch {
   } finally {
     useSesionEstado.getState().cerrarSesion();
+    clienteQuery.clear();
   }
 }
 
