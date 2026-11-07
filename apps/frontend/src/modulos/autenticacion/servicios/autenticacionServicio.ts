@@ -1,35 +1,61 @@
-
-import clienteHttp from "../../../servicios/clienteHttp";
-import { useSesionEstado } from "../../../estados/sesionEstado";
-
+import clienteHttp, { renovarSesion } from '../../../servicios/clienteHttp';
+import { useSesionEstado } from '../../../estados/sesionEstado';
 import type {
-  SolicitudInicioSesion,
   RespuestaInicioSesion,
-} from "../../../tipos/autenticacion";
+  SolicitudInicioSesion,
+  SolicitudRegistro,
+} from '../../../tipos/autenticacion';
+import type { RespuesaApi } from '../../../tipos/respuestaApi';
+import type { Perfil, Usuario } from '../../../tipos/usuario';
 
-import type { RespuestaApi } from "../../../tipos/respuestaApi";
-
-export async function iniciarSesion(
-  credenciales: SolicitudInicioSesion
-) {
-  const respuesta = await clienteHttp.post<
-    RespuestaApi<RespuestaInicioSesion>
-  >("/autenticacion/iniciar-sesion", credenciales);
-
-  const { tokenAcceso, usuario } = respuesta.data.datos;
-
-  useSesionEstado.getState().establecerSesion(
-    tokenAcceso,
-    usuario
+export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promise<Usuario> {
+  const { data } = await clienteHttp.post<RespuesaApi<RespuestaInicioSesion>>(
+    '/autenticacion/iniciar-sesion',
+    credenciales
   );
+  const { usuario, tokenAcceso, tokenRefresco } = data.datos;
 
+  useSesionEstado.getState().establecerSesion(tokenAcceso, tokenRefresco, usuario);
   return usuario;
 }
 
-export async function cerrarSesion() {
+export async function registrarCliente(datos: SolicitudRegistro): Promise<void> {
+  await clienteHttp.post('/autenticacion/registro', datos);
+}
+
+export async function obtenerPerfil(): Promise<Perfil> {
+  const { data } = await clienteHttp.get<RespuesaApi<Perfil>>('/autenticacion/perfil');
+  return data.datos;
+}
+
+export async function cerrarSesion(): Promise<void> {
+  const { tokenRefresco } = useSesionEstado.getState();
+
   try {
-    await clienteHttp.post("/autenticacion/cerrar-sesion");
+    if (tokenRefresco) {
+      await clienteHttp.post('/autenticacion/cerrar-sesion', { tokenRefresco });
+    }
+  } catch {
   } finally {
     useSesionEstado.getState().cerrarSesion();
   }
+}
+
+let restauracion: Promise<void> | null = null;
+
+export function restaurarSesion(): Promise<void> {
+  restauracion ??= (async () => {
+    try {
+      if (useSesionEstado.getState().tokenRefresco) {
+        await renovarSesion();
+        const perfil = await obtenerPerfil();
+        useSesionEstado.getState().establecerUsuario(perfil);
+      }
+    } catch {
+    } finally {
+      useSesionEstado.getState().marcarInicializada();
+    }
+  })();
+
+  return restauracion;
 }

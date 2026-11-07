@@ -1,13 +1,16 @@
-
-export type RolUsuario =
-  | "CLIENTE"
-  | "OPERADOR"
-  | "ADMINISTRADOR";
+export type RolUsuario = 
+'Cliente' | 
+'Operador' | 
+'Adminitrador';
 
 export interface Usuario {
   idUsuario: number;
-  nombre: string;
   correo: string;
+  nombres: string;
+  apellidos: string;
   rol: RolUsuario;
-  activo: boolean;
+}
+
+export interface Perfil extends Usuario {
+  telefono: string | null;
 }
