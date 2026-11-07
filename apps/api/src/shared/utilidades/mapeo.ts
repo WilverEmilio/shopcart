@@ -12,10 +12,9 @@ export type FilaPaginada = Record <string, unknown> & {
     TotalRegistros: number
 };
 
-export const paginasFilas = (filas: FilaPaginada[], pagina: number, tamanoPagina: number)=> ({
-    items: mapearFilas(filas.map(({
-        TotalRegistros: _total, ...resto
-    })=> resto)), 
+export const paginasFilas = (filas: FilaPaginada[], pagina: number, tamanoPagina: number) => ({
+    items: mapearFilas(filas.map(({ TotalRegistros: _total, ...resto }) => resto)),
     pagina,
-    tamanoPagina
+    tamanoPagina,
+    totalRegistros: Number(filas[0]?.TotalRegistros ?? 0)
 });
