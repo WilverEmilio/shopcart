@@ -5,6 +5,7 @@ import { PaginaRegistro } from '../modulos/autenticacion/paginas/PaginasRegistro
 import { RutasProtegidas } from './RutasProtegidas';
 import { PaginaCatalogo } from '../modulos/catalogo/paginas/PaginaCatalogo';
 import { PaginaDetalleProducto } from '../modulos/catalogo/paginas/PaginaDetalleProducto';
+import { PaginaCarrito } from '../modulos/carrito/paginas/PaginaCarrito';
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -34,13 +35,14 @@ export function AppRouter() {
         <Route path="/" element={<Navigate to="/catalogo" replace />} />
         <Route path="/catalogo" element={<PaginaCatalogo />} />
         <Route path="/catalogo/:idProducto" element={<PaginaDetalleProducto />} />
-          <Route path="/carrito" element={<Provisional titulo="Carrito" />} />
+          <Route path="/carrito" element={<PaginaCarrito/>} />
           <Route path="/iniciar-sesion" element={<PaginaIniciarSesion />} />
           <Route path="/registro" element={<PaginaRegistro />} />
           <Route path="/sin-permiso" element={<Provisional titulo="No tienes permiso para ver esta página" />} />
 
           <Route element={<RutasProtegidas rolesPermitidos={['Cliente']} />}>
             <Route path="/mis-pedidos" element={<Provisional titulo="Mis pedidos" />} />
+            <Route path='/checkout' element={<Provisional titulo='Checkout'/>}/>
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Operador', 'Administrador']} />}>

@@ -1,5 +1,3 @@
-import { SNIEntry } from "node:quic";
-
 export interface DireccionEntrada {
     nombreDestinatario: string;
     telefono: string;

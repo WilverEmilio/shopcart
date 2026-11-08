@@ -1,5 +1,6 @@
 import { obtenerDetalleProducto } from "../repositorio/producto-detalle.respositorio";
 import { ErrorAplicacion } from "../../../shared/errores/error-aplicacion";
+import {mapearFila, mapearFilas} from '../../../shared/utilidades/mapeo'
 
 export const ObtenerDetalleProductoServicio = async (
     idProducto: number,
@@ -17,5 +18,10 @@ export const ObtenerDetalleProductoServicio = async (
             404
         );
     }
-    return producto;
+    return {
+        producto: mapearFila(producto.producto),
+        imagenes: mapearFilas(producto.imagenes),
+        variantes: mapearFilas(producto.variantes),
+        atributos: mapearFilas(producto.atributos),
+    };
 }

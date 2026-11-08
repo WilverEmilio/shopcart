@@ -4,6 +4,7 @@ import { Boton } from '../componentes/Boton';
 import { menuPara } from '../configuracion/menu';
 import { useSesionEstado } from '../estados/sesionEstado';
 import { cerrarSesion } from '../modulos/autenticacion/servicios/autenticacionServicio';
+import { useCarrito } from '../modulos/carrito/hooks/useCarrito';
 
 const claseEnlace = ({ isActive }: { isActive: boolean }) =>
   `rounded-md px-3 py-2 text-sm font-medium ${
@@ -16,6 +17,9 @@ export function DisenoPrincipal() {
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   const elementos = menuPara(usuario?.rol ?? null);
+  const puedeVerCarrito = !usuario || usuario.rol === 'Cliente';
+  const { data: carrito } = useCarrito(puedeVerCarrito);
+  const cantidadCarrito = carrito?.items.reduce((total, i) => total + i.cantidad, 0) ?? 0;
 
   const alCerrarSesion = async () => {
     await cerrarSesion();
@@ -45,10 +49,13 @@ export function DisenoPrincipal() {
             className={`${menuAbierto ? 'flex' : 'hidden'} w-full flex-col gap-1 md:flex md:w-auto md:flex-row md:flex-wrap md:items-center`}
           >
             {elementos.map((e) => (
-              <NavLink key={e.ruta} to={e.ruta} className={claseEnlace} onClick={() => setMenuAbierto(false)}>
-                {e.etiqueta}
-              </NavLink>
-            ))}
+                <NavLink key={e.ruta} to={e.ruta} className={claseEnlace} onClick={() => setMenuAbierto(false)}>
+                  {e.etiqueta}
+                  {e.ruta === '/carrito' && cantidadCarrito > 0 && (
+                    <span className="ml-2 rounded-full bg-indigo-600 px-2 py-0.5 text-xs text-white">{cantidadCarrito}</span>
+                  )}
+                </NavLink>
+              ))}
 
             <div className="flex items-center gap-3 border-t border-gray-200 pt-2 md:ml-4 md:border-0 md:pt-0">
               {usuario ? (

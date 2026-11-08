@@ -1,0 +1,1 @@
+export const CLAVE_CARRITO = ['carrito'] as const;

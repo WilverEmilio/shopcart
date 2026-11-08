@@ -84,25 +84,13 @@ export const iniciarSesion = async (
     const correo = credenciales.correo.trim().toLowerCase();
     const usuario = await obtenerUsuariosPorCorreo(correo);
 
-    const sontrasenaValida = await bcrypt.compare(
-        credenciales.contrasena,
-        usuario?.PasswordHash ?? HASH_FALSO
-    ); 
-    if (!usuario || !usuario.Activo){
-        throw new ErrorAplicacion(
-            'Correo o contraseña incorrectos',
-            40100,
-            401
-        )
-    }
-
     const contrasenaValida = await bcrypt.compare(
         credenciales.contrasena,
-        usuario.PasswordHash
+        usuario?.PasswordHash ?? HASH_FALSO
     );
 
-    if(!contrasenaValida) {
-        throw new Error('Correo o contraseña incorrectas');
+    if (!usuario || !usuario.Activo || !contrasenaValida) {
+        throw new ErrorAplicacion('Correo o contraseña incorrectos', 40100, 401);
     }
 
     const tokenAcceso = generarTokenAcceso(

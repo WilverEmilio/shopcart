@@ -7,6 +7,11 @@ import { ImagenProducto } from '../../../componentes/ImagenProducto';
 import { formatearMoneda } from '../../../utilidades/formato';
 import { useDetalleProducto } from '../hooks/useCatalogo';
 import type { ProductoDetalle } from '../tipos/catalogo';
+import { useSesionEstado } from '../../../estados/sesionEstado';
+import { normalizarError } from '../../../servicios/errorServicio';
+import { useAccionesCarrito } from '../../carrito/hooks/useCarrito';
+
+
 
 function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
   const { producto, imagenes, variantes, atributos } = detalle;
@@ -33,6 +38,20 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
   );
   const [cantidad, setCantidad] = useState(1);
 
+    const usuario = useSesionEstado((e) => e.usuario);
+  const { agregar } = useAccionesCarrito();
+  const puedeComprar = !usuario || usuario.rol === 'Cliente';
+  const [aviso, setAviso] = useState<string | null>(null);
+
+  const agregarAlCarrito = () => {
+    if (!variante) return;
+    setAviso(null);
+    agregar.mutate(
+      { idVariante: variante.idVariante, cantidad },
+      { onSuccess: () => setAviso('Producto agregado al carrito.') }
+    );
+  };
+
   const variante = variantes.find((v) => v.idVariante === idVarianteElegida);
   const disponible = variante?.existenciaDisponible ?? 0;
   const agotada = disponible <= 0;
@@ -46,6 +65,8 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
   const elegirVariante = (id: number) => {
     setIdVarianteElegida(id);
     setCantidad(1);
+    setAviso(null);
+    agregar.reset();
   };
 
   return (
@@ -141,11 +162,32 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
                 className="w-24 rounded-md border border-gray-300 px-3 py-2 text-sm disabled:bg-gray-100"
               />
             </div>
-
-            <Boton disabled title="Se activa en el siguiente paso">
-              Agregar al carrito
-            </Boton>
+            {puedeComprar && (
+              <Boton onClick={agregarAlCarrito} disabled={agotada} cargando={agregar.isPending}>
+                Agregar al carrito
+              </Boton>
+            )}
           </div>
+          {!puedeComprar && (
+            <p className='mt-4 text-sm text-gray-500'>
+              Las cuentas de gestión no realizan compras.
+            </p>
+          )}
+
+          {aviso&&(
+            <p role='status' className='mt-3 text-sm text-green-700'>
+              {aviso}{' '}
+              <Link to='/carrito' className='font-medium underline'>
+              Ver carrito
+              </Link>
+            </p>
+          )}
+
+          {agregar.isError && (
+            <p role='alert' className='mt-3 text-sm text-red-600'>
+              {normalizarError(agregar.error).mensaje}
+            </p>
+          )}
         </div>
       </div>
     </main>

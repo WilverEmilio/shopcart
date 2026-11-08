@@ -8,6 +8,8 @@ import type {
 } from '../../../tipos/autenticacion';
 import type { RespuesaApi } from '../../../tipos/respuestaApi';
 import type { Perfil, Usuario } from '../../../tipos/usuario';
+import { CLAVE_CARRITO } from '../../carrito/constantes';
+import { fusionarCarritoInvitado } from '../../carrito/servicios/carritoServicio';
 
 export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promise<Usuario> {
   const { data } = await clienteHttp.post<RespuesaApi<RespuestaInicioSesion>>(
@@ -16,8 +18,12 @@ export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promis
   );
   const { usuario, tokenAcceso, tokenRefresco } = data.datos;
 
-  useSesionEstado.getState().establecerSesion(tokenAcceso, tokenRefresco, usuario);
   clienteQuery.clear();
+  const fusion = usuario.rol === 'Cliente' ? await fusionarCarritoInvitado(tokenAcceso) : null;
+
+  useSesionEstado.getState().establecerSesion(tokenAcceso, tokenRefresco, usuario);
+  if (fusion) clienteQuery.setQueryData(CLAVE_CARRITO, fusion.carrito);
+
   return usuario;
 }
 

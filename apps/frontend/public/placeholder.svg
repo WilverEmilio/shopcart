@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <rect width="400" height="400" fill="#f3f4f6"/>
-  <text x="200" y="210" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#9ca3af">Sin imagen</text>
+  <rect width="400" height="400" fill="#e5e7eb"/>
+  <rect x="120" y="130" width="160" height="140" rx="10" fill="none" stroke="#9ca3af" stroke-width="10"/>
+  <circle cx="165" cy="175" r="14" fill="#9ca3af"/>
+  <path d="M130 260 L185 205 L220 240 L245 215 L270 260 Z" fill="#9ca3af"/>
 </svg>
