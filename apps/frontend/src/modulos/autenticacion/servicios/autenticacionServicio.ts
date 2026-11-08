@@ -10,6 +10,7 @@ import type { RespuesaApi } from '../../../tipos/respuestaApi';
 import type { Perfil, Usuario } from '../../../tipos/usuario';
 import { CLAVE_CARRITO } from '../../carrito/constantes';
 import { fusionarCarritoInvitado } from '../../carrito/servicios/carritoServicio';
+import { useCheckoutEstado } from '../../../estados/checkoutEstado';
 
 export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promise<Usuario> {
   const { data } = await clienteHttp.post<RespuesaApi<RespuestaInicioSesion>>(
@@ -19,6 +20,7 @@ export async function iniciarSesion(credenciales: SolicitudInicioSesion): Promis
   const { usuario, tokenAcceso, tokenRefresco } = data.datos;
 
   clienteQuery.clear();
+  useCheckoutEstado.getState().reiniciar();
   const fusion = usuario.rol === 'Cliente' ? await fusionarCarritoInvitado(tokenAcceso) : null;
 
   useSesionEstado.getState().establecerSesion(tokenAcceso, tokenRefresco, usuario);
@@ -46,6 +48,7 @@ export async function cerrarSesion(): Promise<void> {
   } catch {
   } finally {
     useSesionEstado.getState().cerrarSesion();
+    useCheckoutEstado.getState().reiniciar();
     clienteQuery.clear();
   }
 }

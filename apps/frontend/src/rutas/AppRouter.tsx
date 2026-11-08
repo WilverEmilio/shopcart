@@ -6,6 +6,8 @@ import { RutasProtegidas } from './RutasProtegidas';
 import { PaginaCatalogo } from '../modulos/catalogo/paginas/PaginaCatalogo';
 import { PaginaDetalleProducto } from '../modulos/catalogo/paginas/PaginaDetalleProducto';
 import { PaginaCarrito } from '../modulos/carrito/paginas/PaginaCarrito';
+import { PaginaCheckout } from '../modulos/checkout/paginas/PaginaCheckout';
+import { PaginaPedidoConfirmado } from '../modulos/checkout/paginas/PaginaPedidoConfirmado';
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -42,7 +44,8 @@ export function AppRouter() {
 
           <Route element={<RutasProtegidas rolesPermitidos={['Cliente']} />}>
             <Route path="/mis-pedidos" element={<Provisional titulo="Mis pedidos" />} />
-            <Route path='/checkout' element={<Provisional titulo='Checkout'/>}/>
+            <Route path='/checkout' element={<PaginaCheckout/>}/>
+            <Route path='/checkout/confirmacion' element={<PaginaPedidoConfirmado/>}/>
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Operador', 'Administrador']} />}>
