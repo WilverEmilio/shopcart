@@ -1,4 +1,3 @@
-import { SNIEntry } from 'node:quic';
 import { z } from 'zod';
 
 export const idParametroEsquema = z.object({
