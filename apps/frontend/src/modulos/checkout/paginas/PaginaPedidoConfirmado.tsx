@@ -24,8 +24,11 @@ export function PaginaPedidoConfirmado() {
         </p>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
-          <Link to="/mis-pedidos" className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
-            Ver mis pedidos
+          <Link
+            to={pedido.idPedido ? `/mis-pedidos/${pedido.idPedido}` : '/mis-pedidos'}
+            className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          >
+            Ver mi pedido
           </Link>
           <Link to="/catalogo" className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
             Seguir comprando

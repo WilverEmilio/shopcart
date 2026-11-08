@@ -8,6 +8,11 @@ import { PaginaDetalleProducto } from '../modulos/catalogo/paginas/PaginaDetalle
 import { PaginaCarrito } from '../modulos/carrito/paginas/PaginaCarrito';
 import { PaginaCheckout } from '../modulos/checkout/paginas/PaginaCheckout';
 import { PaginaPedidoConfirmado } from '../modulos/checkout/paginas/PaginaPedidoConfirmado';
+import { PaginaDetalleMiPedido } from '../modulos/pedidos/paginas/PaginaDetalleMiPedido';
+import { PaginaDetallePedidoGestion } from '../modulos/pedidos/paginas/PaginaDetallePedidosGestion';
+import { PaginaMisPedidos } from '../modulos/pedidos/paginas/PaginaMisPedidos';
+import { PaginaPedidosGestion } from '../modulos/pedidos/paginas/PaginaPedidosGestion';
+
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -16,7 +21,6 @@ const Provisional = ({ titulo }: { titulo: string }) => (
 );
 
 const rutasGestion = [
-  ['pedidos', 'Pedidos'],
   ['inventario', 'Inventario'],
 ] as const;
 
@@ -43,12 +47,15 @@ export function AppRouter() {
           <Route path="/sin-permiso" element={<Provisional titulo="No tienes permiso para ver esta página" />} />
 
           <Route element={<RutasProtegidas rolesPermitidos={['Cliente']} />}>
-            <Route path="/mis-pedidos" element={<Provisional titulo="Mis pedidos" />} />
+            <Route path="/mis-pedidos" element={<PaginaMisPedidos />} />
+            <Route path="/mis-pedidos/:idPedido" element={<PaginaDetalleMiPedido />} />
             <Route path='/checkout' element={<PaginaCheckout/>}/>
             <Route path='/checkout/confirmacion' element={<PaginaPedidoConfirmado/>}/>
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Operador', 'Administrador']} />}>
+          <Route path="/gestion/pedidos" element={<PaginaPedidosGestion />} />
+          <Route path="/gestion/pedidos/:idPedido" element={<PaginaDetallePedidoGestion />} />
             {rutasGestion.map(([ruta, titulo]) => (
               <Route key={ruta} path={`/gestion/${ruta}`} element={<Provisional titulo={titulo} />} />
             ))}

@@ -17,3 +17,10 @@ export const formatearTemporizador = (milisegundos: number): string => {
     const segundos = total % 60;
     return`${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`
 }
+
+const formatoFechaHora = new Intl.DateTimeFormat('es-GT', {
+    dateStyle: 'medium', 
+    timeStyle: 'short'
+});
+
+export const formatearFechaHora = (iso: string): string => formatoFechaHora.format(new Date(iso));
