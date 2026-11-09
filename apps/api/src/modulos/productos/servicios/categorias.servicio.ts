@@ -6,12 +6,16 @@ import { eliminarCategoria,
     cambiarEstadoCategoria,
     listarCategorias
 } from "../repositorio/categorias.repositorio";
+import { mapearFila } from "../../../shared/utilidades/mapeo";
 
-export  const obtenerCategorias = async(
-    filtros: FiltrosCategorias
-): Promise<ResultadoCategorias> => {
-    return await listarCategorias(filtros);
-}
+export const obtenerCategorias = async (filtros: FiltrosCategorias) => {
+  const resultado = await listarCategorias(filtros);
+
+  return {
+    ...resultado,
+    categorias: mapearFila(resultado.categorias.map(({ TotalRegistros: _total, ...resto }) => resto)),
+  };
+};
 
 export const actualizarCategoriaServicio = async (
     idUsuarioActor: number,
