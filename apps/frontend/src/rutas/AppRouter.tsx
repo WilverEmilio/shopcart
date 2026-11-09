@@ -12,7 +12,9 @@ import { PaginaDetalleMiPedido } from '../modulos/pedidos/paginas/PaginaDetalleM
 import { PaginaDetallePedidoGestion } from '../modulos/pedidos/paginas/PaginaDetallePedidosGestion';
 import { PaginaMisPedidos } from '../modulos/pedidos/paginas/PaginaMisPedidos';
 import { PaginaPedidosGestion } from '../modulos/pedidos/paginas/PaginaPedidosGestion';
-
+import { PaginaConciliacion } from '../modulos/inventario/paginas/PaginaConciliacion';
+import { PaginaExistencias } from '../modulos/inventario/paginas/PaginaExistencias';
+import { PaginaKardex } from '../modulos/inventario/paginas/PaginaKardex';
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -54,11 +56,11 @@ export function AppRouter() {
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Operador', 'Administrador']} />}>
-          <Route path="/gestion/pedidos" element={<PaginaPedidosGestion />} />
-          <Route path="/gestion/pedidos/:idPedido" element={<PaginaDetallePedidoGestion />} />
-            {rutasGestion.map(([ruta, titulo]) => (
-              <Route key={ruta} path={`/gestion/${ruta}`} element={<Provisional titulo={titulo} />} />
-            ))}
+            <Route path="/gestion/pedidos" element={<PaginaPedidosGestion />} />
+            <Route path="/gestion/pedidos/:idPedido" element={<PaginaDetallePedidoGestion />} />
+            <Route path="/gestion/inventario" element={<PaginaExistencias />} />
+            <Route path="/gestion/inventario/kardex" element={<PaginaKardex />} />
+            <Route path="/gestion/inventario/conciliacion" element={<PaginaConciliacion />} />
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Administrador']} />}>
