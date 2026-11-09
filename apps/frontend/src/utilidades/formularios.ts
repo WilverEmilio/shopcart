@@ -1,6 +1,6 @@
 import type {FieldValues, Path, UseFormSetError} from 'react-hook-form';
 import { erroresPorCampo, normalizarError } from '../servicios/errorServicio';
-
+import type {ZodError} from 'zod';
 
 export function aplicarErrorServidor<T extends FieldValues>(
   error: unknown,
@@ -22,4 +22,12 @@ export function aplicarErrorServidor<T extends FieldValues>(
   }
 
   return aplicado ? null : normalizarError(error).mensaje;
+}
+export function erroresDeZod(error: ZodError): Record<string, string> {
+  const resultado: Record<string, string> = {};
+  for (const problema of error.issues) {
+    const clave = problema.path.map(String).join('.');
+    resultado[clave] ??= problema.message;
+  }
+  return resultado;
 }

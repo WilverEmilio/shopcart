@@ -15,6 +15,10 @@ import { PaginaPedidosGestion } from '../modulos/pedidos/paginas/PaginaPedidosGe
 import { PaginaConciliacion } from '../modulos/inventario/paginas/PaginaConciliacion';
 import { PaginaExistencias } from '../modulos/inventario/paginas/PaginaExistencias';
 import { PaginaKardex } from '../modulos/inventario/paginas/PaginaKardex';
+import { PaginaCategoriasAdmin } from '../modulos/catalogoAdmin/paginas/PaginaCategoriaAdmin';
+import { PaginaProductoEditar } from '../modulos/catalogoAdmin/paginas/PaginaProductoEditar';
+import { PaginaProductoNuevo } from '../modulos/catalogoAdmin/paginas/PaginaProductoNuevo';
+import { PaginaProductosAdmin } from '../modulos/catalogoAdmin/paginas/PaginaProductosAdmin';
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -22,14 +26,8 @@ const Provisional = ({ titulo }: { titulo: string }) => (
   </main>
 );
 
-const rutasGestion = [
-  ['inventario', 'Inventario'],
-] as const;
-
 const rutasAdmin = [
   ['dashboard', 'Dashboard'],
-  ['productos', 'Productos'],
-  ['categorias', 'Categorías'],
   ['cupones', 'Cupones'],
   ['usuarios', 'Usuarios'],
   ['bitacora', 'Bitácora'],
@@ -64,6 +62,10 @@ export function AppRouter() {
           </Route>
 
           <Route element={<RutasProtegidas rolesPermitidos={['Administrador']} />}>
+            <Route path="/admin/categorias" element={<PaginaCategoriasAdmin />} />
+            <Route path="/admin/productos" element={<PaginaProductosAdmin />} />
+            <Route path="/admin/productos/nuevo" element={<PaginaProductoNuevo />} />
+            <Route path="/admin/productos/:idProducto" element={<PaginaProductoEditar />} />
             {rutasAdmin.map(([ruta, titulo]) => (
               <Route key={ruta} path={`/admin/${ruta}`} element={<Provisional titulo={titulo} />} />
             ))}
