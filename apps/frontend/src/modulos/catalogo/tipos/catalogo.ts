@@ -7,6 +7,7 @@ export interface FiltrosCatalogo {
   precioMinimo?: number;
   precioMaximo?: number;
   soloDisponibles?: boolean;
+  activo?:boolean
   ordenarPor?: OrdenCatalogo;
   direccion?: DireccionOrden;
   pagina?: number;
