@@ -4,10 +4,11 @@ interface Propiedades {
   abierto: boolean;
   titulo: string;
   alCerrar: () => void;
+  ancho?: 'normal' | 'amplio';
   children: ReactNode;
 }
 
-export function Modal({ abierto, titulo, alCerrar, children }: Propiedades) {
+export function Modal({ abierto, titulo, alCerrar, ancho = 'normal', children }: Propiedades) {
   const dialogo = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export function Modal({ abierto, titulo, alCerrar, children }: Propiedades) {
       ref={dialogo}
       onClose={alCerrar}
       aria-labelledby="titulo-modal"
-      className="m-auto w-[min(32rem,92vw)] rounded-lg p-0 shadow-xl backdrop:bg-black/40"
+      className={`m-auto max-h-[90vh] overflow-y-auto rounded-lg p-0 shadow-xl backdrop:bg-black/40 ${
+        ancho === 'amplio' ? 'w-[min(44rem,94vw)]' : 'w-[min(32rem,92vw)]'
+      }`}
     >
       {abierto && (
         <div className="p-6">
