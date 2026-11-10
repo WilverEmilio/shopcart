@@ -5,9 +5,9 @@ import { EstadoVacio } from '../../../componentes/EstadoVacio';
 import { Paginador } from '../../../componentes/Paginador';
 import { useParametrosUrl } from '../../../hooks/useParametrosUrl';
 import { formatearFechaHora, formatearMoneda } from '../../../utilidades/formato';
-import { FiltrosPedidosGestion, OPCIONES_ORDEN_PEDIDOS } from '../componentes/FiltrosPedidosGestion';
+import { FiltrosPedidosGestion } from '../componentes/FiltrosPedidosGestion';
 import { InsigniaEstado } from '../componentes/InsigniaEstado';
-import { ESTADOS_PEDIDO } from '../constante';
+import { ESTADOS_PEDIDO, OPCIONES_ORDEN_PEDIDOS } from '../constante';
 import { usePedidosGestion } from '../hooks/usePedidos';
 import type { FiltrosPedidosGestion as Filtros } from '../tipos/pedido';
 

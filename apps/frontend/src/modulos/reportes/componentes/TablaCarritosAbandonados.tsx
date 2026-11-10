@@ -5,13 +5,7 @@ import { Paginador } from '../../../componentes/Paginador';
 import { formatearFechaHora, formatearMoneda } from '../../../utilidades/formato';
 import { useCarritosAbandonados } from '../hooks/useReportes';
 import type { FiltrosAbandonados } from '../tipos/reportes';
-
-export const OPCIONES_ORDEN_ABANDONADOS = [
-  { valor: 'HorasInactivo|DESC', etiqueta: 'Más tiempo inactivos' },
-  { valor: 'HorasInactivo|ASC', etiqueta: 'Más recientes' },
-  { valor: 'Valor|DESC', etiqueta: 'Mayor valor' },
-  { valor: 'Unidades|DESC', etiqueta: 'Más unidades' },
-] as const;
+import { OPCIONES_ORDEN_ABANDONADOS } from '../constante';
 
 interface Propiedades {
   filtros: FiltrosAbandonados;

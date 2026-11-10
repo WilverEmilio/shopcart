@@ -46,6 +46,7 @@ export async function cerrarSesion(): Promise<void> {
       await clienteHttp.post('/autenticacion/cerrar-sesion', { tokenRefresco });
     }
   } catch {
+    // Aunque la API falle, la sesión local se cierra igual en el bloque finally
   } finally {
     useSesionEstado.getState().cerrarSesion();
     useCheckoutEstado.getState().reiniciar();
@@ -64,6 +65,7 @@ export function restaurarSesion(): Promise<void> {
         useSesionEstado.getState().establecerUsuario(perfil);
       }
     } catch {
+      // Sesión inválida o sin red: la app continúa como visitante
     } finally {
       useSesionEstado.getState().marcarInicializada();
     }

@@ -2,21 +2,14 @@ import { useState, type FormEvent } from 'react';
 import { Boton } from '../../../componentes/Boton';
 import { CampoFormulario } from '../../../componentes/CampoFormulario';
 import type { CategoriaPublica } from '../../catalogo/tipos/catalogo';
+import { OPCIONES_ORDEN_EXISTENCIAS } from '../constante';
 
-export const OPCIONES_ORDEN_EXISTENCIAS = [
-  { valor: 'Producto|ASC', etiqueta: 'Producto (A-Z)' },
-  { valor: 'Producto|DESC', etiqueta: 'Producto (Z-A)' },
-  { valor: 'SKU|ASC', etiqueta: 'SKU (A-Z)' },
-  { valor: 'SKU|DESC', etiqueta: 'SKU (Z-A)' },
-  { valor: 'Disponible|ASC', etiqueta: 'Disponible: menor a mayor' },
-  { valor: 'Disponible|DESC', etiqueta: 'Disponible: mayor a menor' },
-] as const;
 
 interface Propiedades {
   texto: string;
   idCategoria: number | undefined;
   soloSinDisponibilidad: boolean;
-  activo: string; // '' | 'true' | 'false'
+  activo: string; 
   orden: string;
   categorias: CategoriaPublica[];
   alCambiar: (cambios: Record<string, string | undefined>) => void;

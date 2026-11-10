@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Suspense } from 'react';
+import { EstadoCarga } from '../componentes/EstadoCarga';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Boton } from '../componentes/Boton';
 import { menuPara } from '../configuracion/menu';
@@ -81,9 +83,10 @@ export function DisenoPrincipal() {
           </nav>
         </div>
       </header>
-
       <div className="flex-1">
-        <Outlet />
+        <Suspense fallback={<EstadoCarga />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

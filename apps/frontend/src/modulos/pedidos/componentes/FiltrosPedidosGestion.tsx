@@ -1,17 +1,10 @@
 import { useState, type FormEvent } from 'react';
 import { Boton } from '../../../componentes/Boton';
 import { CampoFormulario } from '../../../componentes/CampoFormulario';
-import { ESTADOS_PEDIDO, ETIQUETA_ESTADO } from '../constante';
+import { ESTADOS_PEDIDO, ETIQUETA_ESTADO, OPCIONES_ORDEN_PEDIDOS } from '../constante';
 import type { EstadoPedido } from '../tipos/pedido';
 
-export const OPCIONES_ORDEN_PEDIDOS = [
-  { valor: 'Fecha|DESC', etiqueta: 'Más recientes' },
-  { valor: 'Fecha|ASC', etiqueta: 'Más antiguos' },
-  { valor: 'Total|DESC', etiqueta: 'Total: mayor a menor' },
-  { valor: 'Total|ASC', etiqueta: 'Total: menor a mayor' },
-  { valor: 'Cliente|ASC', etiqueta: 'Cliente (A-Z)' },
-  { valor: 'Estado|ASC', etiqueta: 'Estado' },
-] as const;
+
 
 interface Propiedades {
   estado: EstadoPedido | undefined;

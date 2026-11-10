@@ -1,6 +1,12 @@
 import type { TipoMovimiento } from './tipos/inventario';
 
-export const TIPOS_MOVIMIENTO: TipoMovimiento[] = ['ENTRADA', 'SALIDA', 'AJUSTE', 'DEVOLUCION', 'CANCELACION'];
+export const TIPOS_MOVIMIENTO: TipoMovimiento[] = [
+  'ENTRADA', 
+  'SALIDA', 
+  'AJUSTE', 
+  'DEVOLUCION', 
+  'CANCELACION'
+] as const;
 
 export const ETIQUETA_MOVIMIENTO: Record<TipoMovimiento, string> = {
   ENTRADA: 'Entrada',
@@ -17,3 +23,12 @@ export const CLASE_MOVIMIENTO: Record<TipoMovimiento, string> = {
   DEVOLUCION: 'bg-blue-100 text-blue-800',
   CANCELACION: 'bg-indigo-100 text-indigo-800',
 };
+
+export const OPCIONES_ORDEN_EXISTENCIAS = [
+  { valor: 'Producto|ASC', etiqueta: 'Producto (A-Z)' },
+  { valor: 'Producto|DESC', etiqueta: 'Producto (Z-A)' },
+  { valor: 'SKU|ASC', etiqueta: 'SKU (A-Z)' },
+  { valor: 'SKU|DESC', etiqueta: 'SKU (Z-A)' },
+  { valor: 'Disponible|ASC', etiqueta: 'Disponible: menor a mayor' },
+  { valor: 'Disponible|DESC', etiqueta: 'Disponible: mayor a menor' },
+] as const;

@@ -2,7 +2,7 @@ import type { EstadoAvance, EstadoPedido } from './tipos/pedido';
 
 export const ESTADOS_PEDIDO: EstadoPedido[] = [
   'PAGADO', 'EN_PREPARACION', 'DESPACHADO', 'ENTREGADO', 'CANCELADO', 'DEVUELTO_PARCIAL', 'DEVUELTO',
-];
+] as const;
 
 export const ETIQUETA_ESTADO: Record<EstadoPedido, string> = {
   PAGADO: 'Pagado',
@@ -31,3 +31,12 @@ export const ACCION_AVANCE: Record<EstadoAvance, string> = {
 };
 
 export const esEstadoAvance = (estado: EstadoPedido): estado is EstadoAvance => estado in ACCION_AVANCE;
+
+export const OPCIONES_ORDEN_PEDIDOS = [
+  { valor: 'Fecha|DESC', etiqueta: 'Más recientes' },
+  { valor: 'Fecha|ASC', etiqueta: 'Más antiguos' },
+  { valor: 'Total|DESC', etiqueta: 'Total: mayor a menor' },
+  { valor: 'Total|ASC', etiqueta: 'Total: menor a mayor' },
+  { valor: 'Cliente|ASC', etiqueta: 'Cliente (A-Z)' },
+  { valor: 'Estado|ASC', etiqueta: 'Estado' },
+] as const;

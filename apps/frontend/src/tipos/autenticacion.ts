@@ -7,10 +7,10 @@ export interface SolicitudInicioSesion {
 
 export interface SolicitudRegistro {
   correo: string;
-  contrasena: String;
-  nombres: String;
-  apellidos: String; 
-  telefono?: String | null;
+  contrasena: string;
+  nombres: string;
+  apellidos: string; 
+  telefono?: string | null;
 }
 
 export interface RespuestaInicioSesion {
