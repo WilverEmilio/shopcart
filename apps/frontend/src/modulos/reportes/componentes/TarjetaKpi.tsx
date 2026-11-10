@@ -8,20 +8,32 @@ interface Propiedades {
 }
 
 export function TarjetaKpi({ titulo, valor, detalle, variacion }: Propiedades) {
+  const sube = variacion !== undefined && variacion !== null && variacion >= 0;
+
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{titulo}</p>
-      <p className="mt-1 text-2xl font-semibold">{valor}</p>
+    <div className="tarjeta flex flex-col p-4 sm:p-5">
+      <p className="text-xs font-semibold uppercase tracking-wide text-gray-600">{titulo}</p>
+      <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-gray-900 sm:text-3xl">{valor}</p>
 
       {variacion !== undefined && (
-        <p className={`mt-1 text-xs font-medium ${variacion === null ? 'text-gray-400' : variacion >= 0 ? 'text-green-700' : 'text-red-600'}`}>
-          {variacion === null
-            ? 'Sin periodo anterior para comparar'
-            : `${variacion >= 0 ? '▲' : '▼'} ${Math.abs(variacion).toFixed(1)} % vs periodo anterior`}
+        <p className="mt-2">
+          {variacion === null ? (
+            <span className="text-xs text-gray-600">Sin periodo anterior para comparar</span>
+          ) : (
+            <span
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums ${
+                sube ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+              }`}
+            >
+              <span aria-hidden="true">{sube ? '▲' : '▼'}</span>
+              <span className="sr-only">{sube ? 'Sube' : 'Baja'}</span>
+              {Math.abs(variacion).toFixed(1)} %<span className="font-normal"> vs periodo anterior</span>
+            </span>
+          )}
         </p>
       )}
 
-      {detalle && <p className="mt-1 text-xs text-gray-500">{detalle}</p>}
+      {detalle && <p className="mt-auto pt-2 text-xs text-gray-600">{detalle}</p>}
     </div>
   );
 }

@@ -30,14 +30,14 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
         </p>
 
         <div>
-          <label htmlFor="ab-orden" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="ab-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
             Ordenar por
           </label>
           <select
             id="ab-orden"
             value={orden}
             onChange={(e) => alCambiarOrden(e.target.value)}
-            className="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+            className="control w-auto"
           >
             {OPCIONES_ORDEN_ABANDONADOS.map((o) => (
               <option key={o.valor} value={o.valor}>
@@ -56,9 +56,9 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
         <EstadoVacio titulo="No hay carritos abandonados" descripcion="Todos los carritos activos tienen movimiento reciente." />
       ) : (
         <>
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`overflow-x-auto rounded-control border border-gray-200 transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Cliente</th>
                   <th className="px-4 py-3 text-right">Líneas</th>
@@ -70,7 +70,7 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((c) => (
-                  <tr key={c.idCarrito} className="hover:bg-gray-50">
+                  <tr key={c.idCarrito}>
                     <td className="px-4 py-3">{c.esInvitado ? <span className="text-gray-500">Invitado</span> : c.cliente}</td>
                     <td className="px-4 py-3 text-right">{c.lineas}</td>
                     <td className="px-4 py-3 text-right">{c.unidades}</td>

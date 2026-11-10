@@ -35,7 +35,7 @@ export function FiltroRango({ rango, alCambiar }: Propiedades) {
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="flex flex-wrap items-end gap-3 rounded-lg border border-gray-200 bg-white p-4">
+    <form onSubmit={aplicar} noValidate className="tarjeta flex flex-wrap items-end gap-3 p-4">
       <div className="flex flex-wrap gap-2">
         {PRESETS_RANGO.map((p) => {
           const rangoPreset = rangoUltimosDias(p.dias);
@@ -51,8 +51,8 @@ export function FiltroRango({ rango, alCambiar }: Propiedades) {
                 setError(null);
                 alCambiar({ desde: rangoPreset.fechaDesde, hasta: rangoPreset.fechaHasta });
               }}
-              className={`rounded-md border px-3 py-2 text-sm ${
-                activo ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-gray-300 hover:bg-gray-100'
+              className={`inline-flex min-h-10 items-center rounded-full border px-3 text-sm font-medium transition-colors duration-150 ${
+                activo ? 'border-marca-600 bg-marca-600 text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
               {p.etiqueta}

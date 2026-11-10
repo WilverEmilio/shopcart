@@ -51,16 +51,16 @@ function Filtros({ modulo, fechaDesde, fechaHasta, alCambiar, alLimpiar }: Propi
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-end">
+    <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-end">
       <div>
-        <label htmlFor="bit-modulo" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="bit-modulo" className="mb-1.5 block text-sm font-medium text-gray-700">
           Módulo
         </label>
         <select
           id="bit-modulo"
           value={modulo}
           onChange={(e) => alCambiar({ modulo: e.target.value || undefined })}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         >
           <option value="">Todos</option>
           {MODULOS_BITACORA.map((m) => (
@@ -111,10 +111,10 @@ export function PaginaBitacora() {
   const [detalle, setDetalle] = useState<RegistroBitacora | null>(null);
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div>
-        <h1 className="text-2xl font-semibold">Bitácora</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Bitácora</h1>
+        <p className="text-sm text-gray-600">
           Registro de auditoría de solo lectura: no puede modificarse ni eliminarse.
         </p>
       </div>
@@ -136,11 +136,11 @@ export function PaginaBitacora() {
         <EstadoVacio titulo="Sin registros" descripcion="No hay movimientos con esos filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} registros</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} registros</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Fecha</th>
                   <th className="px-4 py-3">Módulo</th>
@@ -152,12 +152,12 @@ export function PaginaBitacora() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((r) => (
-                  <tr key={String(r.idBitacora)} className="hover:bg-gray-50">
+                  <tr key={String(r.idBitacora)}>
                     <td className="whitespace-nowrap px-4 py-3">{formatearFechaHora(r.fecha)}</td>
                     <td className="px-4 py-3">{r.modulo}</td>
                     <td className="px-4 py-3">
                       {r.entidad}
-                      {r.idEntidad !== null && <span className="text-gray-400"> #{r.idEntidad}</span>}
+                      {r.idEntidad !== null && <span className="text-gray-500"> #{r.idEntidad}</span>}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_ACCION[r.accios] ?? 'bg-gray-200 text-gray-700'}`}>
@@ -166,7 +166,7 @@ export function PaginaBitacora() {
                     </td>
                     <td className="px-4 py-3 text-xs text-gray-600">{r.correoUsuario ?? 'Sistema'}</td>
                     <td className="px-4 py-3 text-right">
-                      <button type="button" onClick={() => setDetalle(r)} className="text-indigo-600 hover:underline">
+                      <button type="button" onClick={() => setDetalle(r)} className="font-medium text-marca-700 hover:underline">
                         Ver detalle
                       </button>
                     </td>

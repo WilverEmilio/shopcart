@@ -14,7 +14,7 @@ import { useExistencias } from '../hooks/useInventario';
 import type { ExistenciaVariante, FiltrosExistencias as Filtros } from '../tipos/inventario';
 
 const TAMANO_PAGINA = 20;
-const claseBotonFila = 'rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100';
+const claseBotonFila = 'boton-fila';
 
 export function PaginaExistencias() {
   const { params, actualizar, limpiar } = useParametrosUrl();
@@ -48,18 +48,18 @@ export function PaginaExistencias() {
     n <= 0 ? 'font-semibold text-red-600' : n <= 5 ? 'font-semibold text-amber-600' : '';
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
-      <h1 className="text-2xl font-semibold">Inventario</h1>
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-600">
         Disponible = existencia física − unidades reservadas por pagos en curso.
       </p>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>
@@ -85,13 +85,13 @@ export function PaginaExistencias() {
         <EstadoVacio titulo="Sin resultados" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-600">
             {consulta.data.totalRegistros} {consulta.data.totalRegistros === 1 ? 'variante' : 'variantes'}
           </p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">SKU</th>
                   <th className="px-4 py-3">Producto</th>
@@ -105,14 +105,14 @@ export function PaginaExistencias() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((v) => (
-                  <tr key={v.idVariante} className="hover:bg-gray-50">
+                  <tr key={v.idVariante}>
                     <td className="whitespace-nowrap px-4 py-3 font-mono text-xs">{v.sku}</td>
                     <td className="px-4 py-3">{v.producto}</td>
                     <td className="px-4 py-3 text-gray-600">{v.categoria}</td>
                     <td className="px-4 py-3 text-right">{v.existenciaFisica}</td>
                     <td className="px-4 py-3 text-right">{v.existenciaReservada}</td>
                     <td className={`px-4 py-3 text-right ${claseDisponible(v.existenciaDisponible)}`}>{v.existenciaDisponible}</td>
-                    <td className="px-4 py-3">{v.activo ? 'Activa' : <span className="text-gray-400">Inactiva</span>}</td>
+                    <td className="px-4 py-3">{v.activo ? 'Activa' : <span className="text-gray-500">Inactiva</span>}</td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
                         <button type="button" className={claseBotonFila} onClick={() => setMovimiento({ variante: v, tipo: 'entrada' })}>

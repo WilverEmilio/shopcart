@@ -60,20 +60,20 @@ export function SeccionDatosProducto({ detalle }: { detalle: ProductoDetalle }) 
   };
 
   return (
-    <form onSubmit={enviar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+    <form onSubmit={enviar} noValidate className="tarjeta space-y-4 p-4 sm:p-5">
       <h2 className="text-lg font-semibold">Datos generales</h2>
 
       <CampoFormulario etiqueta="Nombre" maxLength={150} value={datos.nombre} onChange={(e) => setDatos({ ...datos, nombre: e.target.value })} error={errores.nombre} />
 
       <div>
-        <label htmlFor="ep-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="ep-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
           Categoría
         </label>
         <select
           id="ep-categoria"
           value={datos.idCategoria}
           onChange={(e) => setDatos({ ...datos, idCategoria: e.target.value })}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         >
           {(categorias.data?.categorias ?? []).map((c) => (
             <option key={c.idCategoria} value={c.idCategoria}>
@@ -96,7 +96,7 @@ export function SeccionDatosProducto({ detalle }: { detalle: ProductoDetalle }) 
       </div>
 
       <div>
-        <label htmlFor="ep-descripcion" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="ep-descripcion" className="mb-1.5 block text-sm font-medium text-gray-700">
           Descripción
         </label>
         <textarea
@@ -105,13 +105,13 @@ export function SeccionDatosProducto({ detalle }: { detalle: ProductoDetalle }) 
           maxLength={4000}
           value={datos.descripcion}
           onChange={(e) => setDatos({ ...datos, descripcion: e.target.value })}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         />
         {errores.descripcion && <p className="mt-1 text-sm text-red-600">{errores.descripcion}</p>}
       </div>
 
       {mensaje && (
-        <p role={mensaje.tipo === 'ok' ? 'status' : 'alert'} className={`rounded-md p-3 text-sm ${mensaje.tipo === 'ok' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700'}`}>
+        <p role={mensaje.tipo === 'ok' ? 'status' : 'alert'} className={`rounded-control border p-3 text-sm ${mensaje.tipo === 'ok' ? 'border-green-200 bg-green-50 text-green-800' : 'border-red-200 bg-red-50 text-red-700'}`}>
           {mensaje.texto}
         </p>
       )}

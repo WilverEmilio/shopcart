@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Boton } from '../../../componentes/Boton';
+import { claseBoton } from '../../../componentes/estilosBoton';
 import { CampoFormulario } from '../../../componentes/CampoFormulario';
 import { erroresPorCampo, normalizarError } from '../../../servicios/errorServicio';
 import { erroresDeZod } from '../../../utilidades/formularios';
@@ -67,27 +68,27 @@ export function PaginaProductoNuevo() {
   };
 
   return (
-    <main className="mx-auto max-w-4xl space-y-6 p-6">
-      <Link to="/admin/productos" className="text-sm text-indigo-600 hover:underline">
+    <main className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
+      <Link to="/admin/productos" className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline">
         ← Volver a productos
       </Link>
-      <h1 className="text-2xl font-semibold">Nuevo producto</h1>
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Nuevo producto</h1>
 
       <form onSubmit={enviar} noValidate className="space-y-8">
-        <section className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+        <section className="tarjeta space-y-4 p-4 sm:p-5">
           <h2 className="text-lg font-semibold">Datos generales</h2>
 
           <CampoFormulario etiqueta="Nombre" maxLength={150} value={datos.nombre} onChange={(e) => setDatos({ ...datos, nombre: e.target.value })} error={errores.nombre} />
 
           <div>
-            <label htmlFor="np-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+            <label htmlFor="np-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
               Categoría
             </label>
             <select
               id="np-categoria"
               value={datos.idCategoria}
               onChange={(e) => setDatos({ ...datos, idCategoria: e.target.value })}
-              className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 ${errores.idCategoria ? 'border-red-500' : 'border-gray-300'}`}
+              className={`control ${errores.idCategoria ? 'border-red-500 hover:border-red-500' : ''}`}
             >
               <option value="">Selecciona una categoría...</option>
               {(categorias.data?.categorias ?? []).map((c) => (
@@ -111,7 +112,7 @@ export function PaginaProductoNuevo() {
           </div>
 
           <div>
-            <label htmlFor="np-descripcion" className="mb-1 block text-sm font-medium text-gray-700">
+            <label htmlFor="np-descripcion" className="mb-1.5 block text-sm font-medium text-gray-700">
               Descripción (opcional)
             </label>
             <textarea
@@ -120,22 +121,22 @@ export function PaginaProductoNuevo() {
               maxLength={4000}
               value={datos.descripcion}
               onChange={(e) => setDatos({ ...datos, descripcion: e.target.value })}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+              className="control"
             />
             {errores.descripcion && <p className="mt-1 text-sm text-red-600">{errores.descripcion}</p>}
           </div>
         </section>
 
-        <section className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+        <section className="tarjeta space-y-4 p-4 sm:p-5">
           <div>
             <h2 className="text-lg font-semibold">Variantes</h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600">
               Cada variante tiene su propio SKU, precio y existencia (la existencia se carga después con una entrada de inventario).
             </p>
           </div>
 
           {variantes.map((variante, i) => (
-            <div key={i} className="space-y-3 rounded-md border border-gray-200 p-4">
+            <div key={i} className="space-y-3 rounded-tarjeta border border-gray-200 bg-gray-50/50 p-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Variante {i + 1}</h3>
                 {variantes.length > 1 && (
@@ -166,13 +167,13 @@ export function PaginaProductoNuevo() {
           </Boton>
         </section>
 
-        <section className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+        <section className="tarjeta space-y-4 p-4 sm:p-5">
           <h2 className="text-lg font-semibold">Imágenes</h2>
           <EditorImagenes valor={imagenes} alCambiar={setImagenes} errores={errores} prefijo="imagenes" />
         </section>
 
         {errorGeneral && (
-          <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+          <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {errorGeneral}
           </p>
         )}
@@ -181,7 +182,7 @@ export function PaginaProductoNuevo() {
           <Boton type="submit" cargando={crear.isPending}>
             Crear producto
           </Boton>
-          <Link to="/admin/productos" className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+          <Link to="/admin/productos" className={claseBoton('secundario')}>
             Cancelar
           </Link>
         </div>

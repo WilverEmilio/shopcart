@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Boton } from '../../../componentes/Boton';
+import { claseBoton } from '../../../componentes/estilosBoton';
 import { CampoFormulario } from '../../../componentes/CampoFormulario';
 import { DialogoConfirmacion } from '../../../componentes/DialogoConfirmacion';
 import { EstadoCarga } from '../../../componentes/EstadoCarga';
@@ -32,7 +33,7 @@ const TODAS_LAS_CATEGORIAS: FiltrosCategoriasAdmin = {
 };
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 interface PropiedadesFiltros {
   texto: string;
@@ -53,11 +54,11 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
+    <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
       <CampoFormulario etiqueta="Buscar" type="search" placeholder="Nombre, descripción o SKU" maxLength={100} value={textoLocal} onChange={(e) => setTextoLocal(e.target.value)} />
 
       <div>
-        <label htmlFor="prod-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
           Categoría
         </label>
         <select id="prod-categoria" className={claseSelect} value={idCategoria ?? ''} onChange={(e) => alCambiar({ categoria: e.target.value || undefined })}>
@@ -72,7 +73,7 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
       </div>
 
       <div>
-        <label htmlFor="prod-estado" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
           Estado
         </label>
         <select id="prod-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -83,7 +84,7 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
       </div>
 
       <div>
-        <label htmlFor="prod-orden" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
           Ordenar por
         </label>
         <select id="prod-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -152,18 +153,18 @@ export function PaginaProductosAdmin() {
   };
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Productos</h1>
-        <Link to="/admin/productos/nuevo" className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Productos</h1>
+        <Link to="/admin/productos/nuevo" className={claseBoton('primario')}>
           Nuevo producto
         </Link>
       </div>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>
@@ -188,11 +189,11 @@ export function PaginaProductosAdmin() {
         <EstadoVacio titulo="No hay productos" descripcion="Prueba con otros filtros o crea uno nuevo." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} productos</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} productos</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Producto</th>
                   <th className="px-4 py-3">Categoría</th>
@@ -205,10 +206,10 @@ export function PaginaProductosAdmin() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.productos.map((p) => (
-                  <tr key={p.idProducto} className="hover:bg-gray-50">
+                  <tr key={p.idProducto}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <ImagenProducto url={p.imagenPrincipal} alt={p.nombre} className="h-12 w-12 shrink-0 rounded-md border border-gray-200 object-cover" />
+                        <ImagenProducto url={p.imagenPrincipal} alt={p.nombre} className="h-12 w-12 shrink-0 rounded-control border border-gray-200 object-cover" />
                         <span className="font-medium">{p.nombre}</span>
                       </div>
                     </td>
@@ -227,12 +228,12 @@ export function PaginaProductosAdmin() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
-                        <Link to={`/admin/productos/${p.idProducto}`} className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100">
+                        <Link to={`/admin/productos/${p.idProducto}`} className="boton-fila">
                           Editar
                         </Link>
                         <button
                           type="button"
-                          className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100"
+                          className="boton-fila"
                           onClick={() => {
                             acciones.cambiarEstado.reset();
                             setProductoAccion(p);

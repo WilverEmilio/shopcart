@@ -37,7 +37,7 @@ export function FiltrosKardex({ texto, tipo, fechaDesde, fechaHasta, alCambiar, 
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-4">
+    <form onSubmit={aplicar} noValidate className="tarjeta space-y-4 p-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <CampoFormulario
           etiqueta="Buscar"
@@ -49,14 +49,14 @@ export function FiltrosKardex({ texto, tipo, fechaDesde, fechaHasta, alCambiar, 
         />
 
         <div>
-          <label htmlFor="kardex-tipo" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="kardex-tipo" className="mb-1.5 block text-sm font-medium text-gray-700">
             Tipo de movimiento
           </label>
           <select
             id="kardex-tipo"
             value={tipo}
             onChange={(e) => alCambiar({ tipo: e.target.value || undefined })}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+            className="control"
           >
             <option value="">Todos</option>
             {TIPOS_MOVIMIENTO.map((t) => (

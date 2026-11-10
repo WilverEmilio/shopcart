@@ -16,14 +16,14 @@ export function PaginaConciliacion() {
 
   const consulta = useConciliacion({ soloDiferencias, pagina, registrosPorPagina: TAMANO_PAGINA });
 
-  const claseDiferencia = (n: number) => (n === 0 ? 'text-gray-400' : 'font-semibold text-red-600');
+  const claseDiferencia = (n: number) => (n === 0 ? 'text-gray-500' : 'font-semibold text-red-600');
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
-      <h1 className="text-2xl font-semibold">Inventario</h1>
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-600">
         Compara la existencia física de cada variante con la suma de sus movimientos del kardex, y las unidades
         reservadas con las reservas activas. Ambas deben coincidir.
       </p>
@@ -42,16 +42,16 @@ export function PaginaConciliacion() {
       ) : consulta.isError ? (
         <EstadoError error={consulta.error} onReintentar={() => void consulta.refetch()} />
       ) : consulta.data.items.length === 0 ? (
-        <p role="status" className="rounded-md bg-green-50 p-6 text-center text-green-800">
+        <p role="status" className="rounded-tarjeta border border-green-200 bg-green-50 p-6 text-center text-green-800">
           Todo cuadra: la existencia de todas las variantes coincide con el kardex.
         </p>
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} variantes</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} variantes</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">SKU</th>
                   <th className="px-4 py-3 text-right">Física</th>
@@ -65,7 +65,7 @@ export function PaginaConciliacion() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((f) => (
-                  <tr key={f.idVariante} className="hover:bg-gray-50">
+                  <tr key={f.idVariante}>
                     <td className="px-4 py-3 font-mono text-xs">{f.sku}</td>
                     <td className="px-4 py-3 text-right">{f.existenciaFisica}</td>
                     <td className="px-4 py-3 text-right">{f.sumaKardex}</td>
@@ -74,7 +74,7 @@ export function PaginaConciliacion() {
                     <td className="px-4 py-3 text-right">{f.sumaReservasActivas}</td>
                     <td className={`px-4 py-3 text-right ${claseDiferencia(f.diferenciaReservada)}`}>{f.diferenciaReservada}</td>
                     <td className="px-4 py-3 text-right">
-                      <Link to={`/gestion/inventario/kardex?variante=${f.idVariante}`} className="text-indigo-600 hover:underline">
+                      <Link to={`/gestion/inventario/kardex?variante=${f.idVariante}`} className="font-medium text-marca-700 hover:underline">
                         Kardex
                       </Link>
                     </td>

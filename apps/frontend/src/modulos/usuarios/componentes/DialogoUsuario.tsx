@@ -83,14 +83,14 @@ function FormularioUsuario({ alCerrar, alCreado }: Omit<Propiedades, 'abierto'>)
       </div>
 
       <div>
-        <label htmlFor="usuario-rol" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="usuario-rol" className="mb-1.5 block text-sm font-medium text-gray-700">
           Rol
         </label>
         <select
           id="usuario-rol"
           value={datos.rol}
           onChange={(e) => cambiar('rol', e.target.value as RolInterno)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         >
           <option value="Operador">Operador: gestiona pedidos e inventario</option>
           <option value="Administrador">Administrador: acceso completo</option>
@@ -99,7 +99,7 @@ function FormularioUsuario({ alCerrar, alCreado }: Omit<Propiedades, 'abierto'>)
       </div>
 
       {errorGeneral && (
-        <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {errorGeneral}
         </p>
       )}

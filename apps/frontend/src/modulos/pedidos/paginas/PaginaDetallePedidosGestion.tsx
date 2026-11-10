@@ -13,14 +13,14 @@ export function PaginaDetallePedidoGestion() {
   const consulta = useDetallePedido(idValido ? id : undefined);
 
   const enlaceVolver = (
-    <Link to="/gestion/pedidos" className="text-sm text-indigo-600 hover:underline">
+    <Link to="/gestion/pedidos" className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline">
       ← Volver a pedidos
     </Link>
   );
 
   if (!idValido) {
     return (
-      <main className="mx-auto max-w-5xl p-6">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <EstadoError error={new Error('El pedido solicitado no es válido.')} />
         <p className="text-center">{enlaceVolver}</p>
       </main>
@@ -31,7 +31,7 @@ export function PaginaDetallePedidoGestion() {
 
   if (consulta.isError) {
     return (
-      <main className="mx-auto max-w-5xl p-6">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <EstadoError error={consulta.error} onReintentar={() => void consulta.refetch()} />
         <p className="text-center">{enlaceVolver}</p>
       </main>
@@ -39,7 +39,7 @@ export function PaginaDetallePedidoGestion() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl space-y-6 p-6">
+    <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       {enlaceVolver}
       <AccionesGestionPedido detalle={consulta.data} />
       <DetallePedidoVista detalle={consulta.data} mostrarCliente />

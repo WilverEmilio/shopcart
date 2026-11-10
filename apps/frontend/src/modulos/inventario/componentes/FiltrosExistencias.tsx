@@ -17,7 +17,7 @@ interface Propiedades {
 }
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 export function FiltrosExistencias({
   texto, idCategoria, soloSinDisponibilidad, activo, orden, categorias, alCambiar, alLimpiar,
@@ -30,7 +30,7 @@ export function FiltrosExistencias({
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-4">
+    <form onSubmit={aplicar} noValidate className="tarjeta space-y-4 p-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <CampoFormulario
           etiqueta="Buscar"
@@ -42,7 +42,7 @@ export function FiltrosExistencias({
         />
 
         <div>
-          <label htmlFor="inv-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
             Categoría
           </label>
           <select
@@ -61,7 +61,7 @@ export function FiltrosExistencias({
         </div>
 
         <div>
-          <label htmlFor="inv-activo" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-activo" className="mb-1.5 block text-sm font-medium text-gray-700">
             Estado
           </label>
           <select id="inv-activo" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -72,7 +72,7 @@ export function FiltrosExistencias({
         </div>
 
         <div>
-          <label htmlFor="inv-orden" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
             Ordenar por
           </label>
           <select id="inv-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>

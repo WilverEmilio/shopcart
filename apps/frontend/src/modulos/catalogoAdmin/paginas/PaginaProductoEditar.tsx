@@ -27,14 +27,14 @@ export function PaginaProductoEditar() {
   const [dialogo, setDialogo] = useState<'estado' | 'eliminar' | null>(null);
 
   const enlaceVolver = (
-    <Link to="/admin/productos" className="text-sm text-indigo-600 hover:underline">
+    <Link to="/admin/productos" className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline">
       ← Volver a productos
     </Link>
   );
 
   if (!idValido) {
     return (
-      <main className="mx-auto max-w-5xl p-6">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <EstadoError error={new Error('El producto solicitado no es válido.')} />
         <p className="text-center">{enlaceVolver}</p>
       </main>
@@ -45,7 +45,7 @@ export function PaginaProductoEditar() {
 
   if (consulta.isError) {
     return (
-      <main className="mx-auto max-w-5xl p-6">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <EstadoError error={consulta.error} onReintentar={() => void consulta.refetch()} />
         <p className="text-center">{enlaceVolver}</p>
       </main>
@@ -85,13 +85,13 @@ export function PaginaProductoEditar() {
     });
 
   return (
-    <main className="mx-auto max-w-5xl space-y-6 p-6">
+    <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       {enlaceVolver}
 
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{producto.nombre}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{producto.nombre}</h1>
+          <p className="text-sm text-gray-600">
             {producto.categoria} ·{' '}
             <span className={producto.activo ? 'text-green-700' : 'text-gray-500'}>
               {producto.activo ? 'Activo en la tienda' : 'Inactivo (oculto en la tienda)'}
@@ -109,9 +109,9 @@ export function PaginaProductoEditar() {
       </header>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>

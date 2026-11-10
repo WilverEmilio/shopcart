@@ -86,6 +86,59 @@
   }
 }
 
+/* Acciones compactas dentro de filas de tabla (administración). */
+@utility boton-fila {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-gray-300);
+  background: white;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  transition: background-color 150ms, border-color 150ms;
+  &:hover:not(:disabled) {
+    border-color: var(--color-gray-400);
+    background: var(--color-gray-50);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  @media (width >= 40rem) {
+    min-height: 2rem;
+  }
+}
+
+/* Tablas de datos: encabezado neutro, filas con hover y cifras alineadas. */
+@utility tabla {
+  width: 100%;
+  text-align: left;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  & thead {
+    background: var(--color-gray-50);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: var(--color-gray-600);
+  }
+  & th {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  & tbody tr {
+    transition: background-color 150ms;
+  }
+  & tbody tr:hover {
+    background: var(--color-gray-50);
+  }
+}
+
 @utility opcion-seleccionable {
   display: flex;
   cursor: pointer;

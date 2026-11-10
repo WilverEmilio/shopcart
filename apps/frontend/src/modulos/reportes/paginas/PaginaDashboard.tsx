@@ -35,14 +35,14 @@ interface PropiedadesSelector<T extends string> {
 
 function SelectorSegmentado<T extends string>({ opciones, valor, alCambiar, etiqueta }: PropiedadesSelector<T>) {
   return (
-    <div role="group" aria-label={etiqueta} className="inline-flex overflow-hidden rounded-md border border-gray-300">
+    <div role="group" aria-label={etiqueta} className="inline-flex overflow-hidden rounded-control border border-gray-300 bg-white">
       {opciones.map((o) => (
         <button
           key={o.valor}
           type="button"
           aria-pressed={o.valor === valor}
           onClick={() => alCambiar(o.valor)}
-          className={`px-3 py-1.5 text-sm ${o.valor === valor ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100'}`}
+          className={`min-h-10 px-3 text-sm font-medium transition-colors duration-150 sm:min-h-9 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-gray-300 ${o.valor === valor ? 'bg-marca-600 text-white' : 'text-gray-700 hover:bg-gray-50'}`}
         >
           {o.etiqueta}
         </button>
@@ -53,7 +53,7 @@ function SelectorSegmentado<T extends string>({ opciones, valor, alCambiar, etiq
 
 function Tarjeta({ titulo, acciones, children }: { titulo: string; acciones?: ReactNode; children: ReactNode }) {
   return (
-    <section className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+    <section className="tarjeta space-y-4 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">{titulo}</h2>
         {acciones}
@@ -84,10 +84,10 @@ export function PaginaDashboard() {
   const topProductos = useTopProductos(rango, ordenTop);
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div>
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Dashboard</h1>
+        <p className="text-sm text-gray-600">
           Del {formatearFechaCorta(rango.fechaDesde)} al {formatearFechaCorta(rango.fechaHasta)}. Las ventas netas descuentan las devoluciones.
         </p>
       </div>

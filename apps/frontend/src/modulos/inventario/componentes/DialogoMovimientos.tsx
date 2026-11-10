@@ -67,7 +67,7 @@ function FormularioMovimiento({
 
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
-      <div className="rounded-md bg-gray-50 p-3 text-sm">
+      <div className="rounded-control bg-gray-50 p-3 text-sm">
         <p className="font-medium">{variante.producto}</p>
         <p className="text-gray-500">
           SKU {variante.sku} · Física {variante.existenciaFisica} · Reservada {variante.existenciaReservada} · Disponible{' '}
@@ -76,7 +76,7 @@ function FormularioMovimiento({
       </div>
 
       <div>
-        <label htmlFor="cantidad-movimiento" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cantidad-movimiento" className="mb-1.5 block text-sm font-medium text-gray-700">
           {tipo === 'entrada' ? 'Unidades que ingresan' : 'Ajuste (positivo suma, negativo resta)'}
         </label>
         <input
@@ -86,7 +86,7 @@ function FormularioMovimiento({
           min={tipo === 'entrada' ? 1 : undefined}
           value={cantidad}
           onChange={(e) => setCantidad(e.target.value)}
-          className="w-40 rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control w-40"
         />
         {resultante !== null && (
           <p className={`mt-1 text-sm ${resultante < 0 ? 'text-red-600' : 'text-gray-500'}`}>
@@ -96,7 +96,7 @@ function FormularioMovimiento({
       </div>
 
       <div>
-        <label htmlFor="motivo-movimiento" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="motivo-movimiento" className="mb-1.5 block text-sm font-medium text-gray-700">
           Motivo
         </label>
         <textarea
@@ -106,7 +106,7 @@ function FormularioMovimiento({
           placeholder={tipo === 'entrada' ? 'Ej.: Compra a proveedor, factura 1234' : 'Ej.: Conteo físico: faltan 2 unidades'}
           value={motivo}
           onChange={(e) => setMotivo(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         />
       </div>
 
@@ -117,7 +117,7 @@ function FormularioMovimiento({
       )}
 
       {mensaje && (
-        <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {mensaje}
         </p>
       )}

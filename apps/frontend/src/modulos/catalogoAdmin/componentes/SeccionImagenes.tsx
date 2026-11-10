@@ -45,13 +45,13 @@ export function SeccionImagenes({ detalle }: { detalle: ProductoDetalle }) {
   };
 
   return (
-    <form onSubmit={guardar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+    <form onSubmit={guardar} noValidate className="tarjeta space-y-4 p-4 sm:p-5">
       <h2 className="text-lg font-semibold">Imágenes</h2>
 
       <EditorImagenes valor={valor} alCambiar={setValor} errores={errores} prefijo="" />
 
       {mensaje && (
-        <p role={mensaje.tipo === 'ok' ? 'status' : 'alert'} className={`rounded-md p-3 text-sm ${mensaje.tipo === 'ok' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700'}`}>
+        <p role={mensaje.tipo === 'ok' ? 'status' : 'alert'} className={`rounded-control border p-3 text-sm ${mensaje.tipo === 'ok' ? 'border-green-200 bg-green-50 text-green-800' : 'border-red-200 bg-red-50 text-red-700'}`}>
           {mensaje.texto}
         </p>
       )}

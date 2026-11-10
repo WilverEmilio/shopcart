@@ -26,7 +26,7 @@ interface Propiedades {
 }
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 function formularioInicial(cupon: Cupon | null): CuponFormulario {
   if (cupon) {
@@ -145,7 +145,7 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="cupon-tipo" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="cupon-tipo" className="mb-1.5 block text-sm font-medium text-gray-700">
             Tipo de descuento
           </label>
           <select
@@ -169,7 +169,7 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="cupon-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="cupon-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
             Aplica a
           </label>
           <select
@@ -232,7 +232,7 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
       </div>
 
       {errorGeneral && (
-        <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {errorGeneral}
         </p>
       )}

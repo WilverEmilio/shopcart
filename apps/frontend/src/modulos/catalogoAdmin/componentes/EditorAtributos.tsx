@@ -8,7 +8,7 @@ interface Propiedades {
   prefijo: string;
 }
 
-const claseCampo = 'rounded-md border px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+const claseCampo = 'control';
 
 export function EditorAtributos({ valor, alCambiar, disponibles, errores, prefijo }: Propiedades) {
   const actualizar = (indice: number, cambios: Partial<AtributoFormulario>) =>
@@ -27,7 +27,7 @@ export function EditorAtributos({ valor, alCambiar, disponibles, errores, prefij
                 aria-label={`Atributo ${i + 1}`}
                 value={a.atributo}
                 onChange={(e) => actualizar(i, { atributo: e.target.value })}
-                className={`${claseCampo} ${errorAtributo ? 'border-red-500' : 'border-gray-300'}`}
+                className={`${claseCampo} ${errorAtributo ? 'border-red-500 hover:border-red-500' : ''}`}
               >
                 <option value="">Atributo...</option>
                 {disponibles.map((d) => (
@@ -46,7 +46,7 @@ export function EditorAtributos({ valor, alCambiar, disponibles, errores, prefij
                 maxLength={50}
                 value={a.valor}
                 onChange={(e) => actualizar(i, { valor: e.target.value })}
-                className={`${claseCampo} ${errorValor ? 'border-red-500' : 'border-gray-300'}`}
+                className={`${claseCampo} ${errorValor ? 'border-red-500 hover:border-red-500' : ''}`}
               />
               {errorValor && <p className="mt-1 text-xs text-red-600">{errorValor}</p>}
             </div>
@@ -55,7 +55,7 @@ export function EditorAtributos({ valor, alCambiar, disponibles, errores, prefij
               type="button"
               aria-label={`Quitar atributo ${i + 1}`}
               onClick={() => alCambiar(valor.filter((_, k) => k !== i))}
-              className="px-2 py-1.5 text-sm text-red-600 hover:underline"
+              className="min-h-11 rounded-control px-3 text-sm font-medium text-red-700 hover:bg-red-50 sm:min-h-10"
             >
               Quitar
             </button>
@@ -72,7 +72,7 @@ export function EditorAtributos({ valor, alCambiar, disponibles, errores, prefij
       <button
         type="button"
         onClick={() => alCambiar([...valor, { atributo: '', valor: '' }])}
-        className="text-sm font-medium text-indigo-600 hover:underline"
+        className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline"
       >
         + Agregar atributo
       </button>

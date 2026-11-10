@@ -37,8 +37,8 @@ export function PaginaPedidosGestion() {
   });
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
-      <h1 className="text-2xl font-semibold">Pedidos</h1>
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Pedidos</h1>
 
       <FiltrosPedidosGestion
         key={`${texto}|${fechaDesde}|${fechaHasta}`}
@@ -59,13 +59,13 @@ export function PaginaPedidosGestion() {
         <EstadoVacio titulo="No hay pedidos" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-600">
             {consulta.data.totalRegistros} {consulta.data.totalRegistros === 1 ? 'pedido' : 'pedidos'}
           </p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Pedido</th>
                   <th className="px-4 py-3">Cliente</th>
@@ -78,7 +78,7 @@ export function PaginaPedidosGestion() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((p) => (
-                  <tr key={p.idPedido} className="hover:bg-gray-50">
+                  <tr key={p.idPedido}>
                     <td className="px-4 py-3 font-medium">{p.numeroPedido}</td>
                     <td className="px-4 py-3">
                       <p>{p.nombreCliente}</p>
@@ -91,7 +91,7 @@ export function PaginaPedidosGestion() {
                     <td className="px-4 py-3 text-right">{formatearMoneda(p.total)}</td>
                     <td className="px-4 py-3 text-right">{p.devuelto > 0 ? formatearMoneda(p.devuelto) : '—'}</td>
                     <td className="px-4 py-3 text-right">
-                      <Link to={`/gestion/pedidos/${p.idPedido}`} className="font-medium text-indigo-600 hover:underline">
+                      <Link to={`/gestion/pedidos/${p.idPedido}`} className="font-medium text-marca-700 hover:underline">
                         Ver
                       </Link>
                     </td>

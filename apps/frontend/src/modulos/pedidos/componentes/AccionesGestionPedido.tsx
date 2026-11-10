@@ -32,15 +32,15 @@ export function AccionesGestionPedido({ detalle }: { detalle: DetallePedido }) {
   };
 
   return (
-    <section aria-labelledby="titulo-acciones" className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+    <section aria-labelledby="titulo-acciones" className="tarjeta space-y-4 p-4 sm:p-5">
       <h2 id="titulo-acciones" className="text-lg font-semibold">
         Acciones
       </h2>
 
       {transiciones.isPending ? (
-        <p className="text-sm text-gray-500">Cargando acciones disponibles...</p>
+        <p className="text-sm text-gray-600">Cargando acciones disponibles...</p>
       ) : sinAcciones ? (
-        <p className="text-sm text-gray-500">No hay acciones disponibles para un pedido en este estado.</p>
+        <p className="text-sm text-gray-600">No hay acciones disponibles para un pedido en este estado.</p>
       ) : (
         <>
           {avances.length > 0 && (
@@ -72,7 +72,7 @@ export function AccionesGestionPedido({ detalle }: { detalle: DetallePedido }) {
           )}
 
           {avanzar.isError && (
-            <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+            <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {normalizarError(avanzar.error).mensaje}
             </p>
           )}

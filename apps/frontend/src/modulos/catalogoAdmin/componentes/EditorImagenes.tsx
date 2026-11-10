@@ -23,7 +23,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
   return (
     <div className="space-y-3">
       {valor.urls.length === 0 && (
-        <p className="text-sm text-gray-500">Sin imágenes: la tienda mostrará un marcador.</p>
+        <p className="text-sm text-gray-600">Sin imágenes: la tienda mostrará un marcador.</p>
       )}
 
       {valor.urls.map((url, i) => (
@@ -32,7 +32,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
             key={url}
             url={url.trim() || null}
             alt={`Vista previa de la imagen ${i + 1}`}
-            className="h-14 w-14 shrink-0 rounded-md border border-gray-200 object-cover"
+            className="h-14 w-14 shrink-0 rounded-control border border-gray-200 object-cover"
           />
 
           <div className="flex-1">
@@ -74,7 +74,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
       <button
         type="button"
         onClick={() => alCambiar({ ...valor, urls: [...valor.urls, ''] })}
-        className="text-sm font-medium text-indigo-600 hover:underline"
+        className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline"
       >
         + Agregar imagen
       </button>

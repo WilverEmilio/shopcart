@@ -51,17 +51,17 @@ function Contenido({ registro, alCerrar }: { registro: RegistroBitacora; alCerra
         <div className="grid gap-3 text-sm sm:grid-cols-2">
           <div>
             <p className="mb-1 font-medium text-gray-700">Valor anterior</p>
-            <pre className="overflow-x-auto rounded-md bg-gray-50 p-3 text-xs">{mostrar(registro.valorAnterior)}</pre>
+            <pre className="overflow-x-auto rounded-control bg-gray-50 p-3 text-xs">{mostrar(registro.valorAnterior)}</pre>
           </div>
           <div>
             <p className="mb-1 font-medium text-gray-700">Valor nuevo</p>
-            <pre className="overflow-x-auto rounded-md bg-gray-50 p-3 text-xs">{mostrar(registro.valorNuevo)}</pre>
+            <pre className="overflow-x-auto rounded-control bg-gray-50 p-3 text-xs">{mostrar(registro.valorNuevo)}</pre>
           </div>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+        <div className="overflow-x-auto rounded-control border border-gray-200">
+          <table className="tabla">
+            <thead>
               <tr>
                 <th className="px-3 py-2">Campo</th>
                 <th className="px-3 py-2">Antes</th>

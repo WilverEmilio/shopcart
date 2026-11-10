@@ -28,7 +28,7 @@ const CLASE_ROL: Record<string, string> = {
 };
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 interface AccionUsuario {
   tipo: 'activar' | 'desactivar';
@@ -54,12 +54,12 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
+    <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
       <CampoFormulario etiqueta="Buscar" type="search" placeholder="Nombre o correo" maxLength={100} value={texto} onChange={(e) => setTexto(e.target.value)} />
 
       {roles.length > 0 ? (
         <div>
-          <label htmlFor="usr-rol" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="usr-rol" className="mb-1.5 block text-sm font-medium text-gray-700">
             Rol
           </label>
           <select id="usr-rol" className={claseSelect} value={idRol ?? ''} onChange={(e) => alCambiar({ rol: e.target.value || undefined })}>
@@ -76,7 +76,7 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
       )}
 
       <div>
-        <label htmlFor="usr-estado" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="usr-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
           Estado
         </label>
         <select id="usr-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -87,7 +87,7 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
       </div>
 
       <div>
-        <label htmlFor="usr-orden" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="usr-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
           Ordenar por
         </label>
         <select id="usr-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -158,16 +158,16 @@ export function PaginaUsuariosAdmin() {
   };
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Usuarios</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Usuarios</h1>
         <Boton onClick={() => setDialogoNuevo(true)}>Nuevo usuario interno</Boton>
       </div>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>
@@ -192,11 +192,11 @@ export function PaginaUsuariosAdmin() {
         <EstadoVacio titulo="No hay usuarios" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} usuarios</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} usuarios</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Nombre</th>
                   <th className="px-4 py-3">Correo</th>
@@ -211,10 +211,10 @@ export function PaginaUsuariosAdmin() {
                 {consulta.data.items.map((u) => {
                   const esPropio = u.idUsuario === miId;
                   return (
-                    <tr key={u.idUsuario} className="hover:bg-gray-50">
+                    <tr key={u.idUsuario}>
                       <td className="px-4 py-3 font-medium">
                         {u.nombres} {u.apellidos}
-                        {esPropio && <span className="ml-2 text-xs font-normal text-gray-400">(tú)</span>}
+                        {esPropio && <span className="ml-2 text-xs font-normal text-gray-500">(tú)</span>}
                       </td>
                       <td className="px-4 py-3 text-gray-600">{u.correo}</td>
                       <td className="px-4 py-3 text-gray-600">{u.telefono ?? '—'}</td>
@@ -232,7 +232,7 @@ export function PaginaUsuariosAdmin() {
                           type="button"
                           disabled={esPropio && u.activo}
                           title={esPropio && u.activo ? 'No puedes desactivar tu propio usuario.' : undefined}
-                          className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="boton-fila"
                           onClick={() => {
                             acciones.cambiarEstado.reset();
                             setAccion({ tipo: u.activo ? 'desactivar' : 'activar', usuario: u });

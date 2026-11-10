@@ -7,7 +7,7 @@ function TooltipPeriodo({ active, payload }: { active?: boolean; payload?: { pay
   const fila = payload[0].payload;
 
   return (
-    <div className="rounded-md border border-gray-200 bg-white p-3 text-xs shadow">
+    <div className="rounded-control border border-gray-200 bg-white p-3 text-xs shadow-elevada">
       <p className="mb-1 font-semibold">{fila.etiqueta}</p>
       <p>Ventas netas: {formatearMoneda(fila.ventasNetas)}</p>
       <p>Pedidos: {fila.pedidos}</p>

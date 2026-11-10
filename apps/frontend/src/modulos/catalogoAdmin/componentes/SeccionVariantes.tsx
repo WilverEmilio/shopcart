@@ -21,7 +21,7 @@ interface Propiedades {
   alAviso: (mensaje: string) => void;
 }
 
-const claseBotonFila = 'rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100';
+const claseBotonFila = 'boton-fila';
 
 export function SeccionVariantes({ detalle, alAviso }: Propiedades) {
   const atributos = useAtributos();
@@ -67,15 +67,15 @@ export function SeccionVariantes({ detalle, alAviso }: Propiedades) {
   const variante = dialogo && dialogo.tipo !== 'crear' ? dialogo.variante : null;
 
   return (
-    <section className="space-y-4 rounded-lg border border-gray-200 bg-white p-5">
+    <section className="tarjeta space-y-4 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Variantes</h2>
         <Boton onClick={() => abrir({ tipo: 'crear' })}>Agregar variante</Boton>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+        <table className="tabla">
+          <thead>
             <tr>
               <th className="px-4 py-3">SKU</th>
               <th className="px-4 py-3">Atributos</th>
@@ -93,7 +93,7 @@ export function SeccionVariantes({ detalle, alAviso }: Propiedades) {
                 <td className="whitespace-nowrap px-4 py-3 text-right">{formatearMoneda(v.precio)}</td>
                 <td className="px-4 py-3 text-right">
                   {v.existenciaDisponible}
-                  {v.existenciaFisica !== null && <span className="block text-xs text-gray-400">física {v.existenciaFisica}</span>}
+                  {v.existenciaFisica !== null && <span className="block text-xs text-gray-500">física {v.existenciaFisica}</span>}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${v.activo ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700'}`}>

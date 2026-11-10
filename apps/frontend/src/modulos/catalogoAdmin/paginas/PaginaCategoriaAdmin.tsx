@@ -21,7 +21,7 @@ const OPCIONES_ORDEN = [
 ] as const;
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 interface AccionCategoria {
   tipo: 'activar' | 'desactivar' | 'eliminar';
@@ -45,13 +45,13 @@ function Filtros({ busqueda, activo, orden, alCambiar, alLimpiar }: PropiedadesF
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
+    <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
       <div className="lg:col-span-2">
         <CampoFormulario etiqueta="Buscar" type="search" maxLength={100} value={texto} onChange={(e) => setTexto(e.target.value)} />
       </div>
 
       <div>
-        <label htmlFor="cat-estado" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cat-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
           Estado
         </label>
         <select id="cat-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -62,7 +62,7 @@ function Filtros({ busqueda, activo, orden, alCambiar, alLimpiar }: PropiedadesF
       </div>
 
       <div>
-        <label htmlFor="cat-orden" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cat-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
           Ordenar por
         </label>
         <select id="cat-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -145,19 +145,19 @@ export function PaginaCategoriasAdmin() {
     eliminar: { titulo: 'Eliminar categoría', mensaje: `Se eliminará «${accion.categoria.nombre}». Si tiene productos asociados no se podrá eliminar; en ese caso puedes desactivarla.`, boton: 'Eliminar' },
   }[accion.tipo];
 
-  const claseBotonFila = 'rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100';
+  const claseBotonFila = 'boton-fila';
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Categorías</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Categorías</h1>
         <Boton onClick={() => setDialogoCategoria({ categoria: null })}>Nueva categoría</Boton>
       </div>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>
@@ -173,11 +173,11 @@ export function PaginaCategoriasAdmin() {
         <EstadoVacio titulo="No hay categorías" descripcion="Prueba con otros filtros o crea una nueva." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} categorías</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} categorías</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Nombre</th>
                   <th className="px-4 py-3">Descripción</th>
@@ -189,7 +189,7 @@ export function PaginaCategoriasAdmin() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.categorias.map((c) => (
-                  <tr key={c.idCategoria} className="hover:bg-gray-50">
+                  <tr key={c.idCategoria}>
                     <td className="px-4 py-3 font-medium">{c.nombre}</td>
                     <td className="max-w-xs px-4 py-3 text-gray-600">{c.descripcion ?? '—'}</td>
                     <td className="px-4 py-3 text-right">{c.totalProductos}</td>

@@ -17,7 +17,7 @@ interface Propiedades {
 }
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
+  'control';
 
 export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, orden, alCambiar, alLimpiar }: Propiedades) {
   const [textoLocal, setTextoLocal] = useState(texto);
@@ -44,7 +44,7 @@ export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, o
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-4">
+    <form onSubmit={aplicar} noValidate className="tarjeta space-y-4 p-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <CampoFormulario
           etiqueta="Buscar"
@@ -56,7 +56,7 @@ export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, o
         />
 
         <div>
-          <label htmlFor="filtro-estado" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
             Estado
           </label>
           <select
@@ -80,7 +80,7 @@ export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, o
 
       <div className="flex flex-wrap items-end gap-3">
         <div className="w-56">
-          <label htmlFor="filtro-orden" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="filtro-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
             Ordenar por
           </label>
           <select id="filtro-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>

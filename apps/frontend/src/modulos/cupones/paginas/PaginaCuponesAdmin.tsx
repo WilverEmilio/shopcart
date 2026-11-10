@@ -32,8 +32,8 @@ const TODAS_LAS_CATEGORIAS: FiltrosCategoriasAdmin = {
 };
 
 const claseSelect =
-  'w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500';
-const claseBotonFila = 'rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-100';
+  'control';
+const claseBotonFila = 'boton-fila';
 
 interface AccionCupon {
   tipo: 'activar' | 'desactivar' | 'eliminar';
@@ -59,11 +59,11 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
   };
 
   return (
-    <form onSubmit={aplicar} noValidate className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
+    <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
       <CampoFormulario etiqueta="Buscar" type="search" placeholder="Código o descripción" maxLength={100} value={texto} onChange={(e) => setTexto(e.target.value)} />
 
       <div>
-        <label htmlFor="cup-estado" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
           Estado
         </label>
         <select id="cup-estado" className={claseSelect} value={estado} onChange={(e) => alCambiar({ estado: e.target.value || undefined })}>
@@ -77,7 +77,7 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
       </div>
 
       <div>
-        <label htmlFor="cup-categoria" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
           Categoría
         </label>
         <select id="cup-categoria" className={claseSelect} value={idCategoria ?? ''} onChange={(e) => alCambiar({ categoria: e.target.value || undefined })}>
@@ -91,7 +91,7 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
       </div>
 
       <div>
-        <label htmlFor="cup-orden" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
           Ordenar por
         </label>
         <select id="cup-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -178,16 +178,16 @@ export function PaginaCuponesAdmin() {
   }[accion.tipo];
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Cupones</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Cupones</h1>
         <Boton onClick={() => setDialogoCupon({ cupon: null })}>Nuevo cupón</Boton>
       </div>
 
       {aviso && (
-        <p role="status" className="flex items-center justify-between rounded-md bg-green-50 p-3 text-sm text-green-800">
+        <p role="status" className="flex items-center justify-between gap-3 rounded-control border border-green-200 bg-green-50 p-3 text-sm text-green-800">
           {aviso}
-          <button type="button" onClick={() => setAviso(null)} className="underline">
+          <button type="button" onClick={() => setAviso(null)} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Cerrar
           </button>
         </p>
@@ -212,11 +212,11 @@ export function PaginaCuponesAdmin() {
         <EstadoVacio titulo="No hay cupones" descripcion="Prueba con otros filtros o crea uno nuevo." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} cupones</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} cupones</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Código</th>
                   <th className="px-4 py-3">Descuento</th>
@@ -230,7 +230,7 @@ export function PaginaCuponesAdmin() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((c) => (
-                  <tr key={c.idCupon} className="hover:bg-gray-50">
+                  <tr key={c.idCupon}>
                     <td className="px-4 py-3">
                       <p className="font-mono font-semibold">{c.codigo}</p>
                       {c.descripcion && <p className="max-w-[14rem] text-xs text-gray-500">{c.descripcion}</p>}

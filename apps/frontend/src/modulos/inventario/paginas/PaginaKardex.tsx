@@ -33,18 +33,18 @@ export function PaginaKardex() {
   });
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 p-6">
-      <h1 className="text-2xl font-semibold">Inventario</h1>
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-600">
         Historial de entradas, salidas y ajustes. Es inmutable: los errores se corrigen con un nuevo ajuste.
       </p>
 
       {idVariante && (
-        <p className="flex items-center justify-between rounded-md bg-indigo-50 p-3 text-sm text-indigo-800">
+        <p className="flex items-center justify-between gap-3 rounded-control border border-marca-100 bg-marca-50 p-3 text-sm text-marca-800">
           Mostrando solo los movimientos de la variante #{idVariante}.
-          <button type="button" onClick={() => actualizar({ variante: undefined })} className="underline">
+          <button type="button" onClick={() => actualizar({ variante: undefined })} className="min-h-9 shrink-0 font-medium underline underline-offset-2">
             Quitar filtro
           </button>
         </p>
@@ -68,11 +68,11 @@ export function PaginaKardex() {
         <EstadoVacio titulo="Sin movimientos" descripcion="No hay movimientos con esos filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-500">{consulta.data.totalRegistros} movimientos</p>
+          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} movimientos</p>
 
-          <div className={`overflow-x-auto rounded-lg border border-gray-200 bg-white ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Fecha</th>
                   <th className="px-4 py-3">Producto</th>
@@ -86,7 +86,7 @@ export function PaginaKardex() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {consulta.data.items.map((m) => (
-                  <tr key={m.idMovimiento} className="hover:bg-gray-50">
+                  <tr key={m.idMovimiento}>
                     <td className="whitespace-nowrap px-4 py-3">{formatearFechaHora(m.fecha)}</td>
                     <td className="px-4 py-3">
                       <p>{m.producto}</p>
@@ -105,7 +105,7 @@ export function PaginaKardex() {
                     <td className="max-w-xs px-4 py-3 text-gray-600">{m.motivo}</td>
                     <td className="whitespace-nowrap px-4 py-3">
                       {m.tipoReferencia === 'PEDIDO' && m.idReferencia ? (
-                        <Link to={`/gestion/pedidos/${m.idReferencia}`} className="text-indigo-600 hover:underline">
+                        <Link to={`/gestion/pedidos/${m.idReferencia}`} className="font-medium text-marca-700 hover:underline">
                           Pedido #{m.idReferencia}
                         </Link>
                       ) : m.tipoReferencia === 'DEVOLUCION' ? (
