@@ -19,6 +19,9 @@ import { PaginaCategoriasAdmin } from '../modulos/catalogoAdmin/paginas/PaginaCa
 import { PaginaProductoEditar } from '../modulos/catalogoAdmin/paginas/PaginaProductoEditar';
 import { PaginaProductoNuevo } from '../modulos/catalogoAdmin/paginas/PaginaProductoNuevo';
 import { PaginaProductosAdmin } from '../modulos/catalogoAdmin/paginas/PaginaProductosAdmin';
+import { PaginaCuponesAdmin } from '../modulos/cupones/paginas/PaginaCuponesAdmin';
+import { PaginaUsuariosAdmin } from '../modulos/usuarios/paginas/PaginaUsuarioAdmin';
+import { PaginaNoEncontrada } from '../componentes/PaginaNoEncontrada';
 
 const Provisional = ({ titulo }: { titulo: string }) => (
   <main className="mx-auto max-w-7xl p-6">
@@ -28,8 +31,6 @@ const Provisional = ({ titulo }: { titulo: string }) => (
 
 const rutasAdmin = [
   ['dashboard', 'Dashboard'],
-  ['cupones', 'Cupones'],
-  ['usuarios', 'Usuarios'],
   ['bitacora', 'Bitácora'],
 ] as const;
 
@@ -66,12 +67,14 @@ export function AppRouter() {
             <Route path="/admin/productos" element={<PaginaProductosAdmin />} />
             <Route path="/admin/productos/nuevo" element={<PaginaProductoNuevo />} />
             <Route path="/admin/productos/:idProducto" element={<PaginaProductoEditar />} />
+            <Route path="/admin/cupones" element={<PaginaCuponesAdmin />} />
+            <Route path="/admin/usuarios" element={<PaginaUsuariosAdmin />} />
             {rutasAdmin.map(([ruta, titulo]) => (
               <Route key={ruta} path={`/admin/${ruta}`} element={<Provisional titulo={titulo} />} />
             ))}
           </Route>
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<PaginaNoEncontrada/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

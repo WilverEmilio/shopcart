@@ -14,7 +14,7 @@ interface Propiedades {
   alCreado: (mensaje: string) => void;
 }
 
-const VACIO: UsuarioFormulario = { correo: '', contrasena: '', nomrbes: '', apellidos: '', telefono: '', rol: 'Operador' };
+const VACIO: UsuarioFormulario = { correo: '', contrasena: '', nombres: '', apellidos: '', telefono: '', rol: 'Operador' };
 
 function FormularioUsuario({ alCerrar, alCreado }: Omit<Propiedades, 'abierto'>) {
   const { crear } = useAccionesUsuario();
@@ -60,7 +60,7 @@ function FormularioUsuario({ alCerrar, alCreado }: Omit<Propiedades, 'abierto'>)
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <CampoFormulario etiqueta="Nombres" autoComplete="off" value={datos.nomrbes} onChange={(e) => cambiar('nomrbes', e.target.value)} error={errores.nombres} />
+        <CampoFormulario etiqueta="Nombres" autoComplete="off" value={datos.nombres} onChange={(e) => cambiar('nombres', e.target.value)} error={errores.nombres} />
         <CampoFormulario etiqueta="Apellidos" autoComplete="off" value={datos.apellidos} onChange={(e) => cambiar('apellidos', e.target.value)} error={errores.apellidos} />
       </div>
 

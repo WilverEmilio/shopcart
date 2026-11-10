@@ -39,7 +39,7 @@ export interface DatosUsuarioNuevo {
 export interface UsuarioFormulario {
     correo: string;
     contrasena: string;
-    nomrbes: string;
+    nombres: string;
     apellidos: string;
     telefono: string;
     rol: RolInterno;

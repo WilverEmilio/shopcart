@@ -2,7 +2,7 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import { useSesionEstado } from "../../../estados/sesionEstado";
 import { cambiarEstadoUsuario, crearUsuarioInterno, listarRoles, listarUsuarios } from "../servicios/usuariosServicios";
 import type { DatosUsuarioNuevo, FiltrosUsuarios } from "../tipos/usuarioAdmin";
-import { boolean, number } from "zod";
+
 
 export function useUsuarios(
     filtros: FiltrosUsuarios

@@ -5,6 +5,7 @@ import App from './App';
 import { clienteQuery } from './configuracion/clienteQuery';
 import { restaurarSesion } from './modulos/autenticacion/servicios/autenticacionServicio';
 import './index.css';
+import './configuracion/zod'
 
 void restaurarSesion();
 
