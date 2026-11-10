@@ -56,8 +56,8 @@ export function PaginaRegistro() {
   return (
     <main className="mx-auto w-full max-w-md px-4 py-10 sm:py-16">
       <div className="mb-6 text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Crear cuenta</h1>
-        <p className="mt-2 text-sm text-gray-600">Regístrate para comprar y seguir tus pedidos.</p>
+        <h1 className="text-3xl font-bold sm:text-4xl">Crear cuenta</h1>
+        <p className="mt-2 text-sm text-slate-600">Regístrate para comprar y seguir tus pedidos.</p>
       </div>
 
       <form onSubmit={alEnviar} noValidate className="tarjeta space-y-4 p-5 sm:p-8">
@@ -82,7 +82,7 @@ export function PaginaRegistro() {
         </Boton>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-600">
+      <p className="mt-6 text-center text-sm text-slate-600">
         ¿Ya tienes cuenta?{' '}
         <Link to="/iniciar-sesion" className="font-medium text-marca-700 hover:underline">
           Inicia sesión

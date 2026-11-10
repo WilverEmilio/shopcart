@@ -23,10 +23,10 @@ export function PaginaMisPedidos() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Mis pedidos</h1>
+        <h1 className="text-3xl font-bold sm:text-4xl">Mis pedidos</h1>
 
         <div className="w-full sm:w-56">
-          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
             Estado
           </label>
           <select
@@ -83,17 +83,17 @@ export function PaginaMisPedidos() {
                 >
                   <div className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-4 gap-y-2">
                     <div className="min-w-0">
-                      <p className="font-semibold text-gray-900 group-hover:text-marca-700">{p.numeroPedido}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="font-semibold text-slate-900 group-hover:text-marca-700">{p.numeroPedido}</p>
+                      <p className="text-sm text-slate-600">
                         {formatearFechaHora(p.fechaCreacion)} · {p.unidades} {p.unidades === 1 ? 'unidad' : 'unidades'}
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
                       <InsigniaEstado estado={p.estado} />
-                      <span className="font-semibold tabular-nums text-gray-900">{formatearMoneda(p.total)}</span>
+                      <span className="precio">{formatearMoneda(p.total)}</span>
                     </div>
                   </div>
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-marca-600">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 shrink-0 text-slate-400 group-hover:text-marca-600">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6" />
                   </svg>
                 </Link>

@@ -40,8 +40,8 @@ export function PaginaIniciarSesion() {
   return (
     <main className="mx-auto w-full max-w-md px-4 py-10 sm:py-16">
       <div className="mb-6 text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Iniciar sesión</h1>
-        <p className="mt-2 text-sm text-gray-600">Entra para pagar y ver tus pedidos. Tu carrito se conserva.</p>
+        <h1 className="text-3xl font-bold sm:text-4xl">Iniciar sesión</h1>
+        <p className="mt-2 text-sm text-slate-600">Entra para pagar y ver tus pedidos. Tu carrito se conserva.</p>
       </div>
 
       <form onSubmit={alEnviar} noValidate className="tarjeta space-y-4 p-5 sm:p-8">
@@ -71,7 +71,7 @@ export function PaginaIniciarSesion() {
         </Boton>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-600">
+      <p className="mt-6 text-center text-sm text-slate-600">
         ¿No tienes cuenta?{' '}
         <Link to="/registro" className="font-medium text-marca-700 hover:underline">
           Regístrate
