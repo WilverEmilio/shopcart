@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Boton } from '../../../componentes/Boton';
 import { CampoFormulario } from '../../../componentes/CampoFormulario';
+import { claseBoton } from '../../../componentes/estilosBoton';
 import { normalizarError } from '../../../servicios/errorServicio';
 import { formatearMoneda } from '../../../utilidades/formato';
 import type { AccionesCarrito } from '../hooks/useCarrito';
@@ -13,8 +14,7 @@ interface Propiedades {
   esCliente: boolean;
 }
 
-const claseEnlaceBoton =
-  'block w-full rounded-md bg-indigo-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-indigo-700';
+const claseEnlaceBoton = claseBoton('primario', 'w-full');
 
 export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
   const [codigo, setCodigo] = useState('');
@@ -32,36 +32,36 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
   };
 
   return (
-    <aside className="space-y-4 rounded-lg border border-gray-200 bg-white p-5 lg:self-start">
+    <aside className="tarjeta space-y-4 p-5 lg:sticky lg:top-20 lg:self-start">
       <h2 className="text-lg font-semibold">Resumen</h2>
 
       <dl className="space-y-2 text-sm">
         <div className="flex justify-between">
           <dt className="text-gray-600">Subtotal</dt>
-          <dd>{formatearMoneda(carrito.subtotal)}</dd>
+          <dd className="tabular-nums">{formatearMoneda(carrito.subtotal)}</dd>
         </div>
 
         {carrito.descuento > 0 && (
           <div className="flex justify-between text-green-700">
             <dt>Descuento</dt>
-            <dd>−{formatearMoneda(carrito.descuento)}</dd>
+            <dd className="tabular-nums">−{formatearMoneda(carrito.descuento)}</dd>
           </div>
         )}
 
-        <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-semibold">
-          <dt>Total</dt>
-          <dd>{formatearMoneda(carrito.total)}</dd>
+        <div className="flex items-baseline justify-between border-t border-gray-200 pt-3 font-semibold text-gray-900">
+          <dt className="text-base">Total</dt>
+          <dd className="text-xl tabular-nums">{formatearMoneda(carrito.total)}</dd>
         </div>
-        <p className="text-xs text-gray-500">Incluye IVA de {formatearMoneda(carrito.iva)}. El envío se calcula al pagar.</p>
+        <p className="text-xs text-gray-600">Incluye IVA de {formatearMoneda(carrito.iva)}. El envío se calcula al pagar.</p>
       </dl>
 
       {esCliente ? (
         <div className="border-t border-gray-200 pt-4">
           {carrito.cupon ? (
-            <div className="space-y-1 text-sm">
-              <div className="flex items-center justify-between">
-                <span>
-                  Cupón <strong>{carrito.cupon.codigo}</strong>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center justify-between gap-2 rounded-control border border-dashed border-green-300 bg-green-50 px-3 py-2">
+                <span className="text-green-800">
+                  Cupón <strong className="font-mono">{carrito.cupon.codigo}</strong>
                 </span>
                 <button
                   type="button"
@@ -70,13 +70,13 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
                     acciones.reiniciarErrores();
                     acciones.quitarCupon.mutate();
                   }}
-                  className="text-red-600 hover:underline disabled:opacity-50"
+                  className="min-h-9 rounded-control px-2 font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
                 >
                   Quitar
                 </button>
               </div>
               {!carrito.cupon.valido && carrito.cupon.mensaje && (
-                <p role="alert" className="text-amber-600">
+                <p role="alert" className="text-amber-800">
                   {carrito.cupon.mensaje}
                 </p>
               )}
@@ -89,7 +89,7 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
                   value={codigo}
                   maxLength={30}
                   autoComplete="off"
-                  className="uppercase"
+                  className="font-mono uppercase"
                   onChange={(e) => setCodigo(e.target.value)}
                 />
               </div>
@@ -106,7 +106,7 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
           )}
         </div>
       ) : (
-        <p className="border-t border-gray-200 pt-4 text-sm text-gray-500">
+        <p className="border-t border-gray-200 pt-4 text-sm text-gray-600">
           Inicia sesión para usar un cupón y pagar. Tu carrito se conservará.
         </p>
       )}
@@ -127,7 +127,7 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
         )}
 
         {hayProblemas && (
-          <p className="text-xs text-red-600">Resuelve los avisos de tus productos para continuar.</p>
+          <p className="text-xs text-red-700">Resuelve los avisos de tus productos para continuar.</p>
         )}
       </div>
     </aside>

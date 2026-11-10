@@ -1,9 +1,114 @@
 @import 'tailwindcss';
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-  background: #f9fafb;
-  color: #1f2937;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+/* Tokens de la tienda. La marca apunta a indigo para migrar de forma gradual. */
+@theme {
+  --color-marca-50: var(--color-indigo-50);
+  --color-marca-100: var(--color-indigo-100);
+  --color-marca-500: var(--color-indigo-500);
+  --color-marca-600: var(--color-indigo-600);
+  --color-marca-700: var(--color-indigo-700);
+  --color-marca-800: var(--color-indigo-800);
+
+  --radius-tarjeta: 0.75rem;
+  --radius-control: 0.5rem;
+
+  --shadow-tarjeta: 0 1px 2px 0 rgb(17 24 39 / 0.04), 0 1px 3px 0 rgb(17 24 39 / 0.06);
+  --shadow-elevada: 0 4px 6px -1px rgb(17 24 39 / 0.06), 0 10px 20px -4px rgb(17 24 39 / 0.1);
+}
+
+@layer base {
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    background: var(--color-gray-50);
+    color: var(--color-gray-800);
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-gray-900);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-marca-600);
+    outline-offset: 2px;
+  }
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    accent-color: var(--color-marca-600);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Piezas repetidas de la tienda. */
+@utility tarjeta {
+  border-radius: var(--radius-tarjeta);
+  border: 1px solid var(--color-gray-200);
+  background: white;
+  box-shadow: var(--shadow-tarjeta);
+}
+
+@utility control {
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-gray-300);
+  background: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+  &:hover {
+    border-color: var(--color-gray-400);
+  }
+  &:focus {
+    border-color: var(--color-marca-500);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-marca-500) 25%, transparent);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: var(--color-gray-100);
+    color: var(--color-gray-500);
+  }
+  @media (width >= 40rem) {
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@utility opcion-seleccionable {
+  display: flex;
+  cursor: pointer;
+  gap: 0.75rem;
+  border-radius: var(--radius-tarjeta);
+  border: 1px solid var(--color-gray-200);
+  background: white;
+  padding: 1rem;
+  transition: border-color 150ms, background-color 150ms, box-shadow 150ms;
+  &:hover {
+    border-color: var(--color-gray-300);
+  }
+  &:has(input:checked) {
+    border-color: var(--color-marca-600);
+    background: var(--color-marca-50);
+    box-shadow: 0 0 0 1px var(--color-marca-600);
+  }
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--color-marca-600);
+    outline-offset: 2px;
+  }
+  &:has(input:disabled) {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 }

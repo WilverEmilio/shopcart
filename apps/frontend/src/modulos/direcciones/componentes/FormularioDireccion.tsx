@@ -52,20 +52,20 @@ export function FormularioDireccion({ alGuardar, alCancelar }: Propiedades) {
   });
 
   return (
-    <form onSubmit={alEnviar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-4">
-      <h3 className="font-medium">Nueva dirección de entrega</h3>
+    <form onSubmit={alEnviar} noValidate className="tarjeta space-y-4 p-4 sm:p-5">
+      <h3 className="font-semibold">Nueva dirección de entrega</h3>
 
       {errorGeneral && (
-        <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {errorGeneral}
         </p>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <CampoFormulario etiqueta="Nombre de quien recibe" error={errors.nombreDestinatario?.message} {...register('nombreDestinatario')} />
-        <CampoFormulario etiqueta="Teléfono" type="tel" autoComplete="tel" error={errors.telefono?.message} {...register('telefono')} />
-        <CampoFormulario etiqueta="Departamento" list="departamentos-gt" error={errors.departamento?.message} {...register('departamento')} />
-        <CampoFormulario etiqueta="Municipio" error={errors.municipio?.message} {...register('municipio')} />
+        <CampoFormulario etiqueta="Nombre de quien recibe" autoComplete="name" error={errors.nombreDestinatario?.message} {...register('nombreDestinatario')} />
+        <CampoFormulario etiqueta="Teléfono" type="tel" inputMode="tel" autoComplete="tel" error={errors.telefono?.message} {...register('telefono')} />
+        <CampoFormulario etiqueta="Departamento" list="departamentos-gt" autoComplete="address-level1" error={errors.departamento?.message} {...register('departamento')} />
+        <CampoFormulario etiqueta="Municipio" autoComplete="address-level2" error={errors.municipio?.message} {...register('municipio')} />
       </div>
 
       <datalist id="departamentos-gt">
@@ -74,15 +74,15 @@ export function FormularioDireccion({ alGuardar, alCancelar }: Propiedades) {
         ))}
       </datalist>
 
-      <CampoFormulario etiqueta="Dirección (calle, zona, número)" error={errors.direccion?.message} {...register('direccion')} />
+      <CampoFormulario etiqueta="Dirección (calle, zona, número)" autoComplete="street-address" error={errors.direccion?.message} {...register('direccion')} />
       <CampoFormulario etiqueta="Referencia (opcional)" error={errors.referencia?.message} {...register('referencia')} />
 
-      <label className="flex items-center gap-2 text-sm text-gray-700">
-        <input type="checkbox" {...register('esPredeterminada')} />
+      <label className="flex min-h-10 cursor-pointer items-center gap-3 text-sm text-gray-700">
+        <input type="checkbox" className="h-4 w-4" {...register('esPredeterminada')} />
         Usar como dirección predeterminada
       </label>
 
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <Boton type="submit" cargando={isSubmitting}>
           Guardar dirección
         </Boton>

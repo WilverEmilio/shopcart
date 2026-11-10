@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Boton } from '../../../componentes/Boton';
-import { EstadoCarga } from '../../../componentes/EstadoCarga';
+import { Esqueleto } from '../../../componentes/EstadoCarga';
 import { EstadoError } from '../../../componentes/EstadoError';
 import { ImagenProducto } from '../../../componentes/ImagenProducto';
 import { formatearMoneda } from '../../../utilidades/formato';
@@ -11,7 +11,34 @@ import { useSesionEstado } from '../../../estados/sesionEstado';
 import { normalizarError } from '../../../servicios/errorServicio';
 import { useAccionesCarrito } from '../../carrito/hooks/useCarrito';
 
+const claseBotonCantidad =
+  'flex h-11 w-11 items-center justify-center text-lg text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent';
 
+function MigasDePan({ categoria, nombre }: { categoria?: string; nombre?: string }) {
+  return (
+    <nav aria-label="Ruta de navegación" className="text-sm">
+      <ol className="flex min-w-0 items-center gap-2 text-gray-600">
+        <li>
+          <Link to="/catalogo" className="font-medium text-marca-700 hover:underline">
+            Catálogo
+          </Link>
+        </li>
+        {categoria && (
+          <>
+            <li aria-hidden="true">/</li>
+            <li className="hidden sm:block">{categoria}</li>
+            <li aria-hidden="true" className="hidden sm:block">/</li>
+          </>
+        )}
+        {nombre && (
+          <li aria-current="page" className="min-w-0 truncate text-gray-900">
+            {nombre}
+          </li>
+        )}
+      </ol>
+    </nav>
+  );
+}
 
 function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
   const { producto, imagenes, variantes, atributos } = detalle;
@@ -38,7 +65,7 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
   );
   const [cantidad, setCantidad] = useState(1);
 
-    const usuario = useSesionEstado((e) => e.usuario);
+  const usuario = useSesionEstado((e) => e.usuario);
   const { agregar } = useAccionesCarrito();
   const puedeComprar = !usuario || usuario.rol === 'Cliente';
   const [aviso, setAviso] = useState<string | null>(null);
@@ -69,28 +96,34 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
     agregar.reset();
   };
 
-  return (
-    <main className="mx-auto max-w-7xl p-6">
-      <Link to="/catalogo" className="text-sm text-indigo-600 hover:underline">
-        ← Volver al catálogo
-      </Link>
+  const estadoStock = agotada
+    ? { texto: 'Agotado', clase: 'bg-red-50 text-red-700', punto: 'bg-red-500' }
+    : disponible <= 5
+      ? { texto: `Quedan ${disponible} unidades`, clase: 'bg-amber-50 text-amber-800', punto: 'bg-amber-500' }
+      : { texto: 'Disponible', clase: 'bg-green-50 text-green-800', punto: 'bg-green-500' };
 
-      <div className="mt-4 grid gap-8 md:grid-cols-2">
-        <div>
-          <div className="aspect-square overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+  return (
+    <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+      <MigasDePan categoria={producto.categoria} nombre={producto.nombre} />
+
+      <div className="mt-6 grid gap-8 md:grid-cols-2 lg:gap-12">
+        <div className="md:sticky md:top-20 md:self-start">
+          <div className="tarjeta aspect-square overflow-hidden bg-white">
             <ImagenProducto url={imagenActual?.url ?? null} alt={producto.nombre} className="h-full w-full object-contain" />
           </div>
 
           {imagenesOrdenadas.length > 1 && (
-            <ul className="mt-3 flex gap-2 overflow-x-auto">
+            <ul className="mt-3 flex gap-2 overflow-x-auto pb-1">
               {imagenesOrdenadas.map((img, i) => (
-                <li key={img.idImagenProducto}>
+                <li key={img.idImagenProducto} className="shrink-0">
                   <button
                     type="button"
                     aria-label={`Ver imagen ${i + 1}`}
                     aria-current={i === indiceImagen}
                     onClick={() => setIndiceImagen(i)}
-                    className={`h-16 w-16 overflow-hidden rounded-md border-2 ${i === indiceImagen ? 'border-indigo-600' : 'border-transparent'}`}
+                    className={`h-16 w-16 overflow-hidden rounded-control border-2 bg-white transition-colors sm:h-20 sm:w-20 ${
+                      i === indiceImagen ? 'border-marca-600' : 'border-gray-200 hover:border-gray-400'
+                    }`}
                   >
                     <ImagenProducto url={img.url} alt="" className="h-full w-full object-cover" />
                   </button>
@@ -101,37 +134,48 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
         </div>
 
         <div>
-          <p className="text-sm uppercase tracking-wide text-gray-500">{producto.categoria}</p>
-          <h1 className="mt-1 text-2xl font-semibold">{producto.nombre}</h1>
+          <p className="text-xs font-semibold uppercase tracking-wide text-marca-700">{producto.categoria}</p>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{producto.nombre}</h1>
 
           {variante && (
-            <>
-              <p className="mt-4 text-3xl font-bold">{formatearMoneda(variante.precio)}</p>
-              <p className="text-xs text-gray-500">IVA incluido</p>
-            </>
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <p className="text-3xl font-bold tabular-nums text-gray-900">{formatearMoneda(variante.precio)}</p>
+              <p className="text-sm text-gray-600">IVA incluido</p>
+            </div>
           )}
 
-          {producto.descripcion && <p className="mt-4 whitespace-pre-line text-gray-700">{producto.descripcion}</p>}
+          {producto.descripcion && (
+            <p className="mt-5 whitespace-pre-line leading-relaxed text-gray-700">{producto.descripcion}</p>
+          )}
 
           {variantes.length > 0 && (
             <fieldset className="mt-6">
-              <legend className="mb-2 text-sm font-medium text-gray-700">
+              <legend className="mb-2 text-sm font-medium text-gray-900">
                 {variantes.length > 1 ? 'Elige una opción' : 'Presentación'}
               </legend>
               <div className="flex flex-wrap gap-2">
                 {variantes.map((v) => {
                   const elegida = v.idVariante === idVarianteElegida;
+                  const sinStock = v.existenciaDisponible <= 0;
                   return (
                     <button
                       key={v.idVariante}
                       type="button"
                       aria-pressed={elegida}
                       onClick={() => elegirVariante(v.idVariante)}
-                      className={`rounded-md border px-3 py-2 text-sm ${
-                        elegida ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-gray-300 hover:bg-gray-100'
-                      } ${v.existenciaDisponible <= 0 ? 'opacity-60' : ''}`}
+                      className={`inline-flex min-h-11 items-center gap-2 rounded-control border px-4 text-sm font-medium transition-colors duration-150 motion-reduce:transition-none ${
+                        elegida
+                          ? 'border-marca-600 bg-marca-50 text-marca-800 ring-1 ring-marca-600'
+                          : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      } ${sinStock ? 'text-gray-500 line-through decoration-gray-400' : ''}`}
                     >
+                      {elegida && (
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-4 w-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m5 12 5 5L20 7" />
+                        </svg>
+                      )}
                       {etiquetas.get(v.idVariante)}
+                      {sinStock && <span className="sr-only"> (agotado)</span>}
                     </button>
                   );
                 })}
@@ -139,55 +183,103 @@ function DetalleProducto({ detalle }: { detalle: ProductoDetalle }) {
             </fieldset>
           )}
 
-          {variante && (
-            <p className={`mt-4 text-sm ${agotada ? 'text-red-600' : disponible <= 5 ? 'text-amber-600' : 'text-green-700'}`}>
-              {agotada ? 'Agotado' : disponible <= 5 ? `Quedan ${disponible} unidades` : 'Disponible'}
-              <span className="ml-2 text-gray-400">SKU {variante.sku}</span>
-            </p>
-          )}
+          <div className="tarjeta mt-6 space-y-4 p-4 sm:p-5">
+            {variante && (
+              <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+                <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 font-medium ${estadoStock.clase}`}>
+                  <span aria-hidden="true" className={`h-2 w-2 rounded-full ${estadoStock.punto}`} />
+                  {estadoStock.texto}
+                </span>
+                <span className="text-gray-600">SKU {variante.sku}</span>
+              </div>
+            )}
 
-          <div className="mt-6 flex items-end gap-3">
-            <div>
-              <label htmlFor="cantidad" className="mb-1 block text-sm font-medium text-gray-700">
-                Cantidad
-              </label>
-              <input
-                id="cantidad"
-                type="number"
-                min={1}
-                max={Math.max(1, disponible)}
-                value={cantidad}
-                disabled={agotada}
-                onChange={(e) => cambiarCantidad(Number(e.target.value))}
-                className="w-24 rounded-md border border-gray-300 px-3 py-2 text-sm disabled:bg-gray-100"
-              />
+            <div className="flex flex-wrap items-end gap-3">
+              <div>
+                <label htmlFor="cantidad" className="mb-1.5 block text-sm font-medium text-gray-700">
+                  Cantidad
+                </label>
+                <div className="inline-flex items-center overflow-hidden rounded-control border border-gray-300 bg-white">
+                  <button
+                    type="button"
+                    aria-label="Disminuir cantidad"
+                    className={claseBotonCantidad}
+                    disabled={agotada || cantidad <= 1}
+                    onClick={() => cambiarCantidad(cantidad - 1)}
+                  >
+                    −
+                  </button>
+                  <input
+                    id="cantidad"
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={Math.max(1, disponible)}
+                    value={cantidad}
+                    disabled={agotada}
+                    onChange={(e) => cambiarCantidad(Number(e.target.value))}
+                    className="h-11 w-14 border-x border-gray-300 text-center text-base tabular-nums outline-none [appearance:textfield] focus:bg-marca-50 disabled:bg-gray-100 sm:text-sm [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    aria-label="Aumentar cantidad"
+                    className={claseBotonCantidad}
+                    disabled={agotada || cantidad >= disponible}
+                    onClick={() => cambiarCantidad(cantidad + 1)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {puedeComprar && (
+                <Boton onClick={agregarAlCarrito} disabled={agotada} cargando={agregar.isPending} className="h-11 min-w-48 flex-1">
+                  {agotada ? 'Agotado' : 'Agregar al carrito'}
+                </Boton>
+              )}
             </div>
-            {puedeComprar && (
-              <Boton onClick={agregarAlCarrito} disabled={agotada} cargando={agregar.isPending}>
-                Agregar al carrito
-              </Boton>
+
+            {!puedeComprar && <p className="text-sm text-gray-600">Las cuentas de gestión no realizan compras.</p>}
+
+            {aviso && (
+              <p role="status" className="flex flex-wrap items-center gap-x-2 rounded-control bg-green-50 p-3 text-sm text-green-800">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-4 w-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m5 12 5 5L20 7" />
+                </svg>
+                {aviso}
+                <Link to="/carrito" className="font-semibold underline underline-offset-2">
+                  Ver carrito
+                </Link>
+              </p>
+            )}
+
+            {agregar.isError && (
+              <p role="alert" className="rounded-control bg-red-50 p-3 text-sm text-red-700">
+                {normalizarError(agregar.error).mensaje}
+              </p>
             )}
           </div>
-          {!puedeComprar && (
-            <p className='mt-4 text-sm text-gray-500'>
-              Las cuentas de gestión no realizan compras.
-            </p>
-          )}
+        </div>
+      </div>
+    </main>
+  );
+}
 
-          {aviso&&(
-            <p role='status' className='mt-3 text-sm text-green-700'>
-              {aviso}{' '}
-              <Link to='/carrito' className='font-medium underline'>
-              Ver carrito
-              </Link>
-            </p>
-          )}
-
-          {agregar.isError && (
-            <p role='alert' className='mt-3 text-sm text-red-600'>
-              {normalizarError(agregar.error).mensaje}
-            </p>
-          )}
+function DetalleProductoEsqueleto() {
+  return (
+    <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+      <div role="status">
+        <span className="sr-only">Cargando producto...</span>
+        <Esqueleto className="h-4 w-40" />
+        <div className="mt-6 grid gap-8 md:grid-cols-2 lg:gap-12">
+          <Esqueleto className="aspect-square rounded-tarjeta" />
+          <div className="space-y-4">
+            <Esqueleto className="h-3 w-24" />
+            <Esqueleto className="h-8 w-3/4" />
+            <Esqueleto className="h-9 w-40" />
+            <Esqueleto className="h-20 w-full" />
+            <Esqueleto className="h-32 w-full rounded-tarjeta" />
+          </div>
         </div>
       </div>
     </main>
@@ -203,23 +295,20 @@ export function PaginaDetalleProducto() {
 
   if (!idValido) {
     return (
-      <main className="mx-auto max-w-7xl p-6">
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <MigasDePan />
         <EstadoError error={new Error('El producto solicitado no es válido.')} />
       </main>
     );
   }
 
-  if (consulta.isPending) return <EstadoCarga mensaje="Cargando producto..." />;
+  if (consulta.isPending) return <DetalleProductoEsqueleto />;
 
   if (consulta.isError) {
     return (
-      <main className="mx-auto max-w-7xl p-6">
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <MigasDePan />
         <EstadoError error={consulta.error} onReintentar={() => void consulta.refetch()} />
-        <p className="text-center">
-          <Link to="/catalogo" className="text-sm text-indigo-600 hover:underline">
-            Volver al catálogo
-          </Link>
-        </p>
       </main>
     );
   }

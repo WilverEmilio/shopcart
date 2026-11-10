@@ -56,37 +56,32 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
       <div className="space-y-8">
         <section aria-labelledby="titulo-direccion" className="space-y-3">
           <h2 id="titulo-direccion" className="text-lg font-semibold">
-            1. Dirección de entrega
+            Dirección de entrega
           </h2>
 
           {listaDirecciones.map((d) => {
             const elegida = d.idDireccion === idDireccion;
             return (
-              <label
-                key={d.idDireccion}
-                className={`flex cursor-pointer gap-3 rounded-lg border p-4 ${
-                  elegida ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 bg-white'
-                }`}
-              >
+              <label key={d.idDireccion} className="opcion-seleccionable">
                 <input
                   type="radio"
                   name="direccion"
-                  className="mt-1"
+                  className="mt-0.5 h-4 w-4 shrink-0"
                   checked={elegida}
                   onChange={() => setIdDireccionElegida(d.idDireccion)}
                 />
-                <span className="text-sm">
-                  <span className="block font-medium">
+                <span className="min-w-0 text-sm">
+                  <span className="flex flex-wrap items-center gap-2 font-medium text-gray-900">
                     {d.nombreDestinatario}
                     {d.esPredeterminada && (
-                      <span className="ml-2 rounded bg-gray-200 px-2 py-0.5 text-xs font-normal">Predeterminada</span>
+                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">Predeterminada</span>
                     )}
                   </span>
                   <span className="block text-gray-600">
                     {d.direccion}, {d.municipio}, {d.departamento}
                   </span>
-                  {d.referencia && <span className="block text-gray-500">Ref.: {d.referencia}</span>}
-                  <span className="block text-gray-500">Tel. {d.telefono}</span>
+                  {d.referencia && <span className="block text-gray-600">Ref.: {d.referencia}</span>}
+                  <span className="block text-gray-600">Tel. {d.telefono}</span>
                 </span>
               </label>
             );
@@ -102,53 +97,50 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
             />
           ) : (
             <Boton variante="secundario" onClick={() => setAgregando(true)}>
-              Agregar otra dirección
+              <span aria-hidden="true">+</span> Agregar otra dirección
             </Boton>
           )}
         </section>
 
         <section aria-labelledby="titulo-envio" className="space-y-3">
           <h2 id="titulo-envio" className="text-lg font-semibold">
-            2. Método de envío
+            Método de envío
           </h2>
 
           {listaEnvios.map((e) => {
             const elegido = e.idMetodoEnvio === idEnvio;
             return (
-              <label
-                key={e.idMetodoEnvio}
-                className={`flex cursor-pointer items-start justify-between gap-3 rounded-lg border p-4 ${
-                  elegido ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 bg-white'
-                }`}
-              >
+              <label key={e.idMetodoEnvio} className="opcion-seleccionable items-start justify-between">
                 <span className="flex gap-3">
                   <input
                     type="radio"
                     name="envio"
-                    className="mt-1"
+                    className="mt-0.5 h-4 w-4 shrink-0"
                     checked={elegido}
                     onChange={() => setIdEnvioElegido(e.idMetodoEnvio)}
                   />
                   <span className="text-sm">
-                    <span className="block font-medium">{e.nombre}</span>
+                    <span className="block font-medium text-gray-900">{e.nombre}</span>
                     {e.descripcion && <span className="block text-gray-600">{e.descripcion}</span>}
-                    <span className="block text-gray-500">
+                    <span className="block text-gray-600">
                       Entrega estimada: {e.diasEstaimados} {e.diasEstaimados === 1 ? 'día' : 'días'}
                     </span>
                   </span>
                 </span>
-                <span className="text-sm font-medium">{e.costo === 0 ? 'Gratis' : formatearMoneda(e.costo)}</span>
+                <span className={`shrink-0 text-sm font-semibold tabular-nums ${e.costo === 0 ? 'text-green-700' : 'text-gray-900'}`}>
+                  {e.costo === 0 ? 'Gratis' : formatearMoneda(e.costo)}
+                </span>
               </label>
             );
           })}
         </section>
       </div>
 
-      <div className="space-y-4 lg:self-start">
+      <div className="space-y-4 lg:sticky lg:top-20 lg:self-start">
         <ResumenPedido carrito={carrito} envio={envio?.costo ?? null} total={totalEstimado} />
 
         {iniciar.isError && (
-          <div role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+          <div role="alert" className="rounded-tarjeta border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             <p>{normalizarError(iniciar.error).mensaje}</p>
             <Link to="/carrito" className="mt-1 inline-block font-medium underline">
               Revisar mi carrito
@@ -164,7 +156,7 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
         >
           Continuar al pago
         </Boton>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-600">
           Al continuar reservaremos tus productos durante 15 minutos mientras completas el pago.
         </p>
       </div>

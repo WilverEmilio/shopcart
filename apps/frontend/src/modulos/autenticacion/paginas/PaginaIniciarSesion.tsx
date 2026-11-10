@@ -38,12 +38,15 @@ export function PaginaIniciarSesion() {
   });
 
   return (
-    <main className="mx-auto w-full max-w-md p-6">
-      <h1 className="mb-6 text-2xl font-semibold">Iniciar sesión</h1>
+    <main className="mx-auto w-full max-w-md px-4 py-10 sm:py-16">
+      <div className="mb-6 text-center">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Iniciar sesión</h1>
+        <p className="mt-2 text-sm text-gray-600">Entra para pagar y ver tus pedidos. Tu carrito se conserva.</p>
+      </div>
 
-      <form onSubmit={alEnviar} noValidate className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
+      <form onSubmit={alEnviar} noValidate className="tarjeta space-y-4 p-5 sm:p-8">
         {errorGeneral && (
-          <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+          <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {errorGeneral}
           </p>
         )}
@@ -68,9 +71,9 @@ export function PaginaIniciarSesion() {
         </Boton>
       </form>
 
-      <p className="mt-4 text-center text-sm text-gray-600">
+      <p className="mt-6 text-center text-sm text-gray-600">
         ¿No tienes cuenta?{' '}
-        <Link to="/registro" className="font-medium text-indigo-600 hover:underline">
+        <Link to="/registro" className="font-medium text-marca-700 hover:underline">
           Regístrate
         </Link>
       </p>

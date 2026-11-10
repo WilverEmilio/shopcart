@@ -22,7 +22,7 @@ export function DialogoConfirmacion({
         <p className="text-sm text-gray-600">{mensaje}</p>
 
         {error && (
-          <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+          <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {error}
           </p>
         )}

@@ -13,12 +13,16 @@ export function Paginador({ pagina, tamanoPagina, totalRegistros, alCambiar }: P
   const fin = Math.min(totalPaginas, inicio + 4);
   const paginas = Array.from({ length: fin - inicio + 1 }, (_, i) => inicio + i);
 
-  const base = 'rounded-md border px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50';
+  const base =
+    'inline-flex min-h-10 min-w-10 items-center justify-center rounded-control border px-3 text-sm font-medium transition-colors duration-150 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50';
+  const normal = 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:hover:bg-white';
 
   return (
-    <nav aria-label="Paginación" className="mt-6 flex flex-wrap items-center justify-center gap-2">
-      <button type="button" className={`${base} border-gray-300 hover:bg-gray-100`} disabled={pagina <= 1} onClick={() => alCambiar(pagina - 1)}>
-        Anterior
+    <nav aria-label="Paginación" className="mt-8 flex flex-wrap items-center justify-center gap-2">
+      <button type="button" className={`${base} ${normal}`} disabled={pagina <= 1} onClick={() => alCambiar(pagina - 1)}>
+        <span aria-hidden="true">‹</span>
+        <span className="ml-1 hidden sm:inline">Anterior</span>
+        <span className="sr-only sm:hidden">Anterior</span>
       </button>
 
       {paginas.map((p) => (
@@ -26,18 +30,20 @@ export function Paginador({ pagina, tamanoPagina, totalRegistros, alCambiar }: P
           key={p}
           type="button"
           aria-current={p === pagina ? 'page' : undefined}
-          className={`${base} ${p === pagina ? 'border-indigo-600 bg-indigo-600 text-white' : 'border-gray-300 hover:bg-gray-100'}`}
+          className={`${base} ${p === pagina ? 'border-marca-600 bg-marca-600 text-white' : normal}`}
           onClick={() => alCambiar(p)}
         >
           {p}
         </button>
       ))}
 
-      <button type="button" className={`${base} border-gray-300 hover:bg-gray-100`} disabled={pagina >= totalPaginas} onClick={() => alCambiar(pagina + 1)}>
-        Siguiente
+      <button type="button" className={`${base} ${normal}`} disabled={pagina >= totalPaginas} onClick={() => alCambiar(pagina + 1)}>
+        <span className="mr-1 hidden sm:inline">Siguiente</span>
+        <span className="sr-only sm:hidden">Siguiente</span>
+        <span aria-hidden="true">›</span>
       </button>
 
-      <span className="w-full text-center text-xs text-gray-500">
+      <span className="w-full text-center text-xs text-gray-600">
         Página {pagina} de {totalPaginas}
       </span>
     </nav>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { EstadoCarga } from '../../../componentes/EstadoCarga';
+import { Esqueleto } from '../../../componentes/EstadoCarga';
+import { claseBoton } from '../../../componentes/estilosBoton';
 import { EstadoError } from '../../../componentes/EstadoError';
 import { EstadoVacio } from '../../../componentes/EstadoVacio';
 import { Paginador } from '../../../componentes/Paginador';
@@ -20,19 +21,19 @@ export function PaginaMisPedidos() {
   const consulta = useMisPedidos({ estado, pagina, registroPorPagina: TAMANO_PAGINA });
 
   return (
-    <main className="mx-auto max-w-4xl p-6">
+    <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Mis pedidos</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Mis pedidos</h1>
 
-        <div>
-          <label htmlFor="filtro-estado" className="mb-1 block text-sm font-medium text-gray-700">
+        <div className="w-full sm:w-56">
+          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
             Estado
           </label>
           <select
             id="filtro-estado"
             value={estado ?? ''}
             onChange={(e) => actualizar({ estado: e.target.value || undefined })}
-            className="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+            className="control"
           >
             <option value="">Todos</option>
             {ESTADOS_PEDIDO.map((e) => (
@@ -45,40 +46,56 @@ export function PaginaMisPedidos() {
       </div>
 
       {consulta.isPending ? (
-        <EstadoCarga mensaje="Cargando tus pedidos..." />
+        <div role="status" className="space-y-3">
+          <span className="sr-only">Cargando tus pedidos...</span>
+          {Array.from({ length: 4 }, (_, i) => (
+            <div key={i} className="tarjeta flex items-center justify-between gap-4 p-4 sm:p-5">
+              <div className="flex-1 space-y-2">
+                <Esqueleto className="h-4 w-32" />
+                <Esqueleto className="h-3 w-48" />
+              </div>
+              <Esqueleto className="h-6 w-24 rounded-full" />
+            </div>
+          ))}
+        </div>
       ) : consulta.isError ? (
         <EstadoError error={consulta.error} onReintentar={() => void consulta.refetch()} />
       ) : consulta.data.items.length === 0 ? (
-        <div>
+        <div className="tarjeta">
           <EstadoVacio
             titulo={estado ? 'No tienes pedidos con ese estado' : 'Aún no tienes pedidos'}
             descripcion="Cuando hagas una compra aparecerá aquí."
+            accion={
+              <Link to="/catalogo" className={claseBoton('primario')}>
+                Ir al catálogo
+              </Link>
+            }
           />
-          <p className="text-center">
-            <Link to="/catalogo" className="text-sm font-medium text-indigo-600 hover:underline">
-              Ir al catálogo
-            </Link>
-          </p>
         </div>
       ) : (
         <>
-          <ul className={`space-y-3 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+          <ul className={`space-y-3 transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             {consulta.data.items.map((p) => (
               <li key={p.idPedido}>
                 <Link
                   to={`/mis-pedidos/${p.idPedido}`}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md"
+                  className="tarjeta group flex items-center gap-3 p-4 transition-shadow duration-150 hover:shadow-elevada motion-reduce:transition-none sm:p-5"
                 >
-                  <div>
-                    <p className="font-medium">{p.numeroPedido}</p>
-                    <p className="text-sm text-gray-500">
-                      {formatearFechaHora(p.fechaCreacion)} · {p.unidades} {p.unidades === 1 ? 'unidad' : 'unidades'}
-                    </p>
+                  <div className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 group-hover:text-marca-700">{p.numeroPedido}</p>
+                      <p className="text-sm text-gray-600">
+                        {formatearFechaHora(p.fechaCreacion)} · {p.unidades} {p.unidades === 1 ? 'unidad' : 'unidades'}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <InsigniaEstado estado={p.estado} />
+                      <span className="font-semibold tabular-nums text-gray-900">{formatearMoneda(p.total)}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <InsigniaEstado estado={p.estado} />
-                    <span className="font-semibold">{formatearMoneda(p.total)}</span>
-                  </div>
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-marca-600">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6" />
+                  </svg>
                 </Link>
               </li>
             ))}

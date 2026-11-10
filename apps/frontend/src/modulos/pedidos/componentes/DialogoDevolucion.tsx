@@ -53,11 +53,11 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
     <form onSubmit={enviar} noValidate className="space-y-4">
       <fieldset className="space-y-2 text-sm">
         <legend className="mb-1 font-medium text-gray-700">Tipo de devolución</legend>
-        <label className="flex items-center gap-2">
+        <label className="flex min-h-10 cursor-pointer items-center gap-2">
           <input type="radio" name="modo" checked={modo === 'total'} onChange={() => setModo('total')} />
           Total (todas las unidades pendientes)
         </label>
-        <label className="flex items-center gap-2">
+        <label className="flex min-h-10 cursor-pointer items-center gap-2">
           <input type="radio" name="modo" checked={modo === 'parcial'} onChange={() => setModo('parcial')} />
           Parcial (elegir unidades por producto)
         </label>
@@ -71,7 +71,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
               <li key={i.idDetallePedido} className="flex items-center justify-between gap-3 text-sm">
                 <span>
                   {i.nombreProducto}
-                  <span className="block text-xs text-gray-400">
+                  <span className="block text-xs text-gray-600">
                     SKU {i.sku} · se pueden devolver hasta {maximo}
                   </span>
                 </span>
@@ -82,7 +82,8 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
                   aria-label={`Unidades a devolver de ${i.nombreProducto}`}
                   value={cantidades[i.idDetallePedido] ?? 0}
                   onChange={(e) => cambiarCantidad(i, Number(e.target.value))}
-                  className="w-20 rounded-md border border-gray-300 px-2 py-1 text-sm"
+                  inputMode="numeric"
+                  className="control w-20 shrink-0 text-center"
                 />
               </li>
             );
@@ -100,7 +101,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
           maxLength={255}
           value={motivo}
           onChange={(e) => setMotivo(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+          className="control"
         />
       </div>
 
@@ -109,7 +110,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
       </p>
 
       {mensaje && (
-        <p role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {mensaje}
         </p>
       )}

@@ -1,10 +1,10 @@
 import type { ComponentProps } from 'react';
+import { claseBoton, type VarianteBoton } from './estilosBoton';
 
 interface Propiedades extends ComponentProps<'button'> {
   cargando?: boolean;
-  variante?: 'primario' | 'secundario' | 'peligro';
+  variante?: VarianteBoton;
 }
-
 
 export function Boton({
   cargando = false,
@@ -15,21 +15,25 @@ export function Boton({
   className = '',
   ...resto
 }: Propiedades) {
-    const estilos = {
-    primario: 'bg-indigo-600 text-white hover:bg-indigo-700',
-    secundario: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-100',
-    peligro: 'bg-red-600 text-white hover:bg-red-700',
-    }[variante];
-    
-
   return (
     <button
       type={type}
       disabled={disabled || cargando}
-      className={`rounded-md px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-60 ${estilos} ${className}`}
+      aria-busy={cargando || undefined}
+      className={claseBoton(variante, className)}
       {...resto}
     >
-      {cargando ? 'Procesando...' : children}
+      {cargando ? (
+        <>
+          <span
+            aria-hidden="true"
+            className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none"
+          />
+          Procesando...
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 }
