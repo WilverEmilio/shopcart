@@ -62,7 +62,7 @@ export function PasoPago({ carrito, pago, alConfirmado }: Propiedades) {
           ) : (
             <div className="flex flex-1 flex-wrap items-center justify-between gap-x-4 gap-y-1">
               <p className="text-sm">Reservamos tus productos. Completa el pago en:</p>
-              <p className="text-3xl font-bold tabular-nums">{formatearTemporizador(restante)}</p>
+              <p className="font-display text-4xl font-bold tabular-nums">{formatearTemporizador(restante)}</p>
             </div>
           )}
         </div>
@@ -71,7 +71,7 @@ export function PasoPago({ carrito, pago, alConfirmado }: Propiedades) {
           <h2 id="titulo-pago" className="text-lg font-semibold">
             Método de pago
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-slate-600">
             Entorno de pruebas: elige el resultado que quieres simular. Los datos de tarjeta nunca pasan por nuestro servidor.
           </p>
 
@@ -86,8 +86,8 @@ export function PasoPago({ carrito, pago, alConfirmado }: Propiedades) {
                 onChange={() => setTokenPago(e.token)}
               />
               <span className="text-sm">
-                <span className="block font-medium text-gray-900">{e.etiqueta}</span>
-                <span className="block text-gray-600">{e.detalle}</span>
+                <span className="block font-medium text-slate-900">{e.etiqueta}</span>
+                <span className="block text-slate-600">{e.detalle}</span>
               </span>
             </label>
           ))}
@@ -122,7 +122,7 @@ export function PasoPago({ carrito, pago, alConfirmado }: Propiedades) {
                 type="button"
                 onClick={reiniciar}
                 disabled={confirmar.isPending}
-                className="min-h-11 text-sm font-medium text-gray-700 underline underline-offset-2 hover:text-gray-900 disabled:opacity-50"
+                className="min-h-11 text-sm font-medium text-slate-700 underline underline-offset-2 hover:text-slate-900 disabled:opacity-50"
               >
                 Cambiar dirección o envío
               </button>

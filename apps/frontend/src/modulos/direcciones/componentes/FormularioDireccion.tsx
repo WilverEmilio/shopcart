@@ -77,7 +77,7 @@ export function FormularioDireccion({ alGuardar, alCancelar }: Propiedades) {
       <CampoFormulario etiqueta="Dirección (calle, zona, número)" autoComplete="street-address" error={errors.direccion?.message} {...register('direccion')} />
       <CampoFormulario etiqueta="Referencia (opcional)" error={errors.referencia?.message} {...register('referencia')} />
 
-      <label className="flex min-h-10 cursor-pointer items-center gap-3 text-sm text-gray-700">
+      <label className="flex min-h-10 cursor-pointer items-center gap-3 text-sm text-slate-700">
         <input type="checkbox" className="h-4 w-4" {...register('esPredeterminada')} />
         Usar como dirección predeterminada
       </label>

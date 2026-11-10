@@ -11,7 +11,7 @@ interface Propiedades {
 }
 
 const claseBotonCantidad =
-  'flex h-10 w-10 items-center justify-center text-lg leading-none text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent';
+  'flex h-10 w-10 items-center justify-center text-lg leading-none text-slate-700 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent';
 
 export function ItemCarritoFila({ item, ocupado, alCambiarCantidad, alEliminar }: Propiedades) {
   const maximo = Math.min(999, Math.max(item.disponible, 0));
@@ -22,7 +22,7 @@ export function ItemCarritoFila({ item, ocupado, alCambiarCantidad, alEliminar }
     <li className="flex gap-3 py-4 sm:gap-4 sm:py-5">
       <Link
         to={urlProducto}
-        className={`h-20 w-20 shrink-0 overflow-hidden rounded-control border border-gray-200 bg-white sm:h-24 sm:w-24 ${conProblema ? 'opacity-70' : ''}`}
+        className={`h-20 w-20 shrink-0 overflow-hidden rounded-control border border-slate-200 bg-white sm:h-24 sm:w-24 ${conProblema ? 'opacity-70' : ''}`}
       >
         <ImagenProducto url={item.imagen} alt={item.producto} className="h-full w-full object-cover" />
       </Link>
@@ -30,16 +30,16 @@ export function ItemCarritoFila({ item, ocupado, alCambiarCantidad, alEliminar }
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <Link to={urlProducto} className="line-clamp-2 font-medium text-gray-900 hover:text-marca-700">
+            <Link to={urlProducto} className="line-clamp-2 font-medium text-slate-900 hover:text-marca-700">
               {item.producto}
             </Link>
-            {item.atributos && <p className="text-sm text-gray-600">{item.atributos}</p>}
-            <p className="text-xs text-gray-500">SKU {item.sku}</p>
+            {item.atributos && <p className="text-sm text-slate-600">{item.atributos}</p>}
+            <p className="text-xs text-slate-500">SKU {item.sku}</p>
           </div>
 
           <div className="shrink-0 text-right">
-            <p className="font-semibold tabular-nums text-gray-900">{formatearMoneda(item.subtotal)}</p>
-            <p className="text-xs tabular-nums text-gray-600">{formatearMoneda(item.precio)} c/u</p>
+            <p className="precio">{formatearMoneda(item.subtotal)}</p>
+            <p className="text-xs tabular-nums text-slate-600">{formatearMoneda(item.precio)} c/u</p>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ export function ItemCarritoFila({ item, ocupado, alCambiarCantidad, alEliminar }
 
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
           <div
-            className="inline-flex items-center overflow-hidden rounded-control border border-gray-300 bg-white"
+            className="inline-flex items-center overflow-hidden rounded-control border border-slate-300 bg-white"
             role="group"
             aria-label={`Cantidad de ${item.producto}`}
           >
@@ -68,7 +68,7 @@ export function ItemCarritoFila({ item, ocupado, alCambiarCantidad, alEliminar }
             >
               −
             </button>
-            <span className="flex h-10 w-10 items-center justify-center border-x border-gray-300 text-sm font-medium tabular-nums" aria-live="polite">
+            <span className="flex h-10 w-10 items-center justify-center border-x border-slate-300 text-sm font-medium tabular-nums" aria-live="polite">
               {item.cantidad}
             </span>
             <button

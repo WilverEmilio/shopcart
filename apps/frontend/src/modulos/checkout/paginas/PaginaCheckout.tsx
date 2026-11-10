@@ -26,10 +26,10 @@ function IndicadorPasos({ actual }: { actual: number }) {
             <span
               className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
                 completado
-                  ? 'bg-marca-600 text-white'
+                  ? 'bg-marca-700 text-white'
                   : activo
                     ? 'border-2 border-marca-600 bg-white text-marca-700'
-                    : 'border border-gray-300 bg-white text-gray-500'
+                    : 'border border-slate-300 bg-white text-slate-500'
               }`}
             >
               {completado ? (
@@ -40,12 +40,12 @@ function IndicadorPasos({ actual }: { actual: number }) {
                 i + 1
               )}
             </span>
-            <span className={`whitespace-nowrap ${activo ? 'font-semibold text-gray-900' : 'hidden text-gray-600 sm:inline'}`}>
+            <span className={`whitespace-nowrap ${activo ? 'font-semibold text-slate-900' : 'hidden text-slate-600 sm:inline'}`}>
               {paso}
               {completado && <span className="sr-only"> (completado)</span>}
             </span>
             {i < PASOS.length - 1 && (
-              <span aria-hidden="true" className={`h-px min-w-4 flex-1 ${completado ? 'bg-marca-600' : 'bg-gray-300'}`} />
+              <span aria-hidden="true" className={`h-px min-w-4 flex-1 ${completado ? 'bg-marca-600' : 'bg-slate-300'}`} />
             )}
           </li>
         );
@@ -83,7 +83,7 @@ export function PaginaCheckout() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">Finalizar compra</h1>
+      <h1 className="mb-6 text-3xl font-bold sm:text-4xl">Finalizar compra</h1>
       <IndicadorPasos actual={pagoActivo ? 1 : 0} />
 
       {pagoActivo ? (
