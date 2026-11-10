@@ -17,19 +17,19 @@ export function PaginaPedidoConfirmado() {
             <path strokeLinecap="round" strokeLinejoin="round" d="m5 12 5 5L20 7" />
           </svg>
         </span>
-        <h1 className="mt-5 text-2xl font-bold tracking-tight">¡Pedido confirmado!</h1>
-        <p className="mt-2 text-sm text-gray-600">Puedes seguir su estado desde Mis pedidos.</p>
+        <h1 className="mt-5 text-3xl font-bold">¡Pedido confirmado!</h1>
+        <p className="mt-2 text-sm text-slate-600">Puedes seguir su estado desde Mis pedidos.</p>
 
-        <dl className="mt-6 divide-y divide-gray-100 rounded-control bg-gray-50 px-4 text-sm">
+        <dl className="mt-6 divide-y divide-slate-100 rounded-control bg-slate-50 px-4 text-sm">
           {pedido.numeroPedido && (
             <div className="flex justify-between gap-3 py-3">
-              <dt className="text-gray-600">Número de pedido</dt>
-              <dd className="font-semibold text-gray-900">{pedido.numeroPedido}</dd>
+              <dt className="text-slate-600">Número de pedido</dt>
+              <dd className="font-semibold text-slate-900">{pedido.numeroPedido}</dd>
             </div>
           )}
           <div className="flex justify-between gap-3 py-3">
-            <dt className="text-gray-600">Total pagado</dt>
-            <dd className="font-semibold tabular-nums text-gray-900">{formatearMoneda(pedido.total)}</dd>
+            <dt className="text-slate-600">Total pagado</dt>
+            <dd className="precio text-base">{formatearMoneda(pedido.total)}</dd>
           </div>
         </dl>
 

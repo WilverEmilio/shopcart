@@ -28,12 +28,12 @@ function FormularioMotivo({ alCerrar, alConfirmar, cargando, error }: Omit<Propi
 
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         Al cancelar, las unidades vuelven al inventario y se revierte el uso del cupón. Esta acción no se puede deshacer.
       </p>
 
       <div>
-        <label htmlFor="motivo-cancelacion" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="motivo-cancelacion" className="mb-1 block text-sm font-medium text-slate-700">
           Motivo de la cancelación
         </label>
         <textarea

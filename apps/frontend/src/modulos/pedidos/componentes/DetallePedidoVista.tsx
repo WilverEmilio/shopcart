@@ -15,10 +15,10 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
     <div className="space-y-8">
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Pedido {detalle.numeroPedido}</h1>
-          <p className="mt-1 text-sm text-gray-600">Realizado el {formatearFechaHora(detalle.fechaCreacion)}</p>
+          <h1 className="text-3xl font-bold sm:text-4xl">Pedido {detalle.numeroPedido}</h1>
+          <p className="mt-1 text-sm text-slate-600">Realizado el {formatearFechaHora(detalle.fechaCreacion)}</p>
           {mostrarCliente && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
               Cliente: {detalle.nombreCliente} ({detalle.correoCliente})
             </p>
           )}
@@ -32,8 +32,8 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
             Productos
           </h2>
           <div className="tarjeta overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-600">
+            <table className="tabla">
+              <thead>
                 <tr>
                   <th className="px-4 py-3">Producto</th>
                   <th className="px-4 py-3 text-right">Precio</th>
@@ -42,13 +42,13 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
                   <th className="px-4 py-3 text-right">Subtotal</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {detalle.items.map((i) => (
-                  <tr key={i.idDetallePedido} className="hover:bg-gray-50">
+                  <tr key={i.idDetallePedido}>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{i.nombreProducto}</p>
-                      {i.atributos && <p className="text-gray-600">{i.atributos}</p>}
-                      <p className="text-xs text-gray-500">SKU {i.sku}</p>
+                      <p className="font-medium text-slate-900">{i.nombreProducto}</p>
+                      {i.atributos && <p className="text-slate-600">{i.atributos}</p>}
+                      <p className="text-xs text-slate-500">SKU {i.sku}</p>
                     </td>
                     <td className="px-4 py-3 text-right tabular-nums">{formatearMoneda(i.precioUnitario)}</td>
                     <td className="px-4 py-3 text-right tabular-nums">{i.cantidad}</td>
@@ -64,7 +64,7 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
         <aside className="tarjeta space-y-2 p-5 text-sm lg:sticky lg:top-20 lg:self-start">
           <h2 className="mb-2 text-lg font-semibold">Totales</h2>
           <div className="flex justify-between">
-            <span className="text-gray-600">Subtotal</span>
+            <span className="text-slate-600">Subtotal</span>
             <span>{formatearMoneda(detalle.subtotal)}</span>
           </div>
           {detalle.descuento > 0 && (
@@ -74,16 +74,16 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
             </div>
           )}
           <div className="flex justify-between">
-            <span className="text-gray-600">Envío{detalle.nombreEnvio ? ` (${detalle.nombreEnvio})` : ''}</span>
+            <span className="text-slate-600">Envío{detalle.nombreEnvio ? ` (${detalle.nombreEnvio})` : ''}</span>
             <span>{detalle.costoEnvio === 0 ? 'Gratis' : formatearMoneda(detalle.costoEnvio)}</span>
           </div>
-          <div className="flex items-baseline justify-between border-t border-gray-200 pt-3 text-base font-semibold text-gray-900">
+          <div className="flex items-baseline justify-between border-t border-slate-200 pt-3 text-base font-semibold text-slate-900">
             <span>Total</span>
-            <span>{formatearMoneda(detalle.total)}</span>
+            <span className="precio text-xl">{formatearMoneda(detalle.total)}</span>
           </div>
-          <p className="text-xs text-gray-600">Incluye IVA de {formatearMoneda(detalle.iva)}.</p>
+          <p className="text-xs text-slate-600">Incluye IVA de {formatearMoneda(detalle.iva)}.</p>
           {reembolsado > 0 && (
-            <div className="flex justify-between border-t border-gray-200 pt-2 text-red-700">
+            <div className="flex justify-between border-t border-slate-200 pt-2 text-red-700">
               <span>Reembolsado</span>
               <span>−{formatearMoneda(reembolsado)}</span>
             </div>
@@ -95,13 +95,13 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
         <h2 id="titulo-entrega" className="mb-3 text-lg font-semibold">
           Entrega
         </h2>
-        <div className="tarjeta p-4 text-sm text-gray-700 sm:p-5">
-          <p className="font-medium text-gray-900">{detalle.destinatarioEnvio}</p>
+        <div className="tarjeta p-4 text-sm text-slate-700 sm:p-5">
+          <p className="font-medium text-slate-900">{detalle.destinatarioEnvio}</p>
           <p>
             {detalle.direccionEnvio}, {detalle.municipioEnvio}, {detalle.departamentoEnvio}
           </p>
-          {detalle.referenciaEnvio && <p className="text-gray-600">Ref.: {detalle.referenciaEnvio}</p>}
-          <p className="text-gray-600">Tel. {detalle.telefonoEnvio}</p>
+          {detalle.referenciaEnvio && <p className="text-slate-600">Ref.: {detalle.referenciaEnvio}</p>}
+          <p className="text-slate-600">Tel. {detalle.telefonoEnvio}</p>
         </div>
       </section>
 
@@ -109,16 +109,16 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
         <h2 id="titulo-historial" className="mb-3 text-lg font-semibold">
           Historial de estados
         </h2>
-        <ol className="tarjeta space-y-4 p-4 pl-9 sm:p-5 sm:pl-10 relative before:absolute before:bottom-6 before:left-5 before:top-6 before:w-0.5 before:bg-gray-200 sm:before:left-6">
+        <ol className="tarjeta space-y-4 p-4 pl-9 sm:p-5 sm:pl-10 relative before:absolute before:bottom-6 before:left-5 before:top-6 before:w-0.5 before:bg-slate-200 sm:before:left-6">
           {detalle.historial.map((h) => (
             <li key={h.idHistorial} className="relative text-sm">
               <span aria-hidden="true" className="absolute -left-[1.3rem] top-1.5 h-2.5 w-2.5 rounded-full bg-marca-500 ring-4 ring-white" />
               <div className="flex flex-wrap items-center gap-2">
                 <InsigniaEstado estado={h.estadoNuevo} />
-                <span className="text-gray-600">{formatearFechaHora(h.fecha)}</span>
-                {mostrarCliente && <span className="text-gray-500">· {h.correoUsuario}</span>}
+                <span className="text-slate-600">{formatearFechaHora(h.fecha)}</span>
+                {mostrarCliente && <span className="text-slate-500">· {h.correoUsuario}</span>}
               </div>
-              {h.comentario && <p className="mt-1 text-gray-600">{h.comentario}</p>}
+              {h.comentario && <p className="mt-1 text-slate-600">{h.comentario}</p>}
             </li>
           ))}
         </ol>
@@ -136,8 +136,8 @@ export function DetallePedidoVista({ detalle, mostrarCliente = false }: Propieda
                   <span className="font-medium">{formatearFechaHora(d.fecha)}</span>
                   <span className="font-medium">{formatearMoneda(d.montoReembolso)}</span>
                 </div>
-                <p className="text-gray-600">Motivo: {d.motivo}</p>
-                <ul className="mt-2 list-disc pl-5 text-gray-600">
+                <p className="text-slate-600">Motivo: {d.motivo}</p>
+                <ul className="mt-2 list-disc pl-5 text-slate-600">
                   {detalle.detalleDevoluciones
                     .filter((l) => l.idDevolucion === d.idDevolucion)
                     .map((l) => (

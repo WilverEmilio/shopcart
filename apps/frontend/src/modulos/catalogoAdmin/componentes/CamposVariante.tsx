@@ -36,7 +36,7 @@ export function CamposVariante({ valor, alCambiar, mostrarPrecio, atributosDispo
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-medium text-gray-700">Atributos (talla, color...)</p>
+        <p className="mb-2 text-sm font-medium text-slate-700">Atributos (talla, color...)</p>
         <EditorAtributos
           valor={valor.atributos}
           alCambiar={(atributos) => alCambiar({ ...valor, atributos })}

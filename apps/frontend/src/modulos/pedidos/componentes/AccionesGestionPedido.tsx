@@ -38,9 +38,9 @@ export function AccionesGestionPedido({ detalle }: { detalle: DetallePedido }) {
       </h2>
 
       {transiciones.isPending ? (
-        <p className="text-sm text-gray-600">Cargando acciones disponibles...</p>
+        <p className="text-sm text-slate-600">Cargando acciones disponibles...</p>
       ) : sinAcciones ? (
-        <p className="text-sm text-gray-600">No hay acciones disponibles para un pedido en este estado.</p>
+        <p className="text-sm text-slate-600">No hay acciones disponibles para un pedido en este estado.</p>
       ) : (
         <>
           {avances.length > 0 && (

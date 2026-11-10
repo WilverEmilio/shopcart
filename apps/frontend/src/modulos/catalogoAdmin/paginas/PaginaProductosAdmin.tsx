@@ -58,7 +58,7 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
       <CampoFormulario etiqueta="Buscar" type="search" placeholder="Nombre, descripción o SKU" maxLength={100} value={textoLocal} onChange={(e) => setTextoLocal(e.target.value)} />
 
       <div>
-        <label htmlFor="prod-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
           Categoría
         </label>
         <select id="prod-categoria" className={claseSelect} value={idCategoria ?? ''} onChange={(e) => alCambiar({ categoria: e.target.value || undefined })}>
@@ -73,7 +73,7 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
       </div>
 
       <div>
-        <label htmlFor="prod-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
           Estado
         </label>
         <select id="prod-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -84,7 +84,7 @@ function Filtros({ texto, idCategoria, activo, orden, categorias, alCambiar, alL
       </div>
 
       <div>
-        <label htmlFor="prod-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="prod-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
           Ordenar por
         </label>
         <select id="prod-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -155,7 +155,7 @@ export function PaginaProductosAdmin() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Productos</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Productos</h1>
         <Link to="/admin/productos/nuevo" className={claseBoton('primario')}>
           Nuevo producto
         </Link>
@@ -189,7 +189,7 @@ export function PaginaProductosAdmin() {
         <EstadoVacio titulo="No hay productos" descripcion="Prueba con otros filtros o crea uno nuevo." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} productos</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} productos</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -204,16 +204,16 @@ export function PaginaProductosAdmin() {
                   <th className="px-4 py-3">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.productos.map((p) => (
                   <tr key={p.idProducto}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <ImagenProducto url={p.imagenPrincipal} alt={p.nombre} className="h-12 w-12 shrink-0 rounded-control border border-gray-200 object-cover" />
+                        <ImagenProducto url={p.imagenPrincipal} alt={p.nombre} className="h-12 w-12 shrink-0 rounded-control border border-slate-200 object-cover" />
                         <span className="font-medium">{p.nombre}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{p.categoria}</td>
+                    <td className="px-4 py-3 text-slate-600">{p.categoria}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-right">
                       {p.precioDesde === p.precioHasta
                         ? formatearMoneda(p.precioDesde)
@@ -222,7 +222,7 @@ export function PaginaProductosAdmin() {
                     <td className="px-4 py-3 text-right">{p.totalVariantes}</td>
                     <td className={`px-4 py-3 text-right ${p.disponible <= 0 ? 'font-semibold text-red-600' : ''}`}>{p.disponible}</td>
                     <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${p.activo ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700'}`}>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${p.activo ? 'bg-green-100 text-green-800' : 'bg-slate-200 text-slate-700'}`}>
                         {p.activo ? 'Activo' : 'Inactivo'}
                       </span>
                     </td>

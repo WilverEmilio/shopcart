@@ -38,7 +38,7 @@ export function PaginaPedidosGestion() {
 
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Pedidos</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Pedidos</h1>
 
       <FiltrosPedidosGestion
         key={`${texto}|${fechaDesde}|${fechaHasta}`}
@@ -59,7 +59,7 @@ export function PaginaPedidosGestion() {
         <EstadoVacio titulo="No hay pedidos" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-slate-600">
             {consulta.data.totalRegistros} {consulta.data.totalRegistros === 1 ? 'pedido' : 'pedidos'}
           </p>
 
@@ -76,13 +76,13 @@ export function PaginaPedidosGestion() {
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((p) => (
                   <tr key={p.idPedido}>
                     <td className="px-4 py-3 font-medium">{p.numeroPedido}</td>
                     <td className="px-4 py-3">
                       <p>{p.nombreCliente}</p>
-                      <p className="text-xs text-gray-500">{p.correoCliente}</p>
+                      <p className="text-xs text-slate-500">{p.correoCliente}</p>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">{formatearFechaHora(p.fechaCreacion)}</td>
                     <td className="px-4 py-3">

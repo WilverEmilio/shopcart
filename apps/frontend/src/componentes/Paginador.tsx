@@ -15,7 +15,7 @@ export function Paginador({ pagina, tamanoPagina, totalRegistros, alCambiar }: P
 
   const base =
     'inline-flex min-h-10 min-w-10 items-center justify-center rounded-control border px-3 text-sm font-medium transition-colors duration-150 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50';
-  const normal = 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:hover:bg-white';
+  const normal = 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:hover:bg-white';
 
   return (
     <nav aria-label="Paginación" className="mt-8 flex flex-wrap items-center justify-center gap-2">
@@ -30,7 +30,7 @@ export function Paginador({ pagina, tamanoPagina, totalRegistros, alCambiar }: P
           key={p}
           type="button"
           aria-current={p === pagina ? 'page' : undefined}
-          className={`${base} ${p === pagina ? 'border-marca-600 bg-marca-600 text-white' : normal}`}
+          className={`${base} ${p === pagina ? 'border-marca-700 bg-marca-700 text-white' : normal}`}
           onClick={() => alCambiar(p)}
         >
           {p}
@@ -43,7 +43,7 @@ export function Paginador({ pagina, tamanoPagina, totalRegistros, alCambiar }: P
         <span aria-hidden="true">›</span>
       </button>
 
-      <span className="w-full text-center text-xs text-gray-600">
+      <span className="w-full text-center text-xs text-slate-600">
         Página {pagina} de {totalPaginas}
       </span>
     </nav>

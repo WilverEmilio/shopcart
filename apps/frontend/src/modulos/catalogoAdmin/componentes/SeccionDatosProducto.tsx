@@ -66,7 +66,7 @@ export function SeccionDatosProducto({ detalle }: { detalle: ProductoDetalle }) 
       <CampoFormulario etiqueta="Nombre" maxLength={150} value={datos.nombre} onChange={(e) => setDatos({ ...datos, nombre: e.target.value })} error={errores.nombre} />
 
       <div>
-        <label htmlFor="ep-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="ep-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
           Categoría
         </label>
         <select
@@ -96,7 +96,7 @@ export function SeccionDatosProducto({ detalle }: { detalle: ProductoDetalle }) 
       </div>
 
       <div>
-        <label htmlFor="ep-descripcion" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="ep-descripcion" className="mb-1.5 block text-sm font-medium text-slate-700">
           Descripción
         </label>
         <textarea

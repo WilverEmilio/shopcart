@@ -63,7 +63,7 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
       <CampoFormulario etiqueta="Buscar" type="search" placeholder="Código o descripción" maxLength={100} value={texto} onChange={(e) => setTexto(e.target.value)} />
 
       <div>
-        <label htmlFor="cup-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
           Estado
         </label>
         <select id="cup-estado" className={claseSelect} value={estado} onChange={(e) => alCambiar({ estado: e.target.value || undefined })}>
@@ -77,7 +77,7 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
       </div>
 
       <div>
-        <label htmlFor="cup-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
           Categoría
         </label>
         <select id="cup-categoria" className={claseSelect} value={idCategoria ?? ''} onChange={(e) => alCambiar({ categoria: e.target.value || undefined })}>
@@ -91,7 +91,7 @@ function Filtros({ busqueda, estado, idCategoria, orden, categorias, alCambiar, 
       </div>
 
       <div>
-        <label htmlFor="cup-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cup-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
           Ordenar por
         </label>
         <select id="cup-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -180,7 +180,7 @@ export function PaginaCuponesAdmin() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Cupones</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Cupones</h1>
         <Boton onClick={() => setDialogoCupon({ cupon: null })}>Nuevo cupón</Boton>
       </div>
 
@@ -212,7 +212,7 @@ export function PaginaCuponesAdmin() {
         <EstadoVacio titulo="No hay cupones" descripcion="Prueba con otros filtros o crea uno nuevo." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} cupones</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} cupones</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -228,19 +228,19 @@ export function PaginaCuponesAdmin() {
                   <th className="px-4 py-3">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((c) => (
                   <tr key={c.idCupon}>
                     <td className="px-4 py-3">
                       <p className="font-mono font-semibold">{c.codigo}</p>
-                      {c.descripcion && <p className="max-w-[14rem] text-xs text-gray-500">{c.descripcion}</p>}
+                      {c.descripcion && <p className="max-w-[14rem] text-xs text-slate-500">{c.descripcion}</p>}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       {c.tipoDescuento === 'PORCENTAJE' ? `${c.valor} %` : formatearMoneda(c.valor)}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{c.categoria ?? 'Todo el carrito'}</td>
+                    <td className="px-4 py-3 text-slate-600">{c.categoria ?? 'Todo el carrito'}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-right">{c.montoMinimo > 0 ? formatearMoneda(c.montoMinimo) : '—'}</td>
-                    <td className="whitespace-nowrap px-4 py-3 text-xs text-gray-600">
+                    <td className="whitespace-nowrap px-4 py-3 text-xs text-slate-600">
                       <p>{formatearFechaHora(c.fechaInicio)}</p>
                       <p>{formatearFechaHora(c.fechaFin)}</p>
                     </td>
@@ -248,7 +248,7 @@ export function PaginaCuponesAdmin() {
                       <p>
                         {c.usosActuales} / {c.limiteUsosTotal ?? '∞'}
                       </p>
-                      <p className="text-gray-500">{c.limiteUsosPorCliente ? `${c.limiteUsosPorCliente} por cliente` : 'sin límite por cliente'}</p>
+                      <p className="text-slate-500">{c.limiteUsosPorCliente ? `${c.limiteUsosPorCliente} por cliente` : 'sin límite por cliente'}</p>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_ESTADO_CUPON[c.estado]}`}>

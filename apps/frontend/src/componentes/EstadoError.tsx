@@ -16,7 +16,7 @@ export function EstadoError({ error, onReintentar }: Propiedades) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" />
         </svg>
       </span>
-      <p className="mt-4 max-w-md font-medium text-gray-900">{mensaje}</p>
+      <p className="mt-4 max-w-md font-medium text-slate-900">{mensaje}</p>
       {onReintentar && (
         <Boton variante="secundario" onClick={onReintentar} className="mt-4">
           Reintentar

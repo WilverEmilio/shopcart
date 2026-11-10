@@ -52,7 +52,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
       <fieldset className="space-y-2 text-sm">
-        <legend className="mb-1 font-medium text-gray-700">Tipo de devolución</legend>
+        <legend className="mb-1 font-medium text-slate-700">Tipo de devolución</legend>
         <label className="flex min-h-10 cursor-pointer items-center gap-2">
           <input type="radio" name="modo" checked={modo === 'total'} onChange={() => setModo('total')} />
           Total (todas las unidades pendientes)
@@ -71,7 +71,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
               <li key={i.idDetallePedido} className="flex items-center justify-between gap-3 text-sm">
                 <span>
                   {i.nombreProducto}
-                  <span className="block text-xs text-gray-600">
+                  <span className="block text-xs text-slate-600">
                     SKU {i.sku} · se pueden devolver hasta {maximo}
                   </span>
                 </span>
@@ -92,7 +92,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
       )}
 
       <div>
-        <label htmlFor="motivo-devolucion" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="motivo-devolucion" className="mb-1 block text-sm font-medium text-slate-700">
           Motivo
         </label>
         <textarea
@@ -105,7 +105,7 @@ function FormularioDevolucion({ items, alCerrar, alConfirmar, cargando, error }:
         />
       </div>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-slate-500">
         El reembolso se calcula en el servidor, respetando los descuentos del pedido, y las unidades regresan al inventario.
       </p>
 

@@ -90,10 +90,10 @@ export function PaginaProductoEditar() {
 
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{producto.nombre}</h1>
-          <p className="text-sm text-gray-600">
+          <h1 className="text-2xl font-bold sm:text-3xl">{producto.nombre}</h1>
+          <p className="text-sm text-slate-600">
             {producto.categoria} ·{' '}
-            <span className={producto.activo ? 'text-green-700' : 'text-gray-500'}>
+            <span className={producto.activo ? 'text-green-700' : 'text-slate-500'}>
               {producto.activo ? 'Activo en la tienda' : 'Inactivo (oculto en la tienda)'}
             </span>
           </p>

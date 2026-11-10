@@ -37,7 +37,7 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
 
       <dl className="space-y-2 text-sm">
         <div className="flex justify-between">
-          <dt className="text-gray-600">Subtotal</dt>
+          <dt className="text-slate-600">Subtotal</dt>
           <dd className="tabular-nums">{formatearMoneda(carrito.subtotal)}</dd>
         </div>
 
@@ -48,15 +48,15 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
           </div>
         )}
 
-        <div className="flex items-baseline justify-between border-t border-gray-200 pt-3 font-semibold text-gray-900">
+        <div className="flex items-baseline justify-between border-t border-slate-200 pt-3 font-semibold text-slate-900">
           <dt className="text-base">Total</dt>
-          <dd className="text-xl tabular-nums">{formatearMoneda(carrito.total)}</dd>
+          <dd className="precio text-2xl">{formatearMoneda(carrito.total)}</dd>
         </div>
-        <p className="text-xs text-gray-600">Incluye IVA de {formatearMoneda(carrito.iva)}. El envío se calcula al pagar.</p>
+        <p className="text-xs text-slate-600">Incluye IVA de {formatearMoneda(carrito.iva)}. El envío se calcula al pagar.</p>
       </dl>
 
       {esCliente ? (
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-t border-slate-200 pt-4">
           {carrito.cupon ? (
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between gap-2 rounded-control border border-dashed border-green-300 bg-green-50 px-3 py-2">
@@ -106,7 +106,7 @@ export function ResumenCarrito({ carrito, acciones, esCliente }: Propiedades) {
           )}
         </div>
       ) : (
-        <p className="border-t border-gray-200 pt-4 text-sm text-gray-600">
+        <p className="border-t border-slate-200 pt-4 text-sm text-slate-600">
           Inicia sesión para usar un cupón y pagar. Tu carrito se conservará.
         </p>
       )}

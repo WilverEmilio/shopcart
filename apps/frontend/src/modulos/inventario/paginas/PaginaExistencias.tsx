@@ -49,10 +49,10 @@ export function PaginaExistencias() {
 
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         Disponible = existencia física − unidades reservadas por pagos en curso.
       </p>
 
@@ -85,7 +85,7 @@ export function PaginaExistencias() {
         <EstadoVacio titulo="Sin resultados" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-slate-600">
             {consulta.data.totalRegistros} {consulta.data.totalRegistros === 1 ? 'variante' : 'variantes'}
           </p>
 
@@ -103,16 +103,16 @@ export function PaginaExistencias() {
                   <th className="px-4 py-3">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((v) => (
                   <tr key={v.idVariante}>
                     <td className="whitespace-nowrap px-4 py-3 font-mono text-xs">{v.sku}</td>
                     <td className="px-4 py-3">{v.producto}</td>
-                    <td className="px-4 py-3 text-gray-600">{v.categoria}</td>
+                    <td className="px-4 py-3 text-slate-600">{v.categoria}</td>
                     <td className="px-4 py-3 text-right">{v.existenciaFisica}</td>
                     <td className="px-4 py-3 text-right">{v.existenciaReservada}</td>
                     <td className={`px-4 py-3 text-right ${claseDisponible(v.existenciaDisponible)}`}>{v.existenciaDisponible}</td>
-                    <td className="px-4 py-3">{v.activo ? 'Activa' : <span className="text-gray-500">Inactiva</span>}</td>
+                    <td className="px-4 py-3">{v.activo ? 'Activa' : <span className="text-slate-500">Inactiva</span>}</td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
                         <button type="button" className={claseBotonFila} onClick={() => setMovimiento({ variante: v, tipo: 'entrada' })}>

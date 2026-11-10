@@ -17,9 +17,9 @@ export const ETIQUETA_ESTADO: Record<EstadoPedido, string> = {
 export const CLASE_ESTADO: Record<EstadoPedido, string> = {
   PAGADO: 'bg-blue-100 text-blue-800',
   EN_PREPARACION: 'bg-amber-100 text-amber-800',
-  DESPACHADO: 'bg-indigo-100 text-indigo-800',
+  DESPACHADO: 'bg-marca-100 text-marca-800',
   ENTREGADO: 'bg-green-100 text-green-800',
-  CANCELADO: 'bg-gray-200 text-gray-700',
+  CANCELADO: 'bg-slate-200 text-slate-700',
   DEVUELTO_PARCIAL: 'bg-orange-100 text-orange-800',
   DEVUELTO: 'bg-red-100 text-red-800',
 };

@@ -16,19 +16,19 @@ export function PaginaConciliacion() {
 
   const consulta = useConciliacion({ soloDiferencias, pagina, registrosPorPagina: TAMANO_PAGINA });
 
-  const claseDiferencia = (n: number) => (n === 0 ? 'text-gray-500' : 'font-semibold text-red-600');
+  const claseDiferencia = (n: number) => (n === 0 ? 'text-slate-500' : 'font-semibold text-red-600');
 
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         Compara la existencia física de cada variante con la suma de sus movimientos del kardex, y las unidades
         reservadas con las reservas activas. Ambas deben coincidir.
       </p>
 
-      <label className="flex items-center gap-2 text-sm text-gray-700">
+      <label className="flex items-center gap-2 text-sm text-slate-700">
         <input
           type="checkbox"
           checked={!soloDiferencias}
@@ -47,7 +47,7 @@ export function PaginaConciliacion() {
         </p>
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} variantes</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} variantes</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -63,7 +63,7 @@ export function PaginaConciliacion() {
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((f) => (
                   <tr key={f.idVariante}>
                     <td className="px-4 py-3 font-mono text-xs">{f.sku}</td>

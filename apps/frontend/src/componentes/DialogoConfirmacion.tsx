@@ -19,7 +19,7 @@ export function DialogoConfirmacion({
   return (
     <Modal abierto={abierto} titulo={titulo} alCerrar={alCerrar}>
       <div className="space-y-4">
-        <p className="text-sm text-gray-600">{mensaje}</p>
+        <p className="text-sm text-slate-600">{mensaje}</p>
 
         {error && (
           <p role="alert" className="rounded-control border border-red-200 bg-red-50 p-3 text-sm text-red-700">

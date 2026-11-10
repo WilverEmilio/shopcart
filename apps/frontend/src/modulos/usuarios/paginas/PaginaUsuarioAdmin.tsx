@@ -22,9 +22,9 @@ const OPCIONES_ORDEN = [
 ] as const;
 
 const CLASE_ROL: Record<string, string> = {
-  Administrador: 'bg-indigo-100 text-indigo-800',
+  Administrador: 'bg-marca-100 text-marca-800',
   Operador: 'bg-blue-100 text-blue-800',
-  Cliente: 'bg-gray-200 text-gray-700',
+  Cliente: 'bg-slate-200 text-slate-700',
 };
 
 const claseSelect =
@@ -59,7 +59,7 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
 
       {roles.length > 0 ? (
         <div>
-          <label htmlFor="usr-rol" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="usr-rol" className="mb-1.5 block text-sm font-medium text-slate-700">
             Rol
           </label>
           <select id="usr-rol" className={claseSelect} value={idRol ?? ''} onChange={(e) => alCambiar({ rol: e.target.value || undefined })}>
@@ -76,7 +76,7 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
       )}
 
       <div>
-        <label htmlFor="usr-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="usr-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
           Estado
         </label>
         <select id="usr-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -87,7 +87,7 @@ function Filtros({ busqueda, idRol, activo, orden, roles, alCambiar, alLimpiar }
       </div>
 
       <div>
-        <label htmlFor="usr-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="usr-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
           Ordenar por
         </label>
         <select id="usr-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -160,7 +160,7 @@ export function PaginaUsuariosAdmin() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Usuarios</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Usuarios</h1>
         <Boton onClick={() => setDialogoNuevo(true)}>Nuevo usuario interno</Boton>
       </div>
 
@@ -192,7 +192,7 @@ export function PaginaUsuariosAdmin() {
         <EstadoVacio titulo="No hay usuarios" descripcion="Prueba con otros filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} usuarios</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} usuarios</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -207,22 +207,22 @@ export function PaginaUsuariosAdmin() {
                   <th className="px-4 py-3">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((u) => {
                   const esPropio = u.idUsuario === miId;
                   return (
                     <tr key={u.idUsuario}>
                       <td className="px-4 py-3 font-medium">
                         {u.nombres} {u.apellidos}
-                        {esPropio && <span className="ml-2 text-xs font-normal text-gray-500">(tú)</span>}
+                        {esPropio && <span className="ml-2 text-xs font-normal text-slate-500">(tú)</span>}
                       </td>
-                      <td className="px-4 py-3 text-gray-600">{u.correo}</td>
-                      <td className="px-4 py-3 text-gray-600">{u.telefono ?? '—'}</td>
+                      <td className="px-4 py-3 text-slate-600">{u.correo}</td>
+                      <td className="px-4 py-3 text-slate-600">{u.telefono ?? '—'}</td>
                       <td className="px-4 py-3">
                         <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_ROL[u.rol] ?? CLASE_ROL.Cliente}`}>{u.rol}</span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${u.activo ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700'}`}>
+                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${u.activo ? 'bg-green-100 text-green-800' : 'bg-slate-200 text-slate-700'}`}>
                           {u.activo ? 'Activo' : 'Inactivo'}
                         </span>
                       </td>

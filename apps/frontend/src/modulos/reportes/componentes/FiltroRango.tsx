@@ -52,7 +52,7 @@ export function FiltroRango({ rango, alCambiar }: Propiedades) {
                 alCambiar({ desde: rangoPreset.fechaDesde, hasta: rangoPreset.fechaHasta });
               }}
               className={`inline-flex min-h-10 items-center rounded-full border px-3 text-sm font-medium transition-colors duration-150 ${
-                activo ? 'border-marca-600 bg-marca-600 text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                activo ? 'border-marca-700 bg-marca-700 text-white' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
               }`}
             >
               {p.etiqueta}

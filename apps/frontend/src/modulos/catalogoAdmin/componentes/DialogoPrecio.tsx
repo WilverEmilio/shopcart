@@ -49,13 +49,13 @@ function FormularioPrecio({ variante, alCerrar, alGuardado }: Omit<Propiedades, 
 
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         SKU <strong>{variante.sku}</strong> · precio actual {formatearMoneda(variante.precio)}
       </p>
 
       <CampoFormulario etiqueta="Nuevo precio (Q, IVA incluido)" inputMode="decimal" value={precio} onChange={(e) => setPrecio(e.target.value)} error={errores.precio} />
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-slate-500">
         El cambio solo afecta a compras futuras: los pedidos ya realizados conservan el precio con el que se compraron.
       </p>
 

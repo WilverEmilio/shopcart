@@ -141,11 +141,11 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
           error={errores.descripcion}
         />
       </div>
-      {cupon && <p className="-mt-3 text-xs text-gray-500">El código no se puede cambiar una vez creado.</p>}
+      {cupon && <p className="-mt-3 text-xs text-slate-500">El código no se puede cambiar una vez creado.</p>}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="cupon-tipo" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="cupon-tipo" className="mb-1.5 block text-sm font-medium text-slate-700">
             Tipo de descuento
           </label>
           <select
@@ -169,7 +169,7 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="cupon-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="cupon-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
             Aplica a
           </label>
           <select
@@ -212,7 +212,7 @@ function FormularioCupon({ cupon, alCerrar, alGuardado }: Omit<Propiedades, 'abi
           error={errores.fechaFin}
         />
       </div>
-      <p className="-mt-3 text-xs text-gray-500">Las fechas se interpretan en tu hora local.</p>
+      <p className="-mt-3 text-xs text-slate-500">Las fechas se interpretan en tu hora local.</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <CampoFormulario

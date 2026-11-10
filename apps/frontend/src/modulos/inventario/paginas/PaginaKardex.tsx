@@ -34,10 +34,10 @@ export function PaginaKardex() {
 
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Inventario</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Inventario</h1>
       <NavegacionInventario />
 
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         Historial de entradas, salidas y ajustes. Es inmutable: los errores se corrigen con un nuevo ajuste.
       </p>
 
@@ -68,7 +68,7 @@ export function PaginaKardex() {
         <EstadoVacio titulo="Sin movimientos" descripcion="No hay movimientos con esos filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} movimientos</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} movimientos</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -84,13 +84,13 @@ export function PaginaKardex() {
                   <th className="px-4 py-3">Usuario</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((m) => (
                   <tr key={m.idMovimiento}>
                     <td className="whitespace-nowrap px-4 py-3">{formatearFechaHora(m.fecha)}</td>
                     <td className="px-4 py-3">
                       <p>{m.producto}</p>
-                      <p className="font-mono text-xs text-gray-500">{m.sku}</p>
+                      <p className="font-mono text-xs text-slate-500">{m.sku}</p>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_MOVIMIENTO[m.tipoMovimiento]}`}>
@@ -102,7 +102,7 @@ export function PaginaKardex() {
                       {Math.abs(m.cantidad)}
                     </td>
                     <td className="px-4 py-3 text-right">{m.existenciaResultante}</td>
-                    <td className="max-w-xs px-4 py-3 text-gray-600">{m.motivo}</td>
+                    <td className="max-w-xs px-4 py-3 text-slate-600">{m.motivo}</td>
                     <td className="whitespace-nowrap px-4 py-3">
                       {m.tipoReferencia === 'PEDIDO' && m.idReferencia ? (
                         <Link to={`/gestion/pedidos/${m.idReferencia}`} className="font-medium text-marca-700 hover:underline">
@@ -114,7 +114,7 @@ export function PaginaKardex() {
                         '—'
                       )}
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-500">{m.correoUsuario}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{m.correoUsuario}</td>
                   </tr>
                 ))}
               </tbody>

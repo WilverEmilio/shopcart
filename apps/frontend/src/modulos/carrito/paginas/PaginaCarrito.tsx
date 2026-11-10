@@ -26,7 +26,7 @@ export function PaginaCarrito() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
-      <h1 className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">Tu carrito</h1>
+      <h1 className="mb-6 text-3xl font-bold sm:text-4xl">Tu carrito</h1>
 
       {ajustes.length > 0 && (
         <div role="status" className="mb-4 rounded-tarjeta border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
@@ -53,7 +53,7 @@ export function PaginaCarrito() {
       {consulta.isPending ? (
         <div role="status" className="grid gap-8 lg:grid-cols-[1fr_22rem]">
           <span className="sr-only">Cargando tu carrito...</span>
-          <div className="tarjeta divide-y divide-gray-200 px-4 sm:px-5">
+          <div className="tarjeta divide-y divide-slate-200 px-4 sm:px-5">
             {Array.from({ length: 3 }, (_, i) => (
               <div key={i} className="flex gap-3 py-4 sm:gap-4 sm:py-5">
                 <Esqueleto className="h-20 w-20 shrink-0 sm:h-24 sm:w-24" />
@@ -84,7 +84,7 @@ export function PaginaCarrito() {
       ) : (
         <div className="grid gap-8 lg:grid-cols-[1fr_22rem]">
           <section aria-label="Productos del carrito">
-            <ul className="tarjeta divide-y divide-gray-200 px-4 sm:px-5">
+            <ul className="tarjeta divide-y divide-slate-200 px-4 sm:px-5">
               {consulta.data.items.map((item) => (
                 <ItemCarritoFila
                   key={item.idVariante}

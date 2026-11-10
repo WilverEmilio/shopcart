@@ -1,5 +1,6 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { etiquetaCorta, formatearCompacto, formatearMoneda } from '../../../utilidades/formato';
+import { COLOR_MARCA, COLOR_MARCA_SUAVE } from '../paleta';
 import type { FilaVentasPeriodo } from '../tipos/reportes';
 
 function TooltipPeriodo({ active, payload }: { active?: boolean; payload?: { payload: FilaVentasPeriodo }[] }) {
@@ -7,7 +8,7 @@ function TooltipPeriodo({ active, payload }: { active?: boolean; payload?: { pay
   const fila = payload[0].payload;
 
   return (
-    <div className="rounded-control border border-gray-200 bg-white p-3 text-xs shadow-elevada">
+    <div className="rounded-control border border-slate-200 bg-white p-3 text-xs shadow-elevada">
       <p className="mb-1 font-semibold">{fila.etiqueta}</p>
       <p>Ventas netas: {formatearMoneda(fila.ventasNetas)}</p>
       <p>Pedidos: {fila.pedidos}</p>
@@ -28,7 +29,7 @@ export function GraficaVentasPeriodo({ datos }: { datos: FilaVentasPeriodo[] }) 
           <XAxis dataKey="eje" tick={{ fontSize: 12 }} interval="preserveStartEnd" minTickGap={24} />
           <YAxis tickFormatter={(v: number) => formatearCompacto(v)} tick={{ fontSize: 12 }} width={52} />
           <Tooltip content={<TooltipPeriodo />} />
-          <Area type="monotone" dataKey="ventasNetas" name="Ventas netas" stroke="#4f46e5" strokeWidth={2} fill="#c7d2fe" />
+          <Area type="monotone" dataKey="ventasNetas" name="Ventas netas" stroke={COLOR_MARCA} strokeWidth={2} fill={COLOR_MARCA_SUAVE} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

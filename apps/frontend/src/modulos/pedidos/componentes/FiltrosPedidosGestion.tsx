@@ -56,7 +56,7 @@ export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, o
         />
 
         <div>
-          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="filtro-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
             Estado
           </label>
           <select
@@ -80,7 +80,7 @@ export function FiltrosPedidosGestion({ estado, texto, fechaDesde, fechaHasta, o
 
       <div className="flex flex-wrap items-end gap-3">
         <div className="w-56">
-          <label htmlFor="filtro-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="filtro-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
             Ordenar por
           </label>
           <select id="filtro-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>

@@ -11,7 +11,7 @@ interface Propiedades {
   alLimpiar: () => void;
 }
 
-const claseEtiqueta = 'mb-1.5 block text-sm font-medium text-gray-700';
+const claseEtiqueta = 'mb-1.5 block text-sm font-medium text-slate-700';
 
 export function PanelFiltros({ filtros, categorias, alCambiar, alLimpiar }: Propiedades) {
   const [texto, setTexto] = useState(filtros.texto ?? '');
@@ -62,15 +62,15 @@ export function PanelFiltros({ filtros, categorias, alCambiar, alLimpiar }: Prop
         aria-expanded={abiertoMovil}
         aria-controls="panel-filtros"
         onClick={() => setAbiertoMovil((a) => !a)}
-        className="tarjeta flex min-h-11 w-full items-center justify-between px-4 text-sm font-medium text-gray-800 lg:hidden"
+        className="tarjeta flex min-h-11 w-full items-center justify-between px-4 text-sm font-medium text-slate-800 lg:hidden"
       >
         <span className="flex items-center gap-2">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 text-gray-500">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 text-slate-500">
             <path strokeLinecap="round" d="M4 6h16M7 12h10M10 18h4" />
           </svg>
           Filtros y orden
           {filtrosActivos > 0 && (
-            <span className="rounded-full bg-marca-600 px-2 py-0.5 text-xs font-semibold text-white">
+            <span className="rounded-full bg-marca-700 px-2 py-0.5 text-xs font-semibold text-white">
               {filtrosActivos}
               <span className="sr-only"> activos</span>
             </span>
@@ -82,14 +82,14 @@ export function PanelFiltros({ filtros, categorias, alCambiar, alLimpiar }: Prop
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={`h-5 w-5 text-gray-500 transition-transform duration-150 motion-reduce:transition-none ${abiertoMovil ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 text-slate-500 transition-transform duration-150 motion-reduce:transition-none ${abiertoMovil ? 'rotate-180' : ''}`}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6" />
         </svg>
       </button>
 
       <div id="panel-filtros" className={`${abiertoMovil ? 'block' : 'hidden'} tarjeta mt-2 space-y-5 p-4 lg:mt-0 lg:block`}>
-        <h2 className="hidden text-xs font-semibold uppercase tracking-wide text-gray-600 lg:block">Filtros</h2>
+        <h2 className="hidden text-base font-semibold lg:block">Filtros</h2>
 
         <form onSubmit={aplicar} noValidate className="space-y-4">
           <CampoFormulario
@@ -131,7 +131,7 @@ export function PanelFiltros({ filtros, categorias, alCambiar, alLimpiar }: Prop
           </Boton>
         </form>
 
-        <div className="space-y-4 border-t border-gray-100 pt-4">
+        <div className="space-y-4 border-t border-slate-100 pt-4">
           <div>
             <label htmlFor="filtro-categoria" className={claseEtiqueta}>
               Categoría
@@ -172,7 +172,7 @@ export function PanelFiltros({ filtros, categorias, alCambiar, alLimpiar }: Prop
             </select>
           </div>
 
-          <label className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-gray-700 sm:min-h-0">
+          <label className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-slate-700 sm:min-h-0">
             <input
               type="checkbox"
               className="h-4 w-4"

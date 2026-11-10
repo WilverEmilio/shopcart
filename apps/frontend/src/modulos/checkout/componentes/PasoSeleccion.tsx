@@ -71,17 +71,17 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
                   onChange={() => setIdDireccionElegida(d.idDireccion)}
                 />
                 <span className="min-w-0 text-sm">
-                  <span className="flex flex-wrap items-center gap-2 font-medium text-gray-900">
+                  <span className="flex flex-wrap items-center gap-2 font-medium text-slate-900">
                     {d.nombreDestinatario}
                     {d.esPredeterminada && (
-                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">Predeterminada</span>
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">Predeterminada</span>
                     )}
                   </span>
-                  <span className="block text-gray-600">
+                  <span className="block text-slate-600">
                     {d.direccion}, {d.municipio}, {d.departamento}
                   </span>
-                  {d.referencia && <span className="block text-gray-600">Ref.: {d.referencia}</span>}
-                  <span className="block text-gray-600">Tel. {d.telefono}</span>
+                  {d.referencia && <span className="block text-slate-600">Ref.: {d.referencia}</span>}
+                  <span className="block text-slate-600">Tel. {d.telefono}</span>
                 </span>
               </label>
             );
@@ -120,14 +120,14 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
                     onChange={() => setIdEnvioElegido(e.idMetodoEnvio)}
                   />
                   <span className="text-sm">
-                    <span className="block font-medium text-gray-900">{e.nombre}</span>
-                    {e.descripcion && <span className="block text-gray-600">{e.descripcion}</span>}
-                    <span className="block text-gray-600">
+                    <span className="block font-medium text-slate-900">{e.nombre}</span>
+                    {e.descripcion && <span className="block text-slate-600">{e.descripcion}</span>}
+                    <span className="block text-slate-600">
                       Entrega estimada: {e.diasEstaimados} {e.diasEstaimados === 1 ? 'día' : 'días'}
                     </span>
                   </span>
                 </span>
-                <span className={`shrink-0 text-sm font-semibold tabular-nums ${e.costo === 0 ? 'text-green-700' : 'text-gray-900'}`}>
+                <span className={`shrink-0 text-sm font-semibold tabular-nums ${e.costo === 0 ? 'text-green-700' : 'text-slate-900'}`}>
                   {e.costo === 0 ? 'Gratis' : formatearMoneda(e.costo)}
                 </span>
               </label>
@@ -156,7 +156,7 @@ export function PasoSeleccion({ carrito }: { carrito: Carrito }) {
         >
           Continuar al pago
         </Boton>
-        <p className="text-xs text-gray-600">
+        <p className="text-xs text-slate-600">
           Al continuar reservaremos tus productos durante 15 minutos mientras completas el pago.
         </p>
       </div>

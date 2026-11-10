@@ -61,7 +61,7 @@ export function PaginaDetalleMiPedido() {
 
       {puedeCancelar && (
         <section className="tarjeta flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-slate-600">
             Puedes cancelar tu pedido mientras no haya empezado a prepararse.
           </p>
           <Boton

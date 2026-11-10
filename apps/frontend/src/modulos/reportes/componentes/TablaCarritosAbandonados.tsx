@@ -23,14 +23,14 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-600">
           {consulta.data
             ? `${consulta.data.totalRegistros} carritos con productos y sin actividad · valor total ${formatearMoneda(consulta.data.valorTotal)}`
             : 'Carritos con productos y sin actividad reciente'}
         </p>
 
         <div>
-          <label htmlFor="ab-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="ab-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
             Ordenar por
           </label>
           <select
@@ -56,7 +56,7 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
         <EstadoVacio titulo="No hay carritos abandonados" descripcion="Todos los carritos activos tienen movimiento reciente." />
       ) : (
         <>
-          <div className={`overflow-x-auto rounded-control border border-gray-200 transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
+          <div className={`overflow-x-auto rounded-control border border-slate-200 transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
               <thead>
                 <tr>
@@ -68,10 +68,10 @@ export function TablaCarritosAbandonados({ filtros, orden, alCambiarOrden, alCam
                   <th className="px-4 py-3 text-right">Inactivo</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((c) => (
                   <tr key={c.idCarrito}>
-                    <td className="px-4 py-3">{c.esInvitado ? <span className="text-gray-500">Invitado</span> : c.cliente}</td>
+                    <td className="px-4 py-3">{c.esInvitado ? <span className="text-slate-500">Invitado</span> : c.cliente}</td>
                     <td className="px-4 py-3 text-right">{c.lineas}</td>
                     <td className="px-4 py-3 text-right">{c.unidades}</td>
                     <td className="px-4 py-3 text-right font-medium">{formatearMoneda(c.valor)}</td>

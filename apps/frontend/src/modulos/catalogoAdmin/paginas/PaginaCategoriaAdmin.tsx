@@ -51,7 +51,7 @@ function Filtros({ busqueda, activo, orden, alCambiar, alLimpiar }: PropiedadesF
       </div>
 
       <div>
-        <label htmlFor="cat-estado" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cat-estado" className="mb-1.5 block text-sm font-medium text-slate-700">
           Estado
         </label>
         <select id="cat-estado" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -62,7 +62,7 @@ function Filtros({ busqueda, activo, orden, alCambiar, alLimpiar }: PropiedadesF
       </div>
 
       <div>
-        <label htmlFor="cat-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cat-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
           Ordenar por
         </label>
         <select id="cat-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -150,7 +150,7 @@ export function PaginaCategoriasAdmin() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Categorías</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Categorías</h1>
         <Boton onClick={() => setDialogoCategoria({ categoria: null })}>Nueva categoría</Boton>
       </div>
 
@@ -173,7 +173,7 @@ export function PaginaCategoriasAdmin() {
         <EstadoVacio titulo="No hay categorías" descripcion="Prueba con otros filtros o crea una nueva." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} categorías</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} categorías</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -187,14 +187,14 @@ export function PaginaCategoriasAdmin() {
                   <th className="px-4 py-3">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.categorias.map((c) => (
                   <tr key={c.idCategoria}>
                     <td className="px-4 py-3 font-medium">{c.nombre}</td>
-                    <td className="max-w-xs px-4 py-3 text-gray-600">{c.descripcion ?? '—'}</td>
+                    <td className="max-w-xs px-4 py-3 text-slate-600">{c.descripcion ?? '—'}</td>
                     <td className="px-4 py-3 text-right">{c.totalProductos}</td>
                     <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${c.activo ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700'}`}>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${c.activo ? 'bg-green-100 text-green-800' : 'bg-slate-200 text-slate-700'}`}>
                         {c.activo ? 'Activa' : 'Inactiva'}
                       </span>
                     </td>

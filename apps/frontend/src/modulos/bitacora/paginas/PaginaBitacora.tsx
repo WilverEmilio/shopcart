@@ -14,7 +14,7 @@ import { MODULOS_BITACORA, type RegistroBitacora } from '../tipos/bitacora';
 const CLASE_ACCION: Record<string, string> = {
   CREAR: 'bg-green-100 text-green-800',
   MODIFICAR: 'bg-blue-100 text-blue-800',
-  CAMBIO_ESTADO: 'bg-indigo-100 text-indigo-800',
+  CAMBIO_ESTADO: 'bg-marca-100 text-marca-800',
   DESACTIVAR: 'bg-amber-100 text-amber-800',
   ELIMINAR: 'bg-red-100 text-red-800',
 };
@@ -53,7 +53,7 @@ function Filtros({ modulo, fechaDesde, fechaHasta, alCambiar, alLimpiar }: Propi
   return (
     <form onSubmit={aplicar} noValidate className="tarjeta grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-end">
       <div>
-        <label htmlFor="bit-modulo" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="bit-modulo" className="mb-1.5 block text-sm font-medium text-slate-700">
           Módulo
         </label>
         <select
@@ -113,8 +113,8 @@ export function PaginaBitacora() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Bitácora</h1>
-        <p className="text-sm text-gray-600">
+        <h1 className="text-2xl font-bold sm:text-3xl">Bitácora</h1>
+        <p className="text-sm text-slate-600">
           Registro de auditoría de solo lectura: no puede modificarse ni eliminarse.
         </p>
       </div>
@@ -136,7 +136,7 @@ export function PaginaBitacora() {
         <EstadoVacio titulo="Sin registros" descripcion="No hay movimientos con esos filtros." />
       ) : (
         <>
-          <p className="text-sm text-gray-600">{consulta.data.totalRegistros} registros</p>
+          <p className="text-sm text-slate-600">{consulta.data.totalRegistros} registros</p>
 
           <div className={`tarjeta overflow-x-auto transition-opacity duration-150 ${consulta.isPlaceholderData ? 'opacity-60' : ''}`}>
             <table className="tabla">
@@ -150,21 +150,21 @@ export function PaginaBitacora() {
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {consulta.data.items.map((r) => (
                   <tr key={String(r.idBitacora)}>
                     <td className="whitespace-nowrap px-4 py-3">{formatearFechaHora(r.fecha)}</td>
                     <td className="px-4 py-3">{r.modulo}</td>
                     <td className="px-4 py-3">
                       {r.entidad}
-                      {r.idEntidad !== null && <span className="text-gray-500"> #{r.idEntidad}</span>}
+                      {r.idEntidad !== null && <span className="text-slate-500"> #{r.idEntidad}</span>}
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_ACCION[r.accios] ?? 'bg-gray-200 text-gray-700'}`}>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CLASE_ACCION[r.accios] ?? 'bg-slate-200 text-slate-700'}`}>
                         {ETIQUETA_ACCION[r.accios] ?? r.accios}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-600">{r.correoUsuario ?? 'Sistema'}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600">{r.correoUsuario ?? 'Sistema'}</td>
                     <td className="px-4 py-3 text-right">
                       <button type="button" onClick={() => setDetalle(r)} className="font-medium text-marca-700 hover:underline">
                         Ver detalle
