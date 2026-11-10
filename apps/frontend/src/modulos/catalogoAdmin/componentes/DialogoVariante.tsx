@@ -86,7 +86,7 @@ function FormularioVariante({ idProducto, variante, atributosDisponibles, alCerr
       />
 
       {variante && (
-        <p className="text-xs text-gray-500">El precio se cambia aparte, con la acción «Precio» de la tabla.</p>
+        <p className="text-xs text-slate-500">El precio se cambia aparte, con la acción «Precio» de la tabla.</p>
       )}
 
       {errorGeneral && (

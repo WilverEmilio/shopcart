@@ -14,8 +14,8 @@ export const CLASE_ESTADO_CUPON: Record<EstadoCupon, string> = {
   VIGENTE: 'bg-green-100 text-green-800',
   PROGRAMADO: 'bg-blue-100 text-blue-800',
   AGOTADO: 'bg-amber-100 text-amber-800',
-  VENCIDO: 'bg-gray-200 text-gray-700',
-  INACTIVO: 'bg-gray-300 text-gray-700',
+  VENCIDO: 'bg-slate-200 text-slate-700',
+  INACTIVO: 'bg-slate-300 text-slate-700',
 };
 
 const dosDigitos = (n: number) => String(n).padStart(2, '0');

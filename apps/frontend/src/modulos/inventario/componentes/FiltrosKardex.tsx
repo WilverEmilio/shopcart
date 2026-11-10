@@ -49,7 +49,7 @@ export function FiltrosKardex({ texto, tipo, fechaDesde, fechaHasta, alCambiar, 
         />
 
         <div>
-          <label htmlFor="kardex-tipo" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="kardex-tipo" className="mb-1.5 block text-sm font-medium text-slate-700">
             Tipo de movimiento
           </label>
           <select

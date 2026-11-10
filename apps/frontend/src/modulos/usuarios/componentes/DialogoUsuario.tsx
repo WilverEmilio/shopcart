@@ -76,14 +76,14 @@ function FormularioUsuario({ alCerrar, alCreado }: Omit<Propiedades, 'abierto'>)
           onChange={(e) => cambiar('contrasena', e.target.value)}
           error={errores.contrasena}
         />
-        <label className="mt-1 flex items-center gap-2 text-xs text-gray-600">
+        <label className="mt-1 flex items-center gap-2 text-xs text-slate-600">
           <input type="checkbox" checked={mostrarContrasena} onChange={(e) => setMostrarContrasena(e.target.checked)} />
           Mostrar contraseña
         </label>
       </div>
 
       <div>
-        <label htmlFor="usuario-rol" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="usuario-rol" className="mb-1.5 block text-sm font-medium text-slate-700">
           Rol
         </label>
         <select

@@ -23,7 +23,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
   return (
     <div className="space-y-3">
       {valor.urls.length === 0 && (
-        <p className="text-sm text-gray-600">Sin imágenes: la tienda mostrará un marcador.</p>
+        <p className="text-sm text-slate-600">Sin imágenes: la tienda mostrará un marcador.</p>
       )}
 
       {valor.urls.map((url, i) => (
@@ -32,7 +32,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
             key={url}
             url={url.trim() || null}
             alt={`Vista previa de la imagen ${i + 1}`}
-            className="h-14 w-14 shrink-0 rounded-control border border-gray-200 object-cover"
+            className="h-14 w-14 shrink-0 rounded-control border border-slate-200 object-cover"
           />
 
           <div className="flex-1">
@@ -43,7 +43,7 @@ export function EditorImagenes({ valor, alCambiar, errores, prefijo }: Propiedad
               onChange={(e) => cambiarUrl(i, e.target.value)}
               error={errores[clave(`urls.${i}`)]}
             />
-            <label className="mt-1 flex items-center gap-2 text-xs text-gray-600">
+            <label className="mt-1 flex items-center gap-2 text-xs text-slate-600">
               <input
                 type="radio"
                 name={`principal-${prefijo || 'imagenes'}`}

@@ -67,16 +67,16 @@ function FormularioMovimiento({
 
   return (
     <form onSubmit={enviar} noValidate className="space-y-4">
-      <div className="rounded-control bg-gray-50 p-3 text-sm">
+      <div className="rounded-control bg-slate-50 p-3 text-sm">
         <p className="font-medium">{variante.producto}</p>
-        <p className="text-gray-500">
+        <p className="text-slate-500">
           SKU {variante.sku} · Física {variante.existenciaFisica} · Reservada {variante.existenciaReservada} · Disponible{' '}
           {variante.existenciaDisponible}
         </p>
       </div>
 
       <div>
-        <label htmlFor="cantidad-movimiento" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="cantidad-movimiento" className="mb-1.5 block text-sm font-medium text-slate-700">
           {tipo === 'entrada' ? 'Unidades que ingresan' : 'Ajuste (positivo suma, negativo resta)'}
         </label>
         <input
@@ -89,14 +89,14 @@ function FormularioMovimiento({
           className="control w-40"
         />
         {resultante !== null && (
-          <p className={`mt-1 text-sm ${resultante < 0 ? 'text-red-600' : 'text-gray-500'}`}>
+          <p className={`mt-1 text-sm ${resultante < 0 ? 'text-red-600' : 'text-slate-500'}`}>
             Existencia física resultante: {resultante}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="motivo-movimiento" className="mb-1.5 block text-sm font-medium text-gray-700">
+        <label htmlFor="motivo-movimiento" className="mb-1.5 block text-sm font-medium text-slate-700">
           Motivo
         </label>
         <textarea
@@ -111,7 +111,7 @@ function FormularioMovimiento({
       </div>
 
       {tipo === 'ajuste' && (
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-slate-500">
           El kardex no se puede editar ni borrar: cualquier corrección se hace con un ajuste que queda registrado.
         </p>
       )}

@@ -42,7 +42,7 @@ export function FiltrosExistencias({
         />
 
         <div>
-          <label htmlFor="inv-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
             Categoría
           </label>
           <select
@@ -61,7 +61,7 @@ export function FiltrosExistencias({
         </div>
 
         <div>
-          <label htmlFor="inv-activo" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-activo" className="mb-1.5 block text-sm font-medium text-slate-700">
             Estado
           </label>
           <select id="inv-activo" className={claseSelect} value={activo} onChange={(e) => alCambiar({ activo: e.target.value || undefined })}>
@@ -72,7 +72,7 @@ export function FiltrosExistencias({
         </div>
 
         <div>
-          <label htmlFor="inv-orden" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="inv-orden" className="mb-1.5 block text-sm font-medium text-slate-700">
             Ordenar por
           </label>
           <select id="inv-orden" className={claseSelect} value={orden} onChange={(e) => alCambiar({ orden: e.target.value })}>
@@ -86,7 +86,7 @@ export function FiltrosExistencias({
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <label className="flex items-center gap-2 text-sm text-gray-700">
+        <label className="flex items-center gap-2 text-sm text-slate-700">
           <input
             type="checkbox"
             checked={soloSinDisponibilidad}

@@ -85,18 +85,18 @@ export function SeccionVariantes({ detalle, alAviso }: Propiedades) {
               <th className="px-4 py-3">Acciones</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-100">
             {detalle.variantes.map((v) => (
               <tr key={v.idVariante}>
                 <td className="px-4 py-3 font-mono text-xs">{v.sku}</td>
-                <td className="px-4 py-3 text-gray-600">{textoAtributos(v.idVariante)}</td>
+                <td className="px-4 py-3 text-slate-600">{textoAtributos(v.idVariante)}</td>
                 <td className="whitespace-nowrap px-4 py-3 text-right">{formatearMoneda(v.precio)}</td>
                 <td className="px-4 py-3 text-right">
                   {v.existenciaDisponible}
-                  {v.existenciaFisica !== null && <span className="block text-xs text-gray-500">física {v.existenciaFisica}</span>}
+                  {v.existenciaFisica !== null && <span className="block text-xs text-slate-500">física {v.existenciaFisica}</span>}
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${v.activo ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700'}`}>
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${v.activo ? 'bg-green-100 text-green-800' : 'bg-slate-200 text-slate-700'}`}>
                     {v.activo ? 'Activa' : 'Inactiva'}
                   </span>
                 </td>

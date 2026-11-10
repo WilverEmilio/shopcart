@@ -72,7 +72,7 @@ export function PaginaProductoNuevo() {
       <Link to="/admin/productos" className="inline-flex min-h-10 items-center text-sm font-medium text-marca-700 hover:underline">
         ← Volver a productos
       </Link>
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Nuevo producto</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Nuevo producto</h1>
 
       <form onSubmit={enviar} noValidate className="space-y-8">
         <section className="tarjeta space-y-4 p-4 sm:p-5">
@@ -81,7 +81,7 @@ export function PaginaProductoNuevo() {
           <CampoFormulario etiqueta="Nombre" maxLength={150} value={datos.nombre} onChange={(e) => setDatos({ ...datos, nombre: e.target.value })} error={errores.nombre} />
 
           <div>
-            <label htmlFor="np-categoria" className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="np-categoria" className="mb-1.5 block text-sm font-medium text-slate-700">
               Categoría
             </label>
             <select
@@ -112,7 +112,7 @@ export function PaginaProductoNuevo() {
           </div>
 
           <div>
-            <label htmlFor="np-descripcion" className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="np-descripcion" className="mb-1.5 block text-sm font-medium text-slate-700">
               Descripción (opcional)
             </label>
             <textarea
@@ -130,13 +130,13 @@ export function PaginaProductoNuevo() {
         <section className="tarjeta space-y-4 p-4 sm:p-5">
           <div>
             <h2 className="text-lg font-semibold">Variantes</h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
               Cada variante tiene su propio SKU, precio y existencia (la existencia se carga después con una entrada de inventario).
             </p>
           </div>
 
           {variantes.map((variante, i) => (
-            <div key={i} className="space-y-3 rounded-tarjeta border border-gray-200 bg-gray-50/50 p-4">
+            <div key={i} className="space-y-3 rounded-tarjeta border border-slate-200 bg-slate-50/50 p-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Variante {i + 1}</h3>
                 {variantes.length > 1 && (
