@@ -10,7 +10,7 @@ export function CampoFormulario({ etiqueta, error, className = '', ...resto }: P
 
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-gray-700">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-slate-700">
         {etiqueta}
       </label>
       <input
