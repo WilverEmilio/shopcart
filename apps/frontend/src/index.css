@@ -19,14 +19,6 @@
   --color-marca-800: #115e59;
   --color-marca-900: #134e4a;
 
-  /* Colores de apoyo para gráficas (se distinguen entre sí y del teal). */
-  --color-grafica-1: #0f766e;
-  --color-grafica-2: #2563eb;
-  --color-grafica-3: #d97706;
-  --color-grafica-4: #be185d;
-  --color-grafica-5: #7c3aed;
-  --color-grafica-6: #475569;
-  --color-grafica-suave: #99f6e4;
 
   --radius-tarjeta: 0.75rem;
   --radius-control: 0.625rem;

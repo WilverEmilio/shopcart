@@ -1,8 +1,8 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { formatearMoneda } from '../../../utilidades/formato';
+import { PALETA_CATEGORIAS } from '../paleta';
 import type { FilaVentasCategoria } from '../tipos/reportes';
 
-const COLORES = ['#4f46e5', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#64748b'];
 
 export function GraficaVentasCategoria({ datos }: { datos: FilaVentasCategoria[] }) {
   return (
@@ -12,7 +12,7 @@ export function GraficaVentasCategoria({ datos }: { datos: FilaVentasCategoria[]
           <PieChart>
             <Pie data={datos} dataKey="ventasNetas" nameKey="categoria" innerRadius={55} outerRadius={95} paddingAngle={2}>
               {datos.map((d, i) => (
-                <Cell key={d.idCategoria} fill={COLORES[i % COLORES.length]} />
+                <Cell key={d.idCategoria} fill={PALETA_CATEGORIAS[i % PALETA_CATEGORIAS.length]} />
               ))}
             </Pie>
             <Tooltip formatter={(valor) => formatearMoneda(Number(valor))} />
@@ -24,10 +24,10 @@ export function GraficaVentasCategoria({ datos }: { datos: FilaVentasCategoria[]
         {datos.map((d, i) => (
           <li key={d.idCategoria} className="flex items-center justify-between gap-2">
             <span className="flex items-center gap-2">
-              <span className="h-3 w-3 shrink-0 rounded-sm" style={{ backgroundColor: COLORES[i % COLORES.length] }} />
+              <span className="h-3 w-3 shrink-0 rounded-sm" style={{ backgroundColor: PALETA_CATEGORIAS[i % PALETA_CATEGORIAS.length] }} />
               {d.categoria}
             </span>
-            <span className="text-right text-gray-600">
+            <span className="text-right text-slate-600">
               {formatearMoneda(d.ventasNetas)} · {d.porcentaje} %
             </span>
           </li>

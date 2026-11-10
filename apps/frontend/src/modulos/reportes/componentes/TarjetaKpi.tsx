@@ -12,13 +12,13 @@ export function TarjetaKpi({ titulo, valor, detalle, variacion }: Propiedades) {
 
   return (
     <div className="tarjeta flex flex-col p-4 sm:p-5">
-      <p className="text-xs font-semibold uppercase tracking-wide text-gray-600">{titulo}</p>
-      <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-gray-900 sm:text-3xl">{valor}</p>
+      <p className="text-sm font-medium text-slate-600">{titulo}</p>
+      <p className="mt-2 precio text-3xl">{valor}</p>
 
       {variacion !== undefined && (
         <p className="mt-2">
           {variacion === null ? (
-            <span className="text-xs text-gray-600">Sin periodo anterior para comparar</span>
+            <span className="text-xs text-slate-600">Sin periodo anterior para comparar</span>
           ) : (
             <span
               className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums ${
@@ -33,7 +33,7 @@ export function TarjetaKpi({ titulo, valor, detalle, variacion }: Propiedades) {
         </p>
       )}
 
-      {detalle && <p className="mt-auto pt-2 text-xs text-gray-600">{detalle}</p>}
+      {detalle && <p className="mt-auto pt-2 text-xs text-slate-600">{detalle}</p>}
     </div>
   );
 }

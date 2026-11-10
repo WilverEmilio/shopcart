@@ -1,5 +1,6 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { formatearCompacto, formatearMoneda } from '../../../utilidades/formato';
+import { COLOR_MARCA } from '../paleta';
 import type { FilaTopProducto, OrdenTop } from '../tipos/reportes';
 
 interface Propiedades {
@@ -25,7 +26,7 @@ export function GraficaTopProductos({ datos, ordenarPor }: Propiedades) {
             tickFormatter={(v: string) => (v.length > 24 ? `${v.slice(0, 23)}…` : v)}
           />
           <Tooltip formatter={(valor) => (porVentas ? formatearMoneda(Number(valor)) : `${valor} unidades`)} />
-          <Bar dataKey={clave} name={porVentas ? 'Ventas netas' : 'Unidades'} fill="#4f46e5" radius={[0, 4, 4, 0]} />
+          <Bar dataKey={clave} name={porVentas ? 'Ventas netas' : 'Unidades'} fill={COLOR_MARCA} radius={[0, 4, 4, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

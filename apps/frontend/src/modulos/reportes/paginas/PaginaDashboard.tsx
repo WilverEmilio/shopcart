@@ -35,14 +35,14 @@ interface PropiedadesSelector<T extends string> {
 
 function SelectorSegmentado<T extends string>({ opciones, valor, alCambiar, etiqueta }: PropiedadesSelector<T>) {
   return (
-    <div role="group" aria-label={etiqueta} className="inline-flex overflow-hidden rounded-control border border-gray-300 bg-white">
+    <div role="group" aria-label={etiqueta} className="inline-flex overflow-hidden rounded-control border border-slate-300 bg-white">
       {opciones.map((o) => (
         <button
           key={o.valor}
           type="button"
           aria-pressed={o.valor === valor}
           onClick={() => alCambiar(o.valor)}
-          className={`min-h-10 px-3 text-sm font-medium transition-colors duration-150 sm:min-h-9 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-gray-300 ${o.valor === valor ? 'bg-marca-600 text-white' : 'text-gray-700 hover:bg-gray-50'}`}
+          className={`min-h-10 px-3 text-sm font-medium transition-colors duration-150 sm:min-h-9 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-slate-300 ${o.valor === valor ? 'bg-marca-700 text-white' : 'text-slate-700 hover:bg-slate-50'}`}
         >
           {o.etiqueta}
         </button>
@@ -86,8 +86,8 @@ export function PaginaDashboard() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Dashboard</h1>
-        <p className="text-sm text-gray-600">
+        <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
+        <p className="text-sm text-slate-600">
           Del {formatearFechaCorta(rango.fechaDesde)} al {formatearFechaCorta(rango.fechaHasta)}. Las ventas netas descuentan las devoluciones.
         </p>
       </div>
