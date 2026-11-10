@@ -11,29 +11,29 @@ export function TarjetaProducto({ producto }: { producto: ProductoCatalogo }) {
   return (
     <Link
       to={`/catalogo/${producto.idProducto}`}
-      className="tarjeta group flex flex-col overflow-hidden transition duration-200 hover:-translate-y-0.5 hover:shadow-elevada motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      className="tarjeta group flex flex-col overflow-hidden transition-shadow duration-200 hover:shadow-elevada motion-reduce:transition-none"
     >
-      <div className="relative aspect-square overflow-hidden bg-gray-100">
+      <div className="relative aspect-square overflow-hidden bg-slate-100">
         <ImagenProducto
           url={producto.imagenPrincipal}
           alt={producto.nombre}
           className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${agotado ? 'opacity-70 grayscale' : ''}`}
         />
         {agotado && (
-          <span className="absolute left-2 top-2 rounded-full bg-gray-900/85 px-2.5 py-1 text-xs font-semibold text-white">
+          <span className="absolute left-2 top-2 rounded-full bg-slate-900/85 px-2.5 py-1 text-xs font-semibold text-white">
             Agotado
           </span>
         )}
       </div>
 
       <div className="flex flex-1 flex-col gap-1 p-3 sm:p-4">
-        <span className="truncate text-xs font-medium uppercase tracking-wide text-gray-600">{producto.categoria}</span>
-        <h2 className="line-clamp-2 text-sm font-medium text-gray-900 group-hover:text-marca-700 sm:text-base">
+        <span className="truncate text-xs font-medium text-marca-700">{producto.categoria}</span>
+        <h2 className="line-clamp-2 font-sans text-sm font-medium leading-snug text-slate-900 group-hover:text-marca-800 sm:text-base">
           {producto.nombre}
         </h2>
         <p className="mt-auto pt-2">
-          {rango && <span className="block text-xs text-gray-600">Desde</span>}
-          <span className="text-base font-bold tabular-nums text-gray-900 sm:text-lg">{formatearMoneda(producto.precioDesde)}</span>
+          {rango && <span className="block text-xs text-slate-600">Desde</span>}
+          <span className="precio text-lg sm:text-xl">{formatearMoneda(producto.precioDesde)}</span>
         </p>
       </div>
     </Link>
