@@ -114,15 +114,15 @@ La solución contempla los siguientes módulos, de acuerdo con el enunciado:
 
 | # | Módulo | Base de datos | Backend | Frontend |
 |---|---|---|---|---|
-| 1 | Autenticación y control de acceso | ✅ | ✅ | ⏳ |
-| 2 | Catálogo | ✅ | ✅ | ⏳ |
-| 3 | Inventario | ✅ | ⏳ | ⏳ |
-| 4 | Carrito | ✅ | ⏳ | ⏳ |
-| 5 | Cupones y promociones | ✅ | ⏳ | ⏳ |
-| 6 | Checkout y pago | ✅ | ⏳ | ⏳ |
-| 7 | Pedidos y devoluciones | ✅ | ⏳ | ⏳ |
-| 8 | Dashboard y reportes | ✅ | ⏳ | ⏳ |
-| 9 | Bitácora | ✅ | ⏳ | ⏳ |
+| 1 | Autenticación y control de acceso | ✅ | ✅ | ✅ |
+| 2 | Catálogo | ✅ | ✅ | ✅ |
+| 3 | Inventario | ✅ | ✅ | ✅ |
+| 4 | Carrito | ✅ | ✅ | ✅ |
+| 5 | Cupones y promociones | ✅ | ✅ | ✅ |
+| 6 | Checkout y pago | ✅ | ✅ | ✅ |
+| 7 | Pedidos y devoluciones | ✅ | ✅ | ✅ |
+| 8 | Dashboard y reportes | ✅ | ✅ | ✅ |
+| 9 | Bitácora | ✅ | ✅ | ✅ |
 
 ✅ implementado · ⏳ pendiente. Los scripts de base de datos están escritos y se validan al ejecutarlos en el entorno local; el backend y el frontend se marcarán a medida que se verifiquen.
 

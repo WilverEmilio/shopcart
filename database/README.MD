@@ -21,10 +21,21 @@ Para instalar la base de datos de ShopCart, sigue estos pasos:
 Dentro de esta carpeta encontrarás el directorio:
 
 ```text
+00_BaseDeDatos/
+```
+Este directorio contiene el script necesario para crear la base de datos
+
+```text
+01_Seguridad/005_seguridad_permisosAplicacion.sql
+01_Seguridad/006_seguridad_usuariosAplicacion.sql
+```
+Este directorio contiene el script necesario para configurar la seguridad de la base de datos, especialemte para usar procedimientos almacenados. 
+
+```text
 Scripts_Completos/
 ```
 
-Este directorio contiene los tres archivos SQL necesarios para crear y configurar la base de datos.
+Este directorio contiene los tres archivos SQL necesarios para configurar la base de datos.
 
 ### 2. Ejecutar los scripts en orden
 
@@ -34,9 +45,11 @@ Ejecuta los tres archivos SQL de la carpeta `Scripts_Completos` **uno por uno y 
 
 | Orden | Script | Descripción |
 |---|---|---|
-| 1 | Script de tablas | Crea la base de datos y las tablas, relaciones, restricciones y demás estructuras necesarias. |
-| 2 | Script de procedimientos | Crea los procedimientos almacenados y demás objetos programables requeridos por la aplicación. |
-| 3 | Script de semillas | Inserta los datos iniciales y registros de prueba necesarios para utilizar el sistema. |
+| 1 | Script de creación | Crea la base de datos |
+| 2 | Script de tablas | Crea la base de datos y las tablas, relaciones, restricciones y demás estructuras necesarias. |
+| 3 | Script de procedimientos | Crea los procedimientos almacenados y demás objetos programables requeridos por la aplicación. |
+| 4 | Script de seguridad | ejecutar los script de segurdad anteriormente mencionados, para solo poder usar procedimientos almacenados |
+| 5 | Script de semillas | Inserta los datos iniciales y registros de prueba necesarios para utilizar el sistema. |
 
 **Importante:** espera a que cada script termine de ejecutarse correctamente antes de continuar con el siguiente. No cambies el orden, ya que los procedimientos dependen de las tablas y los datos semilla dependen de los objetos previamente creados.
 

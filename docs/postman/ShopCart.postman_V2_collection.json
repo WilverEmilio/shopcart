@@ -1,0 +1,1444 @@
+{
+  "info": {
+    "_postman_id": "2a2a801e-eb66-4bcb-9a4e-0560c023555c",
+    "name": "ShopCart",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32884751"
+  },
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "Registro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"correo\": \"cliente12234@shopcart.com\",\r\n  \"contrasena\": \"ClaveSegura123!\",\r\n  \"nombres\": \"Carlos\",\r\n  \"apellidos\": \"Lopez\",\r\n  \"telefono\": \"55555555\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/registro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "registro"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inicio de sesión",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"correo\": \"admin@shopcart.local\",\r\n  \"contrasena\": \"CambiaEstaContrasena123!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/iniciar-sesion",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "iniciar-sesion"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Perfil",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhZG1pbkBzaG9wY2FydC5sb2NhbCIsInJvbCI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE3OTM3NTIxMTAsImV4cCI6MTc5Mzc1MzAxMCwic3ViIjoiNiJ9._J-6fnNbA-4MbdsAHqr4B-v7qK0XXUP9kmuz_q2RifI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/perfil",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "perfil"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rol administrador",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ji3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/solo-administrador",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "solo-administrador"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rol operaciones",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ji3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/operaciones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "operaciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Renovar Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tokenRefresco\": \"6cef10e62ff59c24a6532a71739430660ccc67c5cb1285a965f5c5e8ad9a2053\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/autenticacion/renovar-token",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "autenticacion",
+                "renovar-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Catalogo productos",
+      "item": [
+        {
+          "name": "Obtener Catalogos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Catalogo especifico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos?texto=camisa&idCategoria=1&soloDisponibles=true&pagina=1&registrosPorPagina=20&ordenarPor=Precio&direccion=ASC",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos"
+              ],
+              "query": [
+                {
+                  "key": "texto",
+                  "value": "camisa"
+                },
+                {
+                  "key": "idCategoria",
+                  "value": "1"
+                },
+                {
+                  "key": "soloDisponibles",
+                  "value": "true"
+                },
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "registrosPorPagina",
+                  "value": "20"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "Precio"
+                },
+                {
+                  "key": "direccion",
+                  "value": "ASC"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener detalle del producto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ruta protegida para obtener cataloggos de productos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ruta protegida para obtener catalogo por ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_12p0}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categorias activas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias-activas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias-activas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Categoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0j7y}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombre\": \"Accesorios\",\r\n  \"descripcion\": \"Accesorios para diferentes productos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar una categoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0j7y}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\": \"Electrónica y tecnología\",\r\n    \"descripcion\": \"Productos electrónicos, accesorios y dispositivos tecnológicos.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desactivar una categoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_08uu}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias/1/estado",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias",
+                "1",
+                "estado"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar una categoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/categorias/15",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "categorias",
+                "15"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener catalogo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/atributos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "atributos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear un producto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_09qb}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idCategoria\": 1,\r\n  \"nombre\": \"Camisa deportiva\",\r\n  \"descripcion\": \"Camisa deportiva de algodón\",\r\n  \"variantes\": [\r\n    {\r\n      \"sku\": \"CAM-001-M\",\r\n      \"precio\": 125.50,\r\n      \"atributos\": [\r\n        {\r\n          \"atributo\": \"Talla\",\r\n          \"valor\": \"M\"\r\n        },\r\n        {\r\n          \"atributo\": \"Color\",\r\n          \"valor\": \"Negro\"\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"sku\": \"CAM-001-L\",\r\n      \"precio\": 125.50,\r\n      \"atributos\": [\r\n        {\r\n          \"atributo\": \"Talla\",\r\n          \"valor\": \"L\"\r\n        },\r\n        {\r\n          \"atributo\": \"Color\",\r\n          \"valor\": \"Negro\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"imagenes\": [\r\n    {\r\n      \"url\": \"https://ejemplo.com/camisa.jpg\",\r\n      \"orden\": 1,\r\n      \"esPrincipal\": true\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Acutalizar un producto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_00gu}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idCategoria\": 1,\r\n  \"nombre\": \"Camisa deportiva actualizada\",\r\n  \"descripcion\": \"Camisa deportiva de algodón premium\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desactivar un producto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_01gt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"activo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos/1/estado",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos",
+                "1",
+                "estado"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar un producto",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_06ji}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/catalogo/productos/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "catalogo",
+                "productos",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Carrito",
+      "item": [
+        {
+          "name": "Carrito Público",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0c7r}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idVariante\":13,\r\n    \"cantidad\":7\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/carrito/items",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "carrito",
+                "items"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener carrito",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0c7r}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Carrito-Token",
+                "value": "bb40b76d316b06fe3f317a66688ef2fc2081f4acd9296d6dd9fb0ffc6e34706",
+                "disabled": true
+              },
+              {
+                "key": "cupon",
+                "value": "BIENVENIDA10"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/carrito",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "carrito"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pedidos",
+      "item": [
+        {
+          "name": "Crear pedidos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0k1h}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-Carrito-Token",
+                "value": "bb40b76d316b06fe3f317a66688ef2fc2081f4acd9296d6dd9fb0ffc6e34706",
+                "disabled": true
+              },
+              {
+                "key": "cupon",
+                "value": "BIENVENIDA10",
+                "disabled": true
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"estado\": \"ENTREGADO\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pedidos/:id/estado",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "pedidos",
+                ":id",
+                "estado"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener todos los pedidos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0f14}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/pedidos/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "pedidos",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2907"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancelar Pedidos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0k1h}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"motivo\":\"Producto defectuoso\",\r\n\"lineas\":[{\"idDetallePedido\":2,\"cantidad\":1}]}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/pedidos/:id/cancelar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "pedidos",
+                ":id",
+                "cancelar"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2907"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0k1h}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Carrito-Token",
+                "value": "bb40b76d316b06fe3f317a66688ef2fc2081f4acd9296d6dd9fb0ffc6e34706",
+                "disabled": true
+              },
+              {
+                "key": "cupon",
+                "value": "BIENVENIDA10"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/pedidos?estado=ENTREGADO&fechaDesde=2026-10-01&ordenarPor=Total&direccion=DESC&pagina=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "pedidos"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "ENTREGADO"
+                },
+                {
+                  "key": "fechaDesde",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "Total"
+                },
+                {
+                  "key": "direccion",
+                  "value": "DESC"
+                },
+                {
+                  "key": "pagina",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cupones",
+      "item": [
+        {
+          "name": "Crear un cupon",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0m8l}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"codigo\":\"navidad20\",\r\n    \"tipoDescuento\":\"PORCENTAJE\",\r\n    \"valor\":20,\"montoMinimo\":150,\r\n    \"fechaInicio\":\"2026-11-01T00:00:00Z}\",\r\n    \"fechaFin\":\"2026-12-31T23:59:59Z\",\r\n    \"limiteUsosTotal\":50,\r\n    \"limiteUsosPorCliente\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/cupones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "cupones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar un cupón",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0m8l}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"limiteUsosTotal\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/cupones/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "cupones",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desactivar un cupon",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_03ew}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"activo\":true}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/cupones/:id/estado",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "cupones",
+                ":id",
+                "estado"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener todos los cupones",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_03ew}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/cupones?estado=VIGENTE&ordenarPor=Codigo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "cupones"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "VIGENTE"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "Codigo"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Obtener todos los usuarios",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_03ew}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/usuarios/roles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "usuarios",
+                "roles"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "reportes",
+      "item": [
+        {
+          "name": "Obtener reportes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_03ew}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/reportes/resumen?fechaDesde=2026-10-01&fechaHasta=2026-10-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "reportes",
+                "resumen"
+              ],
+              "query": [
+                {
+                  "key": "fechaDesde",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "fechaHasta",
+                  "value": "2026-10-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener reportes por semana",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ger}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/reportes/ventas-periodo?agrupacion=SEMANA",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "reportes",
+                "ventas-periodo"
+              ],
+              "query": [
+                {
+                  "key": "agrupacion",
+                  "value": "SEMANA"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bitacora",
+      "item": [
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0ger}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/bitacora?modulo=Precios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "bitacora"
+              ],
+              "query": [
+                {
+                  "key": "modulo",
+                  "value": "Precios"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_029n",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0utn",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_12p0",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0chx",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0j7y",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_04gp",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_09qb",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_00gu",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_01gt",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_06ji",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0ji3",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_08uu",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0c7r",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0f14",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0k1h",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0m8l",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_03ew",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0ger",
+      "secret": true
+    }
+  ]
+}
